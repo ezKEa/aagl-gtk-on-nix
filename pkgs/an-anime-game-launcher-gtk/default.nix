@@ -40,7 +40,7 @@ let
   }).run;
 
   wrapper = writeShellScriptBin "anime-game-launcher" ''
-    ${steam-run-custom}/bin/steam-run ${an-anime-game-launcher-gtk-unwrapped}/bin/anime-game-launcher
+    ${steam-run-custom}/bin/steam-run ${an-anime-game-launcher-gtk-unwrapped}/bin/anime-game-launcher "$@"
   '';
 in
 symlinkJoin {

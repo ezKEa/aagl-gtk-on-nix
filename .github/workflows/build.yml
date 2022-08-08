@@ -40,7 +40,7 @@ jobs:
       with:
         name: ${{ matrix.cachixName }}
         authToken: '${{ env.CACHIX_AUTH_TOKEN }}'
-        pushFilter: '(-source$|-src$|\.tar\.gz$)'
+        pushFilter: '(-source$|-src$|\.tar\.gz$|\.patch$)'
 
     - name: Build
       run: |

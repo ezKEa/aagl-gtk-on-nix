@@ -1,0 +1,74 @@
+name: "Build and populate cache"
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    name: Build
+    strategy:
+      matrix:
+        cachixName:
+          - ezkea
+
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Doppler CLI
+      uses: dopplerhq/cli-action@v1
+
+    - name: Pass all secrets to next steps
+      run: |
+        while read -rd $'' line; do echo "$line" >> $GITHUB_ENV; done < <( doppler secrets download --no-file --format=json | jq "." | grep -v 'DOPPLER_\(CONFIG\|ENVIRONMENT\|PROJECT\)' | jq -r 'to_entries|map("\(.key)<<EOF\n\(.value)\nEOF\u0000")[]' )
+        while read -r line; do echo "::add-mask::$line"; done < <( doppler secrets download --no-file --format=json | jq "." | grep -v 'DOPPLER_\(CONFIG\|ENVIRONMENT\|PROJECT\)' | jq -r 'to_entries|map("\(.value)\u0000")[]' )
+      env:
+        DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
+
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v17
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+
+    - name: Install Cachix
+      uses: cachix/cachix-action@v10
+      with:
+        name: ${{ matrix.cachixName }}
+        authToken: '${{ env.CACHIX_AUTH_TOKEN }}'
+        pushFilter: '(-source$|-src$|\.tar\.gz$)'
+
+    - name: Build
+      run: |
+        nix-build
+      env:
+        NIXPKGS_ALLOW_UNFREE: 1
+
+  telegram:
+    name: Telegram
+    needs: build
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+    - name: Install Doppler CLI
+      uses: dopplerhq/cli-action@v1
+
+    - name: Pass all secrets to next steps
+      run: |
+        while read -rd $'' line; do echo "$line" >> $GITHUB_ENV; done < <( doppler secrets download --no-file --format=json | jq "." | grep -v 'DOPPLER_\(CONFIG\|ENVIRONMENT\|PROJECT\)' | jq -r 'to_entries|map("\(.key)<<EOF\n\(.value)\nEOF\u0000")[]' )
+        while read -r line; do echo "::add-mask::$line"; done < <( doppler secrets download --no-file --format=json | jq "." | grep -v 'DOPPLER_\(CONFIG\|ENVIRONMENT\|PROJECT\)' | jq -r 'to_entries|map("\(.value)\u0000")[]' )
+      env:
+        DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
+
+    - name: Get workflow conclusion
+      uses: technote-space/workflow-conclusion-action@v3.0
+
+    - name: Send notification
+      uses: yanzay/notify-telegram@v0.1.0
+      with:
+        chat: ${{ env.NOTIFICATION_CHAT_ID }}
+        token: ${{ env.NOTIFICATION_TOKEN }}
+        status: ${{ env.WORKFLOW_CONCLUSION }}
+      if: env.WORKFLOW_CONCLUSION != 'success'

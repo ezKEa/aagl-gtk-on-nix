@@ -1,4 +1,4 @@
-{ rustPlatform, fetchFromGitLab
+{ lib, rustPlatform, fetchFromGitLab
 , pkg-config
 , openssl
 , glib
@@ -12,8 +12,10 @@
 , librsvg
 , python3
 , python3Packages
+, customIcon ? null
 }:
 
+with lib;
 rustPlatform.buildRustPackage rec {
   pname = "an-anime-game-launcher-gtk";
   version = "1.0.0";
@@ -25,6 +27,12 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-k+qA5mETEEt/j0zbOOccGZ9ElTGnwqEuohFzc7I1AvA=";
     fetchSubmodules = true;
   };
+
+  prePatch = ''''
+    + optionalString (builtins.isPath customIcon || builtins.isString customIcon) ''
+      rm assets/images/icon.png
+      cp ${customIcon} assets/images/icon.png
+    '';
 
   cargoSha256 = "sha256-p9R/C7yeDX/OmsFgq6QAanN/gcPhQqp6aAnnLylhEzo=";
 

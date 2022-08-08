@@ -1,5 +1,5 @@
 # aagl-gtk-on-nix
-Run an-anime-game-launcher GTK version on Nix/NixOS!
+Run [an-anime-game-launcher-gtk](https://gitlab.com/an-anime-team/alternatives/an-anime-game-launcher-gtk) on Nix/NixOS!
 
 ## Installation and Usage
 
@@ -17,7 +17,7 @@ Alternatively, you can add the Cachix declaratively:
   };
 }
 ```
-To install the launcher, add the following to `configuration.nix`:
+To install the launcher on NixOS, add the following to `configuration.nix`:
 ```nix
 let
   aagl-gtk-on-nix = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz"){ inherit pkgs; };
@@ -44,4 +44,18 @@ in
   ];
 }
 ```
-After rebuilding, you can start the launcher by running `anime-game-launcher`. Have fun!
+If you are not running NixOS, append the above hosts to your /etc/hosts file, and install through `nix-env` by running
+```sh
+$ nix-env -f https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz -iA an-anime-game-launcher-gtk
+```
+Alternatively, you can install the launcher using [home-manager](https://github.com/nix-community/home-manager).
+```nix
+# home.nix
+let
+  aagl-gtk-on-nix = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz"){ inherit pkgs; };
+in
+{
+  home.packages = [ aagl-gtk-on-nix.an-anime-game-launcher-gtk ];
+}
+```
+After installation, you can start the launcher by running `anime-game-launcher`. Have fun!

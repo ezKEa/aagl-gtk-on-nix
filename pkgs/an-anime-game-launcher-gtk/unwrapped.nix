@@ -6,16 +6,12 @@
 , gdk-pixbuf
 , gtk4
 , libadwaita
-, blueprint-compiler
 , gobject-introspection
-, makeWrapper
 , gsettings-desktop-schemas
 , wrapGAppsHook4
-, runtimeShell
-, mangohud
-, xdelta
-, libunwind
 , librsvg
+, python3
+, python3Packages
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -30,26 +26,24 @@ rustPlatform.buildRustPackage rec {
     fetchSubmodules = true;
   };
 
-  patches = [
-    ./blp-compiler.patch
-  ];
-
   cargoSha256 = "sha256-p9R/C7yeDX/OmsFgq6QAanN/gcPhQqp6aAnnLylhEzo=";
 
   nativeBuildInputs = [
-    pkg-config
-    gtk4
     glib
-    blueprint-compiler
+    gobject-introspection
+    gtk4
+    pkg-config
+    python3
+    python3Packages.pygobject3
     wrapGAppsHook4
   ];
 
   buildInputs = [
     gdk-pixbuf
-    openssl
-    librsvg
-    pango
     gsettings-desktop-schemas
     libadwaita
+    librsvg
+    openssl
+    pango
   ];
 }

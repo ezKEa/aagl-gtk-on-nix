@@ -1,4 +1,4 @@
-{ lib, rustPlatform, fetchFromGitLab
+{ lib, rustPlatform, fetchFromGitHub
 , pkg-config
 , openssl
 , glib
@@ -18,13 +18,13 @@
 with lib;
 rustPlatform.buildRustPackage rec {
   pname = "an-anime-game-launcher-gtk";
-  version = "1.0.1";
+  version = "1.0.3";
 
-  src = fetchFromGitLab {
+  src = fetchFromGitHub {
     owner = "an-anime-team";
     repo = "an-anime-game-launcher-gtk";
     rev = version;
-    sha256 = "sha256-14HfQ7RJsIZGM/tMZ5vtV0j2eMpQIGLSXCpG+ANqxnM=";
+    sha256 = "sha256-M9EBUfzlpmXFCiaswLeDxJjTSUvT3s8f9BUyCMB20xQ=";
     fetchSubmodules = true;
   };
 
@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
       cp ${customIcon} assets/images/icon.png
     '';
 
-  cargoSha256 = "sha256-puvCwqAaQMXHBizA3bO+uOBF1KnpEPn5rEJuMxLHtBM=";
+  cargoSha256 = "sha256-neWma4AqTRcuqV5XRV1R9/dseJ27HH5v4MaoCVRzrkM=";
 
   nativeBuildInputs = [
     glib

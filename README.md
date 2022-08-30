@@ -1,5 +1,5 @@
 # aagl-gtk-on-nix
-Run [an-anime-game-launcher-gtk](https://gitlab.com/an-anime-team/alternatives/an-anime-game-launcher-gtk) on Nix/NixOS!
+Run [an-anime-game-launcher-gtk](https://github.com/an-anime-team/an-anime-game-launcher-gtk) on Nix/NixOS!
 
 ## Installation and Usage
 

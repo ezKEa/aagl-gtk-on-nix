@@ -1,3 +1,5 @@
+<img src="https://user-images.githubusercontent.com/60455663/192660134-cd43f93e-beef-4c3f-a646-dc6f97ca34d7.png" width="200" />
+
 # aagl-gtk-on-nix
 Run [an-anime-game-launcher-gtk](https://github.com/an-anime-team/an-anime-game-launcher-gtk) on Nix/NixOS!
 
@@ -19,32 +21,33 @@ Alternatively, you can add the Cachix declaratively:
 ```
 To install the launcher on NixOS, add the following to `configuration.nix`:
 ```nix
+# configuration.nix
 let
   aagl-gtk-on-nix = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz"){ inherit pkgs; };
 in
 {
-  # Block telementry hosts
-  networking.extraHosts = ''
-    0.0.0.0 overseauspider.yuanshen.com
-    0.0.0.0 log-upload-os.hoyoverse.com
-
-    0.0.0.0 log-upload.mihoyo.com
-    0.0.0.0 uspider.yuanshen.com
-
-    0.0.0.0 prd-lender.cdp.internal.unity3d.com
-    0.0.0.0 thind-prd-knob.data.ie.unity3d.com
-    0.0.0.0 thind-gke-usc.prd.data.corp.unity3d.com
-    0.0.0.0 cdp.cloud.unity3d.com
-    0.0.0.0 remote-config-proxy-prd.uca.cloud.unity3d.com
-  '';
-
-  # Install launcher
-  environment.systemPackages = [
-    aagl-gtk-on-nix.an-anime-game-launcher-gtk
+  imports = [
+    aagl-gtk-on-nix.module
   ];
+
+  programs.an-anime-game-launcher.enable = true;
 }
 ```
-If you are not running NixOS, append the above hosts to your /etc/hosts file, and install through `nix-env` by running
+If you are not running NixOS, append the below hosts to your /etc/hosts file:
+```
+0.0.0.0 overseauspider.yuanshen.com
+0.0.0.0 log-upload-os.hoyoverse.com
+
+0.0.0.0 log-upload.mihoyo.com
+0.0.0.0 uspider.yuanshen.com
+
+0.0.0.0 prd-lender.cdp.internal.unity3d.com
+0.0.0.0 thind-prd-knob.data.ie.unity3d.com
+0.0.0.0 thind-gke-usc.prd.data.corp.unity3d.com
+0.0.0.0 cdp.cloud.unity3d.com
+0.0.0.0 remote-config-proxy-prd.uca.cloud.unity3d.com
+```
+then install through `nix-env` by running
 ```sh
 $ nix-env -f https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz -iA an-anime-game-launcher-gtk
 ```

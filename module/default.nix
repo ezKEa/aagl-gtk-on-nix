@@ -30,10 +30,12 @@ in
       # Logging servers (do not remove!)
       0.0.0.0 overseauspider.yuanshen.com
       0.0.0.0 log-upload-os.hoyoverse.com
+      0.0.0.0 overseauspider.yuanshen.com
 
       # Logging servers (do not remove!)
       0.0.0.0 log-upload.mihoyo.com
       0.0.0.0 uspider.yuanshen.com
+      0.0.0.0 sg-public-data-api.hoyoverse.com
 
       # Optional Unity proxy/cdn servers
       0.0.0.0 prd-lender.cdp.internal.unity3d.com

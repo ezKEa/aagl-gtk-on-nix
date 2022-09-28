@@ -30,7 +30,6 @@ in
       # Logging servers (do not remove!)
       0.0.0.0 overseauspider.yuanshen.com
       0.0.0.0 log-upload-os.hoyoverse.com
-      0.0.0.0 overseauspider.yuanshen.com
 
       # Logging servers (do not remove!)
       0.0.0.0 log-upload.mihoyo.com

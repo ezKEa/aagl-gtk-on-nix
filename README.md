@@ -37,7 +37,6 @@ If you are not running NixOS, append the below hosts to your /etc/hosts file:
 ```
 0.0.0.0 overseauspider.yuanshen.com
 0.0.0.0 log-upload-os.hoyoverse.com
-0.0.0.0 overseauspider.yuanshen.com
 
 0.0.0.0 log-upload.mihoyo.com
 0.0.0.0 uspider.yuanshen.com

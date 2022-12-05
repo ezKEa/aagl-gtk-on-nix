@@ -68,7 +68,7 @@ symlinkJoin {
 
   meta = with lib; {
     description = "An Anime Game Launcher variant written on Rust, GTK4 and libadwaita, using Anime Game Core library";
-    homepage = "https://gitlab.com/an-anime-team/an-anime-game-launcher-gtk/";
+    homepage = "https://github.com/an-anime-team/an-anime-game-launcher-gtk/";
     license = licenses.gpl3Only;
   };
 }

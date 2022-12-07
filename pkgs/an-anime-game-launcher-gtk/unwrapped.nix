@@ -18,13 +18,13 @@
 with lib;
 rustPlatform.buildRustPackage rec {
   pname = "an-anime-game-launcher-gtk";
-  version = "1.2.2";
+  version = "1.2.3";
 
   src = fetchFromGitHub {
     owner = "an-anime-team";
     repo = "an-anime-game-launcher-gtk";
     rev = version;
-    sha256 = "sha256-4vkgjJJZHaaEuMRUJmMaMojZkL9EH7k/5tIU4w8CnvQ=";
+    sha256 = "sha256-5mo0g5vZZPQBch9KWVuaoWau2ATJFDYlQ7sSV2KC1oQ=";
     fetchSubmodules = true;
   };
 
@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
       cp ${customIcon} assets/images/icon.png
     '';
 
-  cargoSha256 = "sha256-2Avj7ZAOR7Hzpi7wG/DVUjjLpVcnZ0EyHnVOFYygR08=";
+  cargoSha256 = "sha256-IkuG/1S84Rleik8qliRyMFzwL+rxFoJu/oXWElfU4e4=";
 
   nativeBuildInputs = [
     glib

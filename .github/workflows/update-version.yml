@@ -65,3 +65,14 @@ jobs:
 
           [1]: https://github.com/peter-evans/create-pull-request
         branch: update-version
+
+    - name: Get workflow conclusion
+      uses: technote-space/workflow-conclusion-action@v3.0
+
+    - name: Send notification
+      uses: yanzay/notify-telegram@v0.1.0
+      with:
+        chat: ${{ env.NOTIFICATION_CHAT_ID }}
+        token: ${{ env.NOTIFICATION_TOKEN }}
+        status: ${{ env.WORKFLOW_CONCLUSION }}
+      if: env.commit-message != ''

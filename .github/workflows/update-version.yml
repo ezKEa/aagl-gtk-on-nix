@@ -6,7 +6,11 @@ on:
 
 jobs:
   update:
+    name: Update
     runs-on: ubuntu-latest
+    outputs:
+      commit-message: ${{ steps.commit-message.outputs.commit-message }}
+      skip-build: ${{ steps.diff.outputs.skipped }}
     steps:
     - name: Install Doppler CLI
       uses: dopplerhq/cli-action@v2
@@ -46,20 +50,133 @@ jobs:
           awk 'END {match($2, /([^/]+)$/, m); print m[0]}')"
         echo "latest-version=$latestVersion" >> $GITHUB_ENV
 
+    - name: Create commit message
+      if: ${{ env.current-version != env.latest-version }}
+      id: commit-message
+      run: |
+        echo "commit-message<<EOF" >> $GITHUB_OUTPUT
+        echo "an-anime-game-launcher-gtk: ${{ env.current-version }} -> ${{ env.latest-version }}" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+
     - name: Update package
       if: ${{ env.current-version != env.latest-version }}
       run: |
-        nix shell nixpkgs#nix-update -c nix-update an-anime-game-launcher-gtk-unwrapped --version=${{ env.latest-version }} --build
-        echo "commit-message<<EOF" >> $GITHUB_ENV
-        echo "an-anime-game-launcher-gtk: ${{ env.current-version }} -> ${{ env.latest-version }}" >> $GITHUB_ENV
-        echo "EOF" >> $GITHUB_ENV
+        nix shell nixpkgs#nix-update -c nix-update an-anime-game-launcher-gtk-unwrapped --version=${{ env.latest-version }}
+        cd pkgs/an-anime-game-launcher-gtk
+        ./update-sources.sh
+
+    - name: Create diff
+      id: diff
+      run: |
+        mkdir -p ~/artifact
+        git diff --oneline --graph | tee ~/artifact/update.diff
+        if [[ "$(<~/artifact/update.diff)" == "" ]]; then
+          echo "skipped=yes" >> $GITHUB_OUTPUT
+        else
+          echo "skipped=no" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Upload diff artifact
+      if: ${{ steps.diff.outputs.skipped == 'no' }}
+      uses: actions/upload-artifact@v3
+      with:
+        name: update.diff
+        path: ~/artifact/update.diff
+
+  build:
+    name: Build
+    needs: update
+    runs-on: ubuntu-latest
+    if: ${{ needs.update.outputs.skip-build == 'no' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        cachixName:
+          - ezkea
+        nixPath:
+          - nixpkgs=channel:nixos-unstable
+          - nixpkgs=channel:nixpkgs-unstable
+          - nixpkgs=channel:nixos-22.11
+    steps:
+    - name: Install Doppler CLI
+      uses: dopplerhq/cli-action@v2
+
+    - name: Pass all secrets to next steps
+      run: |
+        while read -rd $'' line; do echo "$line" >> $GITHUB_ENV; done < <( doppler secrets download --no-file --format=json | jq "." | grep -v 'DOPPLER_\(CONFIG\|ENVIRONMENT\|PROJECT\)' | jq -r 'to_entries|map("\(.key)<<EOF\n\(.value)\nEOF\u0000")[]' )
+        while read -r line; do echo "::add-mask::$line"; done < <( doppler secrets download --no-file --format=json | jq "." | grep -v 'DOPPLER_\(CONFIG\|ENVIRONMENT\|PROJECT\)' | jq -r 'to_entries|map("\(.value)\u0000")[]' )
+      env:
+        DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
+
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v18
+      with:
+        nix_path: "${{ matrix.nixPath }}"
+
+    - name: Install Cachix
+      uses: cachix/cachix-action@v10
+      with:
+        name: ${{ matrix.cachixName }}
+        authToken: '${{ env.CACHIX_AUTH_TOKEN }}'
+        pushFilter: '(-source$|-src$|\.tar\.gz$|\.patch$)'
+
+    - name: Download diff artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: update.diff
+        path: ~/artifact/update.diff
+
+    - name: Apply diff
+      run: |
+        git apply ~/artifact/update.diff/update.diff
+
+    - name: Build
+      run: |
+        nix-build
+      env:
+        NIXPKGS_ALLOW_UNFREE: 1
+
+  pr:
+    name: Make PR
+    needs: [update, build]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Doppler CLI
+      uses: dopplerhq/cli-action@v1
+
+    - name: Pass all secrets to next steps
+      run: |
+        while read -rd $'' line; do echo "$line" >> $GITHUB_ENV; done < <( doppler secrets download --no-file --format=json | jq "." | grep -v 'DOPPLER_\(CONFIG\|ENVIRONMENT\|PROJECT\)' | jq -r 'to_entries|map("\(.key)<<EOF\n\(.value)\nEOF\u0000")[]' )
+        while read -r line; do echo "::add-mask::$line"; done < <( doppler secrets download --no-file --format=json | jq "." | grep -v 'DOPPLER_\(CONFIG\|ENVIRONMENT\|PROJECT\)' | jq -r 'to_entries|map("\(.value)\u0000")[]' )
+      env:
+        DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
+
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Download diff artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: update.diff
+        path: ~/artifact/update.diff
+
+    - name: Apply diff
+      run: |
+        git apply ~/artifact/update.diff/update.diff
 
     - name: Create pull request
       uses: peter-evans/create-pull-request@v4
       with:
         author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-        commit-message: ${{ env.commit-message }}
-        title: ${{ env.commit-message }}
+        commit-message: ${{ needs.update.outputs.commit-message }}
+        title: ${{ needs.update.outputs.commit-message }}
         body: |
           Auto-generated by [create-pull-request][1]
 
@@ -75,4 +192,4 @@ jobs:
         chat: ${{ env.NOTIFICATION_CHAT_ID }}
         token: ${{ env.NOTIFICATION_TOKEN }}
         status: ${{ env.WORKFLOW_CONCLUSION }}
-      if: env.commit-message != ''
+      if: needs.update.outputs.commit-message != ''

@@ -1,6 +1,7 @@
 { lib
 , callPackage
 , libunwind
+, gnutls
 , mangohud
 , steam
 , symlinkJoin
@@ -34,7 +35,7 @@ let
   '';
 
   steam-run-custom = (steam.override {
-    extraPkgs = p: [ mangohud xdelta ];
+    extraPkgs = p: [ gnutls mangohud xdelta ];
     extraLibraries = p: [ libunwind ];
     extraProfile = ''
       export PATH=${fakePkExec}/bin:${fakeBash}/bin:$PATH

@@ -7,7 +7,7 @@ Run [an-anime-game-launcher-gtk](https://github.com/an-anime-team/an-anime-game-
 
 Before we start, it's recommended to set up Cachix so you won't need to build the launcher yourself:
 ```sh
-$ nix-shell -p cachix --run cachix use ezkea
+$ nix-shell -p cachix --run "cachix use ezkea"
 ```
 Alternatively, you can add the Cachix declaratively:
 ```nix

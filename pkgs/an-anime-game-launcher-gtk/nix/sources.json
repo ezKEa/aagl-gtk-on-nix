@@ -1,9 +1,9 @@
 {
     "an-anime-game-launcher-gtk": {
         "branch": "main",
-        "cargoSha256": "sha256-KZOxvQE4qNU86uXh62pv8wsTRHcpjpq6mxmgZNRWPf0=",
+        "cargoSha256": "sha256-5n5ET+b5qbP6HLmGosdw1y5kFv3x5JdBf1TrwxerRys=",
         "repo": "https://github.com/an-anime-team/an-anime-game-launcher-gtk.git",
-        "rev": "da37ea210311ba194f70de671380dcbb37d0ec18",
+        "rev": "3f364d1676cdbe5f13358259bd0b089bb690cc37",
         "submodules": true,
         "type": "git"
     }

@@ -1,4 +1,10 @@
 { an-anime-game-launcher-gtk-unwrapped
+, customDxvk ? null
+, customDxvkAsync ? null
+, customGEProton ? null
+, customLutris ? null
+, customSoda ? null
+, customWineGEProton ? null
 , customIcon ? null
 }:
 let
@@ -15,5 +21,13 @@ let
   );
 in
 unwrapped.override {
-  inherit customIcon;
+  inherit
+    customDxvk
+    customDxvkAsync
+    customGEProton
+    customLutris
+    customSoda
+    customWineGEProton
+    customIcon
+  ;
 }

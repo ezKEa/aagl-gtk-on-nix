@@ -90,13 +90,13 @@ in
 
 rustPlatform.buildRustPackage rec {
   pname = "an-anime-game-launcher-gtk";
-  version = "1.2.4";
+  version = "1.2.5";
 
   src = fetchFromGitHub {
     owner = "an-anime-team";
     repo = "an-anime-game-launcher-gtk";
     rev = version;
-    sha256 = "sha256-3ZFGZvimcnVD+/YJD3s76thLMpjyy2FbzMI2wbDAdDc=";
+    sha256 = "sha256-2I3/J173Gn1FA/7wO659hkNHnMLKA9G1Bux/wktySQ4=";
     fetchSubmodules = true;
   };
 
@@ -144,7 +144,7 @@ rustPlatform.buildRustPackage rec {
       name = "Wine-GE-Proton";
     } // customWineGEProton));
 
-  cargoSha256 = "sha256-KZOxvQE4qNU86uXh62pv8wsTRHcpjpq6mxmgZNRWPf0=";
+  cargoSha256 = "sha256-s67mSAPXYVddAxRW2crE/16PvCkzVylW1bnrBYrpukI=";
 
   nativeBuildInputs = [
     glib

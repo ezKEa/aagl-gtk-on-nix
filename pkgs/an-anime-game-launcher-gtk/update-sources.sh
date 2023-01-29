@@ -29,17 +29,6 @@ getAttribute(){
   jq -r ".[\"$1\"].$2" "$sourceJson"
 }
 
-cargoUpdateNeeded() {
-  tempDir="$(mktemp -d)"
-  git clone "$(getAttribute an-anime-game-launcher-gtk repo)" "$tempDir"
-  pushd "$tempDir" || exit
-    cargoDiff="$(git diff "$aaglOldRev" "$aaglNewRev" -- Cargo.lock)"
-  popd || exit
-  rm -rf "$tempDir"
-  [[ -n "$cargoDiff" ]]
-  return "$?"
-}
-
 aaglOldRev="$(getAttribute an-anime-game-launcher-gtk rev)"
 
 niv init
@@ -47,6 +36,4 @@ niv update
 
 aaglNewRev="$(getAttribute an-anime-game-launcher-gtk rev)"
 
-if [[ "$aaglNewRev"    != "$aaglOldRev" ]] && cargoUpdateNeeded; then
-    updateCargoSha
-fi
+updateCargoSha

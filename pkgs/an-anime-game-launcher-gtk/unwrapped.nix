@@ -6,6 +6,7 @@ lib, rustPlatform, fetchFromGitHub
 , pango
 , gdk-pixbuf
 , gtk4
+, jq
 , libadwaita
 , gobject-introspection
 , gsettings-desktop-schemas
@@ -32,27 +33,30 @@ let
     url,
     version
   }:
+  let
+    json = "components/dxvk/${dxvk}.json";
+  in
   ''
-    cat > components/dxvk/${dxvk}.json << EOF
-      [
-        {
-          "name": "${name}",
-          "version": "${version}",
-          "uri": "${url}",
-          "recommended": true
-        }
-      ]
-    EOF
+    newJson="$(jq -r '. |= [{
+      "name": "${name}",
+      "version": "${version}",
+      "uri": "${url}",
+      "recommended": true
+    }] + .' ${json})"
+    echo "$newJson" > ${json}
   '';
 
   overrideWine = {
     wine ? (toLower name),
+    fullname ? "${wine}-${version}-x86_64",
+    title ? "${name} ${version}",
     name,
     url,
     version,
     files ? null
   }:
   let
+    json = "components/wine/${wine}.json";
     # Take default arguments for the files attrset
     files_ = let
       default = {
@@ -68,23 +72,20 @@ let
     else default;
   in
   ''
-    cat > components/wine/${wine}.json << EOF
-      [
-        {
-          "name": "${name}-${version}",
-          "title": "${name} ${version}",
-          "uri": "${url}",
-          "files": {
-            "wine": "${files_.wine}",
-            "wine64": "${files_.wine64}",
-            "wineserver": "${files_.wineserver}",
-            "winecfg": "${files_.winecfg}",
-            "wineboot": "${files_.wineboot}"
-          },
-          "recommended": true
-        }
-      ]
-    EOF
+    newJson="$(jq -r '. |= [{
+      "name": "${fullname}",
+      "title": "${title}",
+      "uri": "${url}",
+      "files": {
+        "wine": "${files_.wine}",
+        "wine64": "${files_.wine64}",
+        "wineserver": "${files_.wineserver}",
+        "wineboot": "${files_.wineboot}",
+        "winecfg": "${files_.winecfg}"
+      },
+      "recommended": true
+    }] + .' ${json})"
+    echo "$newJson" > ${json}
   '';
 in
 
@@ -117,6 +118,7 @@ rustPlatform.buildRustPackage rec {
     + optionalString (builtins.isAttrs customGEProton) (overrideWine ( rec {
       inherit (customGEProton) url version;
       name = "GE-Proton";
+      fullname = "${name}${version}";
       files = {
         wine64 = "files/bin/wine64";
         wineboot = "files/bin/wineboot";
@@ -142,6 +144,7 @@ rustPlatform.buildRustPackage rec {
     + optionalString (builtins.isAttrs customWineGEProton) (overrideWine ( rec {
       inherit (customWineGEProton) url version;
       name = "Wine-GE-Proton";
+      fullname = "lutris-GE-Proton${version}-x86_64";
     } // customWineGEProton));
 
   cargoSha256 = "sha256-s67mSAPXYVddAxRW2crE/16PvCkzVylW1bnrBYrpukI=";
@@ -150,6 +153,7 @@ rustPlatform.buildRustPackage rec {
     glib
     gobject-introspection
     gtk4
+    jq
     pkg-config
     python3
     python3Packages.pygobject3

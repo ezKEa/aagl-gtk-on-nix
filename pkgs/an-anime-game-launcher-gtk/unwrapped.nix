@@ -77,9 +77,9 @@ let
           "files": {
             "wine": "${files_.wine}",
             "wine64": "${files_.wine64}",
-            "wineboot": "${files_.wineserver}",
+            "wineserver": "${files_.wineserver}",
             "winecfg": "${files_.winecfg}",
-            "wineserver": "${files_.wineboot}"
+            "wineboot": "${files_.wineboot}"
           },
           "recommended": true
         }

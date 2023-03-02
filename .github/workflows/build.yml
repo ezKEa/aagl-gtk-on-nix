@@ -41,7 +41,7 @@ jobs:
         nix_path: "${{ matrix.nixPath }}"
 
     - name: Install Cachix
-      uses: cachix/cachix-action@v10
+      uses: cachix/cachix-action@v12
       with:
         name: ${{ matrix.cachixName }}
         authToken: '${{ env.CACHIX_AUTH_TOKEN }}'

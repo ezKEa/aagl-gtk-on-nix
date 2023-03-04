@@ -62,8 +62,6 @@ jobs:
       if: ${{ env.current-version != env.latest-version }}
       run: |
         nix shell nixpkgs#nix-update -c nix-update an-anime-game-launcher-unwrapped --version=${{ env.latest-version }}
-        cd pkgs/an-anime-game-launcher
-        ./update-sources.sh
 
     - name: Create diff
       id: diff

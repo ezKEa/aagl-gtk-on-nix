@@ -10,9 +10,7 @@
 , runtimeShell
 , stdenv
 , makeDesktopItem
-
-, an-anime-game-launcher-gtk-unwrapped ? null
-, an-anime-game-launcher-unwrapped ? an-anime-game-launcher-gtk-unwrapped
+, an-anime-game-launcher-unwrapped
 }:
 let
 

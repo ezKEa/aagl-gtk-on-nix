@@ -1,4 +1,4 @@
-{ an-anime-game-launcher-gtk-unwrapped
+{ an-anime-game-launcher-unwrapped
 , customDxvk ? null
 , customDxvkAsync ? null
 , customGEProton ? null
@@ -9,10 +9,10 @@
 }:
 let
   sources = import ./nix/sources.nix { };
-  unwrapped = an-anime-game-launcher-gtk-unwrapped.overrideAttrs (
-    old: with sources.an-anime-game-launcher-gtk; rec {
+  unwrapped = an-anime-game-launcher-unwrapped.overrideAttrs (
+    old: with sources.an-anime-game-launcher; rec {
       version = builtins.substring 0 7 rev;
-      src = sources.an-anime-game-launcher-gtk;
+      src = sources.an-anime-game-launcher;
       cargoDeps = old.cargoDeps.overrideAttrs (old: rec {
         inherit src;
         outputHash = cargoSha256;

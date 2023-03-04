@@ -12,8 +12,6 @@ lib, rustPlatform, fetchFromGitHub
 , gsettings-desktop-schemas
 , wrapGAppsHook4
 , librsvg
-, python3
-, python3Packages
 
 , customDxvk ? null
 , customDxvkAsync ? null
@@ -34,7 +32,7 @@ let
     version
   }:
   let
-    json = "components/dxvk/${dxvk}.json";
+    json = "anime-launcher-sdk/components/dxvk/${dxvk}.json";
   in
   ''
     newJson="$(jq -r '. |= [{
@@ -56,7 +54,7 @@ let
     files ? null
   }:
   let
-    json = "components/wine/${wine}.json";
+    json = "anime-launcher-sdk/components/wine/${wine}.json";
     # Take default arguments for the files attrset
     files_ = let
       default = {
@@ -90,14 +88,14 @@ let
 in
 
 rustPlatform.buildRustPackage rec {
-  pname = "an-anime-game-launcher-gtk";
-  version = "1.2.5";
+  pname = "an-anime-game-launcher";
+  version = "3.0.0";
 
   src = fetchFromGitHub {
     owner = "an-anime-team";
-    repo = "an-anime-game-launcher-gtk";
+    repo = "an-anime-game-launcher";
     rev = version;
-    sha256 = "sha256-2I3/J173Gn1FA/7wO659hkNHnMLKA9G1Bux/wktySQ4=";
+    sha256 = "sha256-KJSiOzQhNHht1mdGzAnxl1zXumHCnzX4JeLKgF5zpuY=";
     fetchSubmodules = true;
   };
 
@@ -147,7 +145,7 @@ rustPlatform.buildRustPackage rec {
       fullname = "lutris-GE-Proton${version}-x86_64";
     } // customWineGEProton));
 
-  cargoSha256 = "sha256-s67mSAPXYVddAxRW2crE/16PvCkzVylW1bnrBYrpukI=";
+  cargoSha256 = "sha256-0d+YvpAgi/OuCf+G8OidmWyA1v0jXS73VSR9i7SdYiw=";
 
   nativeBuildInputs = [
     glib
@@ -155,8 +153,6 @@ rustPlatform.buildRustPackage rec {
     gtk4
     jq
     pkg-config
-    python3
-    python3Packages.pygobject3
     wrapGAppsHook4
   ];
 

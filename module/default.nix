@@ -3,7 +3,7 @@
 with lib;
 
 let
-  an-anime-game-launcher-gtk = (import ../default.nix { inherit pkgs; }).an-anime-game-launcher-gtk;
+  an-anime-game-launcher = (import ../default.nix { inherit pkgs; }).an-anime-game-launcher;
   cfg = config.programs.an-anime-game-launcher;
 in
 {
@@ -17,7 +17,7 @@ in
     };
     package = mkOption {
       type = types.package;
-      default = an-anime-game-launcher-gtk;
+      default = an-anime-game-launcher;
       description = lib.mdDoc ''
         an-anime-game-launcher package to use.
       '';

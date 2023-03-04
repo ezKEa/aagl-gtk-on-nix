@@ -16,12 +16,12 @@ updateCargoSha(){
       sources = import ./nix/sources.nix { };
       aagl-gtk-on-nix = import ../.. { };
     in
-    aagl-gtk-on-nix.an-anime-game-launcher-gtk-unwrapped.cargoDeps.overrideAttrs (_: {
-      src = sources.an-anime-game-launcher-gtk;
+    aagl-gtk-on-nix.an-anime-game-launcher-unwrapped.cargoDeps.overrideAttrs (_: {
+      src = sources.an-anime-game-launcher;
       cargoSha256 = sha256;
     })
   ")"
-  gronnedJson="$gronnedJson"$'\n'"json[\"an-anime-game-launcher-gtk\"].cargoSha256 = \"$aaglCargoSha\";"
+  gronnedJson="$gronnedJson"$'\n'"json[\"an-anime-game-launcher\"].cargoSha256 = \"$aaglCargoSha\";"
   gron -u <<< "$gronnedJson" | jq -r '.' --indent 4 > "$sourceJson"
 }
 
@@ -29,11 +29,11 @@ getAttribute(){
   jq -r ".[\"$1\"].$2" "$sourceJson"
 }
 
-aaglOldRev="$(getAttribute an-anime-game-launcher-gtk rev)"
+aaglOldRev="$(getAttribute an-anime-game-launcher rev)"
 
 niv init
 niv update
 
-aaglNewRev="$(getAttribute an-anime-game-launcher-gtk rev)"
+aaglNewRev="$(getAttribute an-anime-game-launcher rev)"
 
 updateCargoSha

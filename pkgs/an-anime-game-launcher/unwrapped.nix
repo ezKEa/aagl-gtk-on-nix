@@ -89,13 +89,13 @@ in
 
 rustPlatform.buildRustPackage rec {
   pname = "an-anime-game-launcher";
-  version = "3.0.0";
+  version = "3.0.1";
 
   src = fetchFromGitHub {
     owner = "an-anime-team";
     repo = "an-anime-game-launcher";
     rev = version;
-    sha256 = "sha256-KJSiOzQhNHht1mdGzAnxl1zXumHCnzX4JeLKgF5zpuY=";
+    sha256 = "sha256-mnHgl8wtBJYswVZ7sSLWxDsb77sQYPql423K1I20nrs=";
     fetchSubmodules = true;
   };
 
@@ -145,7 +145,7 @@ rustPlatform.buildRustPackage rec {
       fullname = "lutris-GE-Proton${version}-x86_64";
     } // customWineGEProton));
 
-  cargoSha256 = "sha256-0d+YvpAgi/OuCf+G8OidmWyA1v0jXS73VSR9i7SdYiw=";
+  cargoSha256 = "sha256-eEvPTXaaMqgCq+X/a6YR3WzOozX63DD0wxvxSoBqzTE=";
 
   nativeBuildInputs = [
     glib

@@ -36,7 +36,7 @@ jobs:
         currentVersion="$(nix-instantiate --eval -E '
           let
             aagl = import ./default.nix { };
-            version = aagl.an-anime-game-launcher-gtk-unwrapped.version;
+            version = aagl.an-anime-game-launcher-unwrapped.version;
           in
           version
         ' | tr -d \")"
@@ -46,7 +46,7 @@ jobs:
       run: |
         set -x
         latestVersion="$(git -c 'versionsort.suffix=-' ls-remote --exit-code --refs --tags --sort='v:refname' \
-          https://github.com/an-anime-team/an-anime-game-launcher-gtk | \
+          https://github.com/an-anime-team/an-anime-game-launcher | \
           awk 'END {match($2, /([^/]+)$/, m); print m[0]}')"
         echo "latest-version=$latestVersion" >> $GITHUB_ENV
 
@@ -55,14 +55,14 @@ jobs:
       id: commit-message
       run: |
         echo "commit-message<<EOF" >> $GITHUB_OUTPUT
-        echo "an-anime-game-launcher-gtk: ${{ env.current-version }} -> ${{ env.latest-version }}" >> $GITHUB_OUTPUT
+        echo "an-anime-game-launcher: ${{ env.current-version }} -> ${{ env.latest-version }}" >> $GITHUB_OUTPUT
         echo "EOF" >> $GITHUB_OUTPUT
 
     - name: Update package
       if: ${{ env.current-version != env.latest-version }}
       run: |
-        nix shell nixpkgs#nix-update -c nix-update an-anime-game-launcher-gtk-unwrapped --version=${{ env.latest-version }}
-        cd pkgs/an-anime-game-launcher-gtk
+        nix shell nixpkgs#nix-update -c nix-update an-anime-game-launcher-unwrapped --version=${{ env.latest-version }}
+        cd pkgs/an-anime-game-launcher
         ./update-sources.sh
 
     - name: Create diff

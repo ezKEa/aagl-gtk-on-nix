@@ -1,7 +1,7 @@
 <img src="https://user-images.githubusercontent.com/60455663/192660134-cd43f93e-beef-4c3f-a646-dc6f97ca34d7.png" width="200" />
 
 # aagl-gtk-on-nix
-Run [an-anime-game-launcher-gtk](https://github.com/an-anime-team/an-anime-game-launcher-gtk) on Nix/NixOS!
+Run [an-anime-game-launcher](https://github.com/an-anime-team/an-anime-game-launcher) on Nix/NixOS!
 
 ## Installation and Usage
 

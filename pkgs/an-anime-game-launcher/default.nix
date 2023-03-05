@@ -11,6 +11,8 @@
 , stdenv
 , makeDesktopItem
 , an-anime-game-launcher-unwrapped
+
+, customIcon ? null
 }:
 let
 
@@ -42,15 +44,25 @@ let
     '';
   }).run;
 
+  iconChanged = builtins.isPath customIcon || builtins.isString customIcon;
+
+  unwrapped = if iconChanged
+    then an-anime-game-launcher-unwrapped.override { inherit customIcon; }
+    else an-anime-game-launcher-unwrapped;
+
   wrapper = writeShellScriptBin "anime-game-launcher" ''
-    ${steam-run-custom}/bin/steam-run ${an-anime-game-launcher-unwrapped}/bin/anime-game-launcher "$@"
+    ${steam-run-custom}/bin/steam-run ${unwrapped}/bin/anime-game-launcher "$@"
   '';
 
   icon = stdenv.mkDerivation {
     name = "An Anime Game Launcher icon";
-    buildCommand = ''
+    buildCommand = let
+      iconPath = if iconChanged then customIcon
+      else "${unwrapped.src}/assets/images/icon.png";
+    in
+    ''
       mkdir -p $out/share/pixmaps
-      cp ${an-anime-game-launcher-unwrapped.src}/assets/images/icon.png $out/share/pixmaps/aagl-gtk.png
+      cp ${iconPath} $out/share/pixmaps/moe.launcher.an-anime-game-launcher.png
     '';
   };
 
@@ -59,7 +71,7 @@ let
     desktopName = "An Anime Game Launcher";
     genericName = "Anime Game Launcher";
     exec = "${wrapper}/bin/anime-game-launcher";
-    icon = "aagl-gtk";
+    icon = "moe.launcher.an-anime-game-launcher";
     startupNotify = true;
   };
 in

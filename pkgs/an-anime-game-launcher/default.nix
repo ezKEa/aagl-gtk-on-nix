@@ -12,8 +12,6 @@
 , makeDesktopItem
 , nss_latest
 , an-anime-game-launcher-unwrapped
-
-, customIcon ? null
 }:
 let
 
@@ -45,11 +43,7 @@ let
     '';
   }).run;
 
-  iconChanged = builtins.isPath customIcon || builtins.isString customIcon;
-
-  unwrapped = if iconChanged
-    then an-anime-game-launcher-unwrapped.override { inherit customIcon; }
-    else an-anime-game-launcher-unwrapped;
+  unwrapped = an-anime-game-launcher-unwrapped;
 
   wrapper = writeShellScriptBin "anime-game-launcher" ''
     ${steam-run-custom}/bin/steam-run ${unwrapped}/bin/anime-game-launcher "$@"
@@ -58,7 +52,8 @@ let
   icon = stdenv.mkDerivation {
     name = "An Anime Game Launcher icon";
     buildCommand = let
-      iconPath = if iconChanged then customIcon
+      iconPath = if unwrapped.passthru.customIcon != null
+      then unwrapped.passthru.customIcon
       else "${unwrapped.src}/assets/images/icon.png";
     in
     ''
@@ -77,7 +72,7 @@ let
   };
 in
 symlinkJoin {
-  inherit (an-anime-game-launcher-unwrapped) pname version name;
+  inherit (unwrapped) pname version name;
   paths = [ icon desktopEntry wrapper ];
 
   meta = with lib; {

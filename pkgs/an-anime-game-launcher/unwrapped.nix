@@ -100,7 +100,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   prePatch = ''''
-    + optionalString (builtins.isPath customIcon || builtins.isString customIcon) ''
+    + optionalString (customIcon != null) ''
       rm assets/images/icon.png
       cp ${customIcon} assets/images/icon.png
     ''
@@ -118,6 +118,7 @@ rustPlatform.buildRustPackage rec {
       name = "GE-Proton";
       fullname = "${name}${version}";
       files = {
+        wine = "file/bin/wine";
         wine64 = "files/bin/wine64";
         wineboot = "files/bin/wineboot";
         winecfg = "files/lib64/wine/x86_64-windows/winecfg.exe";
@@ -164,4 +165,6 @@ rustPlatform.buildRustPackage rec {
     openssl
     pango
   ];
+
+  passthru = { inherit customIcon; };
 }

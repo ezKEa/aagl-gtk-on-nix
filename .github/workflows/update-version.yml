@@ -94,7 +94,7 @@ jobs:
         nixPath:
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
-          - nixpkgs=channel:nixos-22.11
+          # - nixpkgs=channel:nixos-22.11
     steps:
     - name: Install Doppler CLI
       uses: dopplerhq/cli-action@v2

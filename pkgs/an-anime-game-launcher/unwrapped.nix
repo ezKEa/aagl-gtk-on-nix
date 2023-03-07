@@ -19,13 +19,13 @@ lib, rustPlatform, fetchFromGitHub
 with lib;
 rustPlatform.buildRustPackage rec {
   pname = "an-anime-game-launcher";
-  version = "3.1.2";
+  version = "3.1.4";
 
   src = fetchFromGitHub {
     owner = "an-anime-team";
     repo = "an-anime-game-launcher";
     rev = version;
-    sha256 = "sha256-+docyWhrmxbKD0fnbCQc1ilo/vvRY9qaP8sjgK73e7I=";
+    sha256 = "sha256-chC2L/DBhOyJVMaeh3zVPaGCxBr7nRqrDyVNsnYCfbU=";
     fetchSubmodules = true;
   };
 
@@ -34,22 +34,9 @@ rustPlatform.buildRustPackage rec {
     cp ${customIcon} assets/images/icon.png
   '';
 
-  cargoSha256 = "sha256-loKrExbu0LnW57gkTTCJIOrrISIpmW0wSKBjXmlx6Jw=";
+  cargoSha256 = "sha256-IglRc9F00pQoelpRs3ecMpOXgpEuPHbRC1BHIe8Wir4=";
 
-  nativeBuildInputs = let
-    # Later do this the right way
-    fakeGit = writeShellScriptBin "git" ''
-      dir="$(basename $PWD)"
-      if [[ "$dir" == "anime-launcher-sdk" ]]; then
-        echo "7bcfdbee8583f046c9df045577bd679ee4eb45c2";
-      fi
-      if [[ "$dir" == "anime-game-core" ]]; then
-        echo "7593e6ba4bdffe1e5de27e8010abfa309633207a";
-      fi
-    '';
-  in
-  [
-    fakeGit
+  nativeBuildInputs = [
     glib
     gobject-introspection
     gtk4

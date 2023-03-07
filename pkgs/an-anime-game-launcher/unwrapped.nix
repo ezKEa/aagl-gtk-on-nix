@@ -6,10 +6,10 @@ lib, rustPlatform, fetchFromGitHub
 , pango
 , gdk-pixbuf
 , gtk4
-, git
 , libadwaita
 , gobject-introspection
 , gsettings-desktop-schemas
+, writeShellScriptBin
 , wrapGAppsHook4
 , librsvg
 
@@ -25,9 +25,8 @@ rustPlatform.buildRustPackage rec {
     owner = "an-anime-team";
     repo = "an-anime-game-launcher";
     rev = version;
-    sha256 = "sha256-p78gvK7FPuslSHGDgYZoWGOxr/1tzIhfEpr6s4LH0t0=";
+    sha256 = "sha256-6OCUB6KuV0EV172o526UibHvOUDsU1FXx0Vvz0KIYgM=";
     fetchSubmodules = true;
-    leaveDotGit = true;
   };
 
   prePatch = optionalString (customIcon != null) ''
@@ -37,8 +36,20 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-d1vdjvHLFz0DRepECtuo064lIKdnYPV0sPjyXKH3fYU=";
 
-  nativeBuildInputs = [
-    git
+  nativeBuildInputs = let
+    # Later do this the right way
+    fakeGit = writeShellScriptBin "git" ''
+      dir="$(basename $PWD)"
+      if [[ "$dir" == "anime-launcher-sdk" ]]; then
+        echo "219d0f7704e18d74a9205163ffbb7d1718291ea4";
+      fi
+      if [[ "$dir" == "anime-game-core" ]]; then
+        echo "45894e77c9ec1fcfe264c80f6a39774876413386";
+      fi
+    '';
+  in
+  [
+    fakeGit
     glib
     gobject-introspection
     gtk4

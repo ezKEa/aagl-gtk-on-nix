@@ -9,7 +9,7 @@
       "x86_64-linux"
     ];
   in {
-    nixosModules.default = import ./module/default.nix; #(genSystems (system: nixpkgs.legacyPackages.${system}));
+    nixosModules.default = import ./module/default.nix;
     nixConfig = {
       extra-substituters = ["https://ezkea.cachix.org"];
       extra-trusted-public-keys = ["ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="];

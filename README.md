@@ -91,7 +91,7 @@ If you are not running NixOS, append the below hosts to your /etc/hosts file:
 ```
 then install through `nix-env` by running
 ```sh
-$ nix-env -f https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz -iA an-anime-game-launcher-gtk
+$ nix-env -f https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz -iA an-anime-game-launcher
 ```
 
 ## Usage

@@ -8,9 +8,13 @@ jobs:
   update:
     name: Update
     runs-on: ubuntu-latest
-    outputs:
-      commit-message: ${{ steps.commit-message.outputs.commit-message }}
-      skip-build: ${{ steps.diff.outputs.skipped }}
+    strategy:
+      matrix:
+        package:
+          - an-anime-game-launcher
+          - the-honkers-railway-launcher
+          - honkers-launcher
+
     steps:
     - name: Install Doppler CLI
       uses: dopplerhq/cli-action@v2
@@ -35,8 +39,8 @@ jobs:
         set -x
         currentVersion="$(nix-instantiate --eval -E '
           let
-            aagl = import ./default.nix { };
-            version = aagl.an-anime-game-launcher-unwrapped.version;
+            aagl = import ./default.nix;
+            version = aagl.${{ matrix.package }}-unwrapped.version;
           in
           version
         ' | tr -d \")"
@@ -46,46 +50,57 @@ jobs:
       run: |
         set -x
         latestVersion="$(git -c 'versionsort.suffix=-' ls-remote --exit-code --refs --tags --sort='v:refname' \
-          https://github.com/an-anime-team/an-anime-game-launcher | \
+          "https://github.com/an-anime-team/${{ matrix.package }}" | \
           awk 'END {match($2, /([^/]+)$/, m); print m[0]}')"
         echo "latest-version=$latestVersion" >> $GITHUB_ENV
+
+    - name: Update package
+      if: ${{ env.current-version != env.latest-version }}
+      run: |
+        nix shell nixpkgs#nix-update -c nix-update "${{ matrix.package }}-unwrapped" --flake --version=${{ env.latest-version }}
+
+    - name: Create diff
+      id: diff
+      run: |
+        set -x
+        git diff --oneline --graph > ${{ matrix.package }}-update.diff
+        if [[ "$(<${{ matrix.package }}-update.diff)" == "" ]]; then
+          echo "skipped=yes" >> $GITHUB_OUTPUT
+          echo "skipped=yes" > "${{ matrix.package }}-skipped.artifact"
+        else
+          echo "skipped=no" >> $GITHUB_OUTPUT
+          echo "skipped=no" > "${{ matrix.package }}-skipped.artifact"
+        fi
 
     - name: Create commit message
       if: ${{ env.current-version != env.latest-version }}
       id: commit-message
       run: |
-        echo "commit-message<<EOF" >> $GITHUB_OUTPUT
-        echo "an-anime-game-launcher: ${{ env.current-version }} -> ${{ env.latest-version }}" >> $GITHUB_OUTPUT
-        echo "EOF" >> $GITHUB_OUTPUT
+        echo "${{ matrix.package }}: ${{ env.current-version }} -> ${{ env.latest-version }}" >> "${{ matrix.package }}-commit.artifact"
 
-    - name: Update package
-      if: ${{ env.current-version != env.latest-version }}
-      run: |
-        nix shell nixpkgs#nix-update -c nix-update an-anime-game-launcher-unwrapped --version=${{ env.latest-version }}
-
-    - name: Create diff
-      id: diff
-      run: |
-        mkdir -p ~/artifact
-        git diff --oneline --graph | tee ~/artifact/update.diff
-        if [[ "$(<~/artifact/update.diff)" == "" ]]; then
-          echo "skipped=yes" >> $GITHUB_OUTPUT
-        else
-          echo "skipped=no" >> $GITHUB_OUTPUT
-        fi
+    - name: Upload skip artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: "${{ matrix.package }}-skipped.artifact"
+        path: "${{ matrix.package }}-skipped.artifact"
 
     - name: Upload diff artifact
       if: ${{ steps.diff.outputs.skipped == 'no' }}
       uses: actions/upload-artifact@v3
       with:
-        name: update.diff
-        path: ~/artifact/update.diff
+        name: "${{ matrix.package }}-update.diff"
+        path: "${{ matrix.package }}-update.diff"
+
+    - name: Upload commit artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: "${{ matrix.package }}-commit.artifact"
+        path: "${{ matrix.package }}-commit.artifact"
 
   build:
     name: Build
     needs: update
     runs-on: ubuntu-latest
-    if: ${{ needs.update.outputs.skip-build == 'no' }}
     strategy:
       fail-fast: false
       matrix:
@@ -95,7 +110,21 @@ jobs:
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
           # - nixpkgs=channel:nixos-22.11
+        package:
+          - an-anime-game-launcher
+          - the-honkers-railway-launcher
+          - honkers-launcher
     steps:
+    - name: Download skip artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: "${{ matrix.package }}-skipped.artifact"
+        path: "${{ matrix.package }}-skipped.artifact"
+
+    - name: Check if build skipped
+      run: |
+        echo "skipped=$(cat ${{ matrix.package }}-skipped.artifact/${{ matrix.package }}-skipped.artifact)" >> $GITHUB_ENV
+
     - name: Install Doppler CLI
       uses: dopplerhq/cli-action@v2
 
@@ -126,23 +155,31 @@ jobs:
     - name: Download diff artifact
       uses: actions/download-artifact@v3
       with:
-        name: update.diff
-        path: ~/artifact/update.diff
+        name: "${{ matrix.package }}-update.diff"
+        path: "${{ matrix.package }}-update.diff"
 
     - name: Apply diff
       run: |
-        git apply ~/artifact/update.diff/update.diff
+        git apply "${{ matrix.package }}-update.diff/${{ matrix.package }}-update.diff"
 
     - name: Build
       run: |
-        nix-build
+        nix-build -A "${{ matrix.package }}"
       env:
         NIXPKGS_ALLOW_UNFREE: 1
 
   pr:
     name: Make PR
+    if: !cancelled()
     needs: [update, build]
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - an-anime-game-launcher
+          - the-honkers-railway-launcher
+          - honkers-launcher
     steps:
     - name: Install Doppler CLI
       uses: dopplerhq/cli-action@v2
@@ -162,19 +199,28 @@ jobs:
     - name: Download diff artifact
       uses: actions/download-artifact@v3
       with:
-        name: update.diff
-        path: ~/artifact/update.diff
+        name: "${{ matrix.package }}-update.diff"
+        path: "${{ matrix.package }}-update.diff"
 
     - name: Apply diff
       run: |
-        git apply ~/artifact/update.diff/update.diff
+        git apply "${{ matrix.package }}-update.diff/${{ matrix.package }}-update.diff"
+
+    - name: Download commit artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: "${{ matrix.package }}-commit.artifact"
+        path: "${{ matrix.package }}-commit.artifact"
+
+    - run: |
+        echo "commit-message=$(cat ${{ matrix.package }}-commit.artifact/${{ matrix.package }}-commit.artifact)" >> $GITHUB_ENV
 
     - name: Create pull request
       uses: peter-evans/create-pull-request@v5
       with:
         author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-        commit-message: ${{ needs.update.outputs.commit-message }}
-        title: ${{ needs.update.outputs.commit-message }}
+        commit-message: ${{ env.commit-message }}
+        title: ${{ env.commit-message }}
         body: |
           Auto-generated by [create-pull-request][1]
 

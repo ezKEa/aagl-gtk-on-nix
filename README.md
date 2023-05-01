@@ -33,6 +33,7 @@ in
 
   programs.an-anime-game-launcher.enable = true;
   programs.the-honkers-railway-launcher.enable = true;
+  programs.honkers-launcher.enable = true;
 }
 ```
 
@@ -43,7 +44,7 @@ Both the Cachix config and NixOS module are accessible via Flakes as well:
   inputs = {
     # Other inputs
     aagl.url = "github:ezKEa/aagl-gtk-on-nix";
-    aagl.inputs.nixpkgs.follows = "nixpkgs"; # Name of nixpkgs input you want to use 
+    aagl.inputs.nixpkgs.follows = "nixpkgs"; # Name of nixpkgs input you want to use
   };
 
   outputs = { self, nixpkgs, aagl, ... }: {
@@ -56,6 +57,7 @@ Both the Cachix config and NixOS module are accessible via Flakes as well:
           nix.settings = aagl.nixConfig; # Set up Cachix
           programs.an-anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
           programs.the-honkers-railway-launcher.enable = true;
+          programs.honkers-launcher.enable = true;
         }
       ];
     };
@@ -74,6 +76,7 @@ in
   home.packages = [
     aagl-gtk-on-nix.an-anime-game-launcher
     aagl-gtk-on-nix.the-honkers-railway-launcher
+    aagl-gtk-on-nix.honkers-launcher
   ];
 }
 ```
@@ -100,4 +103,4 @@ $ nix-env -f https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz -iA an
 ```
 
 ## Usage
-After installation, you can start the launcher by running `anime-game-launcher` or `honkers-railway-launcher`. Have fun!
+After installation, you can start the launcher by running `anime-game-launcher`, `honkers-railway-launcher`, or `honkers-launcher`. Have fun!

@@ -26,6 +26,12 @@
 
     the-honkers-railway-launcher-unwrapped = pkgs: pkgs.callPackage ./pkgs/the-honkers-railway-launcher/unwrapped.nix {};
 
+    honkers-launcher = pkgs: pkgs.callPackage ./pkgs/honkers-launcher/default.nix {
+      honkers-launcher-unwrapped = honkers-launcher-unwrapped pkgs;
+    };
+
+    honkers-launcher-unwrapped = pkgs: pkgs.callPackage ./pkgs/honkers-launcher/unwrapped.nix {};
+
     unwrapped = an-anime-game-launcher-unwrapped;
     regular = an-anime-game-launcher;
   in {
@@ -43,6 +49,9 @@
 
       the-honkers-railway-launcher-unwrapped = the-honkers-railway-launcher-unwrapped nixpkgs-nonfree;
       the-honkers-railway-launcher = the-honkers-railway-launcher nixpkgs-nonfree;
+
+      honkers-launcher = honkers-launcher nixpkgs-nonfree;
+      honkers-launcher-unwrapped = honkers-launcher-unwrapped nixpkgs-nonfree;
     });
     overlays.default = _: prev: {
       an-anime-game-launcher-unwrapped = unwrapped prev;
@@ -50,6 +59,9 @@
 
       the-honkers-railway-launcher-unwrapped = the-honkers-railway-launcher-unwrapped prev;
       the-honkers-railway-launcher = the-honkers-railway-launcher prev;
+
+      honkers-launcher = honkers-launcher prev;
+      honkers-launcher-unwrapped = honkers-launcher-unwrapped prev;
     };
   };
 }

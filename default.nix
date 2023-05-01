@@ -16,5 +16,8 @@ in
     an-anime-game-launcher-unwrapped
 
     the-honkers-railway-launcher
-    the-honkers-railway-launcher-unwrapped;
+    the-honkers-railway-launcher-unwrapped
+
+    honkers-launcher
+    honkers-launcher-unwrapped;
 }

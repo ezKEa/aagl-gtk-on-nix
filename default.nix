@@ -1,9 +1,17 @@
-{ pkgs ? import <nixpkgs> { } }:
-with pkgs;
-rec {
-  module = import ./module;
+let flake = (import (
+  let
+    lock = builtins.fromJSON (builtins.readFile ./flake.lock);
+  in fetchTarball {
+    url = "https://github.com/edolstra/flake-compat/archive/${lock.nodes.flake-compat.locked.rev}.tar.gz";
+    sha256 = lock.nodes.flake-compat.locked.narHash; }
+) {
+  src =  ./.;
+}).defaultNix;
+in
+{
+  module = flake.outputs.nixosModules.default;
 
-  an-anime-game-launcher = callPackage ./pkgs/an-anime-game-launcher { inherit an-anime-game-launcher-unwrapped; };
-  an-anime-game-launcher-unwrapped = callPackage ./pkgs/an-anime-game-launcher/unwrapped.nix { };
-
+  inherit (flake.outputs.packages.x86_64-linux)
+    an-anime-game-launcher
+    an-anime-game-launcher-unwrapped;
 }

@@ -24,7 +24,7 @@ To install the launcher on NixOS, add the following to `configuration.nix`:
 ```nix
 # configuration.nix
 let
-  aagl-gtk-on-nix = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz"){ inherit pkgs; };
+  aagl-gtk-on-nix = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz");
 in
 {
   imports = [
@@ -66,7 +66,7 @@ You can also install the launcher using [home-manager](https://github.com/nix-co
 ```nix
 # home.nix
 let
-  aagl-gtk-on-nix = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz"){ inherit pkgs; };
+  aagl-gtk-on-nix = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz");
 in
 {
   home.packages = [ aagl-gtk-on-nix.an-anime-game-launcher ];

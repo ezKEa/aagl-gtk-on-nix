@@ -11,6 +11,7 @@
 , stdenv
 , makeDesktopItem
 , nss_latest
+, git
 , an-anime-game-launcher-unwrapped
 }:
 let
@@ -36,7 +37,7 @@ let
   '';
 
   steam-run-custom = (steam.override {
-    extraPkgs = p: [ nss_latest gnutls mangohud xdelta ];
+    extraPkgs = p: [ nss_latest git gnutls mangohud xdelta ];
     extraLibraries = p: [ libunwind ];
     extraProfile = ''
       export PATH=${fakePkExec}/bin:${fakeBash}/bin:$PATH

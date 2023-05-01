@@ -3,7 +3,7 @@
 with lib;
 
 let
-  an-anime-game-launcher = (import ../default.nix { inherit pkgs; }).an-anime-game-launcher;
+  an-anime-game-launcher = (import ../default.nix).an-anime-game-launcher;
   cfg = config.programs.an-anime-game-launcher;
 in
 {

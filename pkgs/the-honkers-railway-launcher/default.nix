@@ -51,7 +51,7 @@ let
   '';
 
   icon = stdenv.mkDerivation {
-    name = "An Anime Game Launcher icon";
+    name = "The Honkers Railway Launcher icon";
     buildCommand = let
       iconPath = if unwrapped.passthru.customIcon != null
       then unwrapped.passthru.customIcon

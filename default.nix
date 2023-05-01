@@ -13,5 +13,8 @@ in
 
   inherit (flake.outputs.packages.x86_64-linux)
     an-anime-game-launcher
-    an-anime-game-launcher-unwrapped;
+    an-anime-game-launcher-unwrapped
+
+    the-honkers-railway-launcher
+    the-honkers-railway-launcher-unwrapped;
 }

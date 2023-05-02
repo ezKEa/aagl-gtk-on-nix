@@ -13,8 +13,8 @@
       "x86_64-linux"
     ];
 
-    nixpkgs-nonfree = import nixpkgs {
-      system = "x86_64-linux";
+    nixpkgs-nonfree = system: import nixpkgs {
+      inherit system;
       config = { allowUnfree = true; };
     };
 
@@ -43,18 +43,18 @@
       extra-substituters = ["https://ezkea.cachix.org"];
       extra-trusted-public-keys = ["ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="];
     };
-    packages = genSystems (system: {
-      unwrapped = unwrapped nixpkgs-nonfree;
-      default = regular nixpkgs-nonfree;
+    packages = genSystems (system: let pkgs = nixpkgs-nonfree system; in {
+      unwrapped = unwrapped pkgs;
+      default = regular pkgs;
 
-      an-anime-game-launcher-unwrapped = unwrapped nixpkgs-nonfree;
-      an-anime-game-launcher = regular nixpkgs-nonfree;
+      an-anime-game-launcher-unwrapped = unwrapped pkgs;
+      an-anime-game-launcher = regular pkgs;
 
-      the-honkers-railway-launcher-unwrapped = the-honkers-railway-launcher-unwrapped nixpkgs-nonfree;
-      the-honkers-railway-launcher = the-honkers-railway-launcher nixpkgs-nonfree;
+      the-honkers-railway-launcher-unwrapped = the-honkers-railway-launcher-unwrapped pkgs;
+      the-honkers-railway-launcher = the-honkers-railway-launcher pkgs;
 
-      honkers-launcher = honkers-launcher nixpkgs-nonfree;
-      honkers-launcher-unwrapped = honkers-launcher-unwrapped nixpkgs-nonfree;
+      honkers-launcher = honkers-launcher pkgs;
+      honkers-launcher-unwrapped = honkers-launcher-unwrapped pkgs;
     });
     overlays.default = _: prev: {
       an-anime-game-launcher-unwrapped = unwrapped prev;

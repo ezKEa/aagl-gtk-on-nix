@@ -13,7 +13,10 @@
       "x86_64-linux"
     ];
 
-    nixpkgs-nonfree = import nixpkgs { config = { allowUnfree = true; }; };
+    nixpkgs-nonfree = import nixpkgs {
+      system = "x86_64-linux";
+      config = { allowUnfree = true; };
+    };
 
     an-anime-game-launcher-unwrapped = pkgs: pkgs.callPackage ./pkgs/an-anime-game-launcher/unwrapped.nix {};
     an-anime-game-launcher = pkgs: pkgs.callPackage ./pkgs/an-anime-game-launcher/default.nix {

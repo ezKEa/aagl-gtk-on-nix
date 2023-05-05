@@ -8,10 +8,13 @@ let flake = (import (
   src =  ./.;
 }).defaultNix;
 in
+with flake.outputs;
 {
-  module = flake.outputs.nixosModules.default;
+  module = nixosModules.default;
 
-  inherit (flake.outputs.packages.x86_64-linux)
+  overlay = overlays.default;
+
+  inherit (packages.x86_64-linux)
     an-anime-game-launcher
     an-anime-game-launcher-unwrapped
 

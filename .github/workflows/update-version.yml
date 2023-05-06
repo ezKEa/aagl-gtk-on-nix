@@ -170,7 +170,7 @@ jobs:
 
   pr:
     name: Make PR
-    if: !cancelled()
+    if: ${{ ! cancelled() }}
     needs: [update, build]
     runs-on: ubuntu-latest
     strategy:

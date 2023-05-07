@@ -9,18 +9,7 @@ let flake = (import (
 }).defaultNix;
 in
 with flake.outputs;
-{
+packages.x86_64-linux // {
   module = nixosModules.default;
-
   overlay = overlays.default;
-
-  inherit (packages.x86_64-linux)
-    an-anime-game-launcher
-    an-anime-game-launcher-unwrapped
-
-    the-honkers-railway-launcher
-    the-honkers-railway-launcher-unwrapped
-
-    honkers-launcher
-    honkers-launcher-unwrapped;
 }

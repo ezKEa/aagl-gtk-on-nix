@@ -18,7 +18,10 @@
       config = { allowUnfree = true; };
     };
 
-    packages = pkgs: rec {
+    packages = pkgs: let
+      wrapAAGL = (pkgs.callPackage ./pkgs/wrapAAGL {}).override;
+    in
+    rec {
       an-anime-game-launcher-unwrapped = pkgs.callPackage ./pkgs/an-anime-game-launcher/unwrapped.nix {};
       an-anime-game-launcher = pkgs.callPackage ./pkgs/an-anime-game-launcher {
         inherit an-anime-game-launcher-unwrapped wrapAAGL;
@@ -33,8 +36,6 @@
       honkers-launcher = pkgs.callPackage ./pkgs/honkers-launcher {
         inherit honkers-launcher-unwrapped wrapAAGL;
       };
-
-      wrapAAGL = (pkgs.callPackage ./pkgs/wrapAAGL {}).override;
 
       unwrapped = an-anime-game-launcher-unwrapped;
       regular = an-anime-game-launcher;

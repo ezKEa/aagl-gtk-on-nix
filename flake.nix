@@ -20,21 +20,21 @@
 
     packages = pkgs: rec {
       an-anime-game-launcher-unwrapped = pkgs.callPackage ./pkgs/an-anime-game-launcher/unwrapped.nix {};
-      an-anime-game-launcher = pkgs.callPackage ./pkgs/an-anime-game-launcher/default.nix {
-        inherit an-anime-game-launcher-unwrapped;
-      };
-
-      the-honkers-railway-launcher = pkgs.callPackage ./pkgs/the-honkers-railway-launcher {
-        inherit the-honkers-railway-launcher-unwrapped;
+      an-anime-game-launcher = pkgs.callPackage ./pkgs/an-anime-game-launcher {
+        inherit an-anime-game-launcher-unwrapped wrapAAGL;
       };
 
       the-honkers-railway-launcher-unwrapped = pkgs.callPackage ./pkgs/the-honkers-railway-launcher/unwrapped.nix {};
-
-      honkers-launcher = pkgs.callPackage ./pkgs/honkers-launcher/default.nix {
-        inherit honkers-launcher-unwrapped;
+      the-honkers-railway-launcher = pkgs.callPackage ./pkgs/the-honkers-railway-launcher {
+        inherit the-honkers-railway-launcher-unwrapped wrapAAGL;
       };
 
       honkers-launcher-unwrapped = pkgs.callPackage ./pkgs/honkers-launcher/unwrapped.nix {};
+      honkers-launcher = pkgs.callPackage ./pkgs/honkers-launcher {
+        inherit honkers-launcher-unwrapped wrapAAGL;
+      };
+
+      wrapAAGL = (pkgs.callPackage ./pkgs/wrapAAGL {}).override;
 
       unwrapped = an-anime-game-launcher-unwrapped;
       regular = an-anime-game-launcher;

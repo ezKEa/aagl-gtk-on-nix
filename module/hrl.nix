@@ -3,23 +3,27 @@
 with lib;
 
 let
-  the-honkers-railway-launcher = (import ../default.nix).the-honkers-railway-launcher;
-  cfg = config.programs.the-honkers-railway-launcher;
+  honkers-railway-launcher = (import ../default.nix).honkers-railway-launcher;
+  cfg = config.programs.honkers-railway-launcher;
 in
 {
-  options.programs.the-honkers-railway-launcher = {
+  imports = [
+    (lib.mkRenamedOptionModule [ "programs" "the-honkers-railway-launcher" ] [ "programs" "honkers-railway-launcher" ] )
+  ];
+
+  options.programs.honkers-railway-launcher = {
     enable = mkOption {
       type = types.bool;
       default = false;
       description = lib.mdDoc ''
-        Whether to enable the-honkers-railway-launcher.
+        Whether to enable honkers-railway-launcher.
       '';
     };
     package = mkOption {
       type = types.package;
-      default = the-honkers-railway-launcher;
+      default = honkers-railway-launcher;
       description = lib.mdDoc ''
-        the-honkers-railway-launcher package to use.
+        honkers-railway-launcher package to use.
       '';
     };
   };

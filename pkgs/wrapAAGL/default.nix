@@ -78,6 +78,7 @@ let
   };
 in
 symlinkJoin {
+  inherit unwrapped;
   inherit (unwrapped) pname version name;
   inherit meta;
   paths = [ icon desktopEntry wrapper ];

@@ -31,8 +31,8 @@ in
     aagl-gtk-on-nix.module
   ];
 
-  programs.an-anime-game-launcher.enable = true;
-  programs.the-honkers-railway-launcher.enable = true;
+  programs.anime-game-launcher.enable = true;
+  programs.honkers-railway-launcher.enable = true;
   programs.honkers-launcher.enable = true;
 }
 ```
@@ -55,8 +55,8 @@ Both the Cachix config and NixOS module are accessible via Flakes as well:
         {
           imports = [ aagl.nixosModules.default ];
           nix.settings = aagl.nixConfig; # Set up Cachix
-          programs.an-anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
-          programs.the-honkers-railway-launcher.enable = true;
+          programs.anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
+          programs.honkers-railway-launcher.enable = true;
           programs.honkers-launcher.enable = true;
         }
       ];
@@ -74,8 +74,8 @@ let
 in
 {
   home.packages = [
-    aagl-gtk-on-nix.an-anime-game-launcher
-    aagl-gtk-on-nix.the-honkers-railway-launcher
+    aagl-gtk-on-nix.anime-game-launcher
+    aagl-gtk-on-nix.honkers-railway-launcher
     aagl-gtk-on-nix.honkers-launcher
   ];
 }
@@ -99,7 +99,7 @@ If you are not running NixOS, append the below hosts to your /etc/hosts file:
 ```
 then install through `nix-env` by running
 ```sh
-$ nix-env -f https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz -iA an-anime-game-launcher
+$ nix-env -f https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz -iA anime-game-launcher
 ```
 
 ## Usage

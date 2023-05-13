@@ -18,7 +18,7 @@ lib, rustPlatform, fetchFromGitHub
 
 with lib;
 rustPlatform.buildRustPackage rec {
-  pname = "an-anime-game-launcher";
+  pname = "anime-game-launcher";
   version = "3.6.0";
 
   src = fetchFromGitHub {

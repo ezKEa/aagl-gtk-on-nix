@@ -1,10 +1,11 @@
 { lib
-, an-anime-game-launcher-unwrapped
+, callPackage
 , wrapAAGL
+, unwrapped ? callPackage ./unwrapped.nix { }
 }:
 
 wrapAAGL {
-  unwrapped = an-anime-game-launcher-unwrapped;
+  inherit unwrapped;
   binName = "anime-game-launcher";
   packageName = "moe.launcher.an-anime-game-launcher";
   desktopName = "An Anime Game Launcher";

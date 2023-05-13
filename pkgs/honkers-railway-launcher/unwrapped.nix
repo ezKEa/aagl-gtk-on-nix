@@ -18,12 +18,12 @@ lib, rustPlatform, fetchFromGitHub
 
 with lib;
 rustPlatform.buildRustPackage rec {
-  pname = "the-honkers-railway-launcher";
+  pname = "honkers-railway-launcher";
   version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "an-anime-team";
-    repo = pname;
+    repo = "the-honkers-railway-launcher";
     rev = version;
     sha256 = "sha256-BuSzn0WlQegOZVUO0Jg2lC7p+KeJyUoeEFykBqcJO3U=";
     fetchSubmodules = true;

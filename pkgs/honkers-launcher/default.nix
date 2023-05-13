@@ -1,10 +1,11 @@
 { lib
-, honkers-launcher-unwrapped
+, callPackage
 , wrapAAGL
+, unwrapped ? callPackage ./unwrapped.nix { }
 }:
 
 wrapAAGL {
-  unwrapped = honkers-launcher-unwrapped;
+  inherit unwrapped;
   binName = "honkers-launcher";
   packageName = "moe.launcher.honkers-launcher";
   desktopName = "Honkers Launcher";

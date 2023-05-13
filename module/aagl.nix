@@ -3,23 +3,27 @@
 with lib;
 
 let
-  an-anime-game-launcher = (import ../default.nix).an-anime-game-launcher;
-  cfg = config.programs.an-anime-game-launcher;
+  anime-game-launcher = (import ../default.nix).anime-game-launcher;
+  cfg = config.programs.anime-game-launcher;
 in
 {
-  options.programs.an-anime-game-launcher = {
+  imports = [
+    (lib.mkRenamedOptionModule [ "programs" "an-anime-game-launcher" ] [ "programs" "anime-game-launcher" ] )
+  ];
+
+  options.programs.anime-game-launcher = {
     enable = mkOption {
       type = types.bool;
       default = false;
       description = lib.mdDoc ''
-        Whether to enable an-anime-game-launcher.
+        Whether to enable anime-game-launcher.
       '';
     };
     package = mkOption {
       type = types.package;
-      default = an-anime-game-launcher;
+      default = anime-game-launcher;
       description = lib.mdDoc ''
-        an-anime-game-launcher package to use.
+        anime-game-launcher package to use.
       '';
     };
   };

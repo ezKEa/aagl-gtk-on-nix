@@ -1,10 +1,11 @@
 { lib
-, the-honkers-railway-launcher-unwrapped
+, callPackage
 , wrapAAGL
+, unwrapped ? callPackage ./unwrapped.nix { }
 }:
 
 wrapAAGL {
-  unwrapped = the-honkers-railway-launcher-unwrapped;
+  inherit unwrapped;
   binName = "honkers-railway-launcher";
   packageName = "moe.launcher.the-honkers-railway-launcher";
   desktopName = "The Honkers Railway Launcher";

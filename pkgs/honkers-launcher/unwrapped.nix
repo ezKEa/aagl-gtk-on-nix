@@ -19,13 +19,13 @@ lib, rustPlatform, fetchFromGitHub
 with lib;
 rustPlatform.buildRustPackage rec {
   pname = "honkers-launcher";
-  version = "1.1.0";
+  version = "1.1.1";
 
   src = fetchFromGitHub {
     owner = "an-anime-team";
     repo = pname;
     rev = version;
-    sha256 = "sha256-hiMofvNoCJ/MRQKyafeBN34oGgzDr6LlsD/klIdapH0=";
+    sha256 = "sha256-ZUs3T7yMsPvay6IW4fMn/siMtdS/G5yGCTur1Gk1oNI=";
     fetchSubmodules = true;
   };
 
@@ -37,8 +37,8 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = "${src}/Cargo.lock";
     outputHashes = {
-      "anime-game-core-1.8.0" = "sha256-oYK7QZyTnGw2Amk6ESTRbkLCd04J4eXhfxHsHbEv+CY=";
-      "anime-launcher-sdk-1.2.2" = "sha256-MFdrxref/We0LYBqmVRVDbU98RiAXAs17gQvP9VkQUQ=";
+      "anime-game-core-1.8.2" = "sha256-qoFwkPbmLekvUicLPZSjGcaiuIq9S68G7nFmHQFUSDA=";
+      "anime-launcher-sdk-1.2.5" = "sha256-MDBBQ+9x7ZnbG3vDiAQ7P7qzgbIPFjvRAO8ULggMT0M=";
     };
   };
 

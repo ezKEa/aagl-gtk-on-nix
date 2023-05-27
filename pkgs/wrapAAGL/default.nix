@@ -78,8 +78,11 @@ let
   };
 in
 symlinkJoin {
-  inherit unwrapped;
+  inherit unwrapped meta;
   inherit (unwrapped) pname version name;
-  inherit meta;
   paths = [ icon desktopEntry wrapper ];
+
+  passthru = {
+    inherit icon desktopEntry wrapper;
+  };
 }

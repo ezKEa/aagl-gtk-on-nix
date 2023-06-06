@@ -22,6 +22,7 @@ in
         "overseauspider.yuanshen.com"
         "log-upload-os.hoyoverse.com"
         "log-upload-os.mihoyo.com"
+        "dump.gamesafe.qq.com"
 
         "log-upload.mihoyo.com"
         "devlog-upload.mihoyo.com"

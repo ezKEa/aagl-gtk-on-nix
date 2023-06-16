@@ -1,14 +1,14 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let
+{
+  config,
+  lib,
+  ...
+}:
+with lib; let
   honkers-railway-launcher = (import ../default.nix).honkers-railway-launcher;
   cfg = config.programs.honkers-railway-launcher;
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule [ "programs" "the-honkers-railway-launcher" ] [ "programs" "honkers-railway-launcher" ] )
+    (lib.mkRenamedOptionModule ["programs" "the-honkers-railway-launcher"] ["programs" "honkers-railway-launcher"])
   ];
 
   options.programs.honkers-railway-launcher = {
@@ -29,7 +29,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     networking.mihoyo-telemetry.block = true;
   };
 }

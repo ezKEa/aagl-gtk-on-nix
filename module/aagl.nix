@@ -1,14 +1,14 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let
+{
+  config,
+  lib,
+  ...
+}:
+with lib; let
   anime-game-launcher = (import ../default.nix).anime-game-launcher;
   cfg = config.programs.anime-game-launcher;
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule [ "programs" "an-anime-game-launcher" ] [ "programs" "anime-game-launcher" ] )
+    (lib.mkRenamedOptionModule ["programs" "an-anime-game-launcher"] ["programs" "anime-game-launcher"])
   ];
 
   options.programs.anime-game-launcher = {
@@ -29,7 +29,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     networking.mihoyo-telemetry.block = true;
   };
 }

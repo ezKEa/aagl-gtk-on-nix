@@ -1,6 +1,5 @@
-{ packages }:
-with packages;
-{
+{packages}:
+with packages; {
   an-anime-game-launcher = anime-game-launcher;
   an-anime-game-launcher-unwrapped = anime-game-launcher.unwrapped;
 

@@ -1,11 +1,11 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let
-  cfg = config.networking.mihoyo-telemetry;
-in
 {
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.networking.mihoyo-telemetry;
+in {
   options.networking.mihoyo-telemetry = {
     block = mkOption {
       type = types.bool;

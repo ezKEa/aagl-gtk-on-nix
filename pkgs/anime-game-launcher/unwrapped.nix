@@ -19,13 +19,13 @@ lib, rustPlatform, fetchFromGitHub
 with lib;
 rustPlatform.buildRustPackage rec {
   pname = "anime-game-launcher";
-  version = "3.7.1";
+  version = "3.7.2";
 
   src = fetchFromGitHub {
     owner = "an-anime-team";
     repo = "an-anime-game-launcher";
     rev = version;
-    sha256 = "sha256-3NZ/JTXGBSBMtCPXYpjeedCCzETUo3isffOVlBV30zA=";
+    sha256 = "sha256-fTRl4ePZo2JEoSRxpI/1htB0dxsD3yd4/yzpJS4hjOs=";
     fetchSubmodules = true;
   };
 

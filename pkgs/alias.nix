@@ -1,5 +1,8 @@
 {packages}:
 with packages; {
+  an-anime-borb-launcher = anime-borb-launcher;
+  an-anime-borb-launcher-unwrapped = anime-borb-launcher-unwrapped;
+
   an-anime-game-launcher = anime-game-launcher;
   an-anime-game-launcher-unwrapped = anime-game-launcher.unwrapped;
 

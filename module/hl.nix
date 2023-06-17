@@ -1,12 +1,12 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let
+{
+  config,
+  lib,
+  ...
+}:
+with lib; let
   honkers-launcher = (import ../default.nix).honkers-launcher;
   cfg = config.programs.honkers-launcher;
-in
-{
+in {
   options.programs.honkers-launcher = {
     enable = mkOption {
       type = types.bool;
@@ -25,7 +25,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     networking.mihoyo-telemetry.block = true;
   };
 }

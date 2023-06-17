@@ -1,9 +1,9 @@
-{ lib
-, callPackage
-, wrapAAGL
-, unwrapped ? callPackage ./unwrapped.nix { }
+{
+  lib,
+  callPackage,
+  wrapAAGL,
+  unwrapped ? callPackage ./unwrapped.nix {},
 }:
-
 wrapAAGL {
   inherit unwrapped;
   binName = "anime-game-launcher";

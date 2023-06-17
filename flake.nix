@@ -6,11 +6,7 @@
       flake = false;
     };
   };
-  outputs = {
-    self,
-    nixpkgs,
-    ...
-  }: let
+  outputs = {nixpkgs, ...}: let
     inherit (nixpkgs) lib;
     genSystems = lib.genAttrs [
       # Supported OSes
@@ -27,6 +23,7 @@
       alias = import ./pkgs/alias.nix {inherit packages;};
       wrapAAGL = (pkgs.callPackage ./pkgs/wrapAAGL {}).override;
       packages = {
+        anime-borb-launcher = pkgs.callPackage ./pkgs/anime-borb-launcher {inherit wrapAAGL;};
         anime-game-launcher = pkgs.callPackage ./pkgs/anime-game-launcher {inherit wrapAAGL;};
         honkers-railway-launcher = pkgs.callPackage ./pkgs/honkers-railway-launcher {inherit wrapAAGL;};
         honkers-launcher = pkgs.callPackage ./pkgs/honkers-launcher {inherit wrapAAGL;};

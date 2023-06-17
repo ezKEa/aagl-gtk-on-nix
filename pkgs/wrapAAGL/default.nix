@@ -1,4 +1,5 @@
 {
+  cabextract,
   libunwind,
   gnutls,
   mangohud,
@@ -41,7 +42,7 @@
   # TODO: custom FHS env instead of using steam-run
   steam-run-custom =
     (steam.override {
-      extraPkgs = _p: [git gnutls mangohud nss_latest p7zip xdelta];
+      extraPkgs = _p: [cabextract git gnutls mangohud nss_latest p7zip xdelta];
       extraLibraries = _p: [libunwind];
       extraProfile = ''
         export PATH=${fakePkExec}/bin:${fakeBash}/bin:$PATH

@@ -32,6 +32,7 @@ in
   ];
 
   programs.anime-game-launcher.enable = true;
+  programs.anime-borb-launcher.enable = true;
   programs.honkers-railway-launcher.enable = true;
   programs.honkers-launcher.enable = true;
 }
@@ -56,6 +57,7 @@ Both the Cachix config and NixOS module are accessible via Flakes as well:
           imports = [ aagl.nixosModules.default ];
           nix.settings = aagl.nixConfig; # Set up Cachix
           programs.anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
+          programs.anime-borb-launcher.enable = true;
           programs.honkers-railway-launcher.enable = true;
           programs.honkers-launcher.enable = true;
         }
@@ -75,6 +77,7 @@ in
 {
   home.packages = [
     aagl-gtk-on-nix.anime-game-launcher
+    aagl-gtk-on-nix.anime-borb-launcher
     aagl-gtk-on-nix.honkers-railway-launcher
     aagl-gtk-on-nix.honkers-launcher
   ];

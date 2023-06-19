@@ -7,7 +7,7 @@
 wrapAAGL {
   inherit unwrapped;
   binName = "anime-borb-launcher";
-  packageName = "moe.launcher.anime-borb-launcher";
+  packageName = "moe.launcher.an-anime-borb-launcher";
   desktopName = "Punishing: Gray Raven Launcher";
 
   meta = with lib; {

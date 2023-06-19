@@ -8,7 +8,7 @@ with lib; let
   cfg = config.programs.anime-borb-launcher;
 in {
   imports = [
-    (lib.mkRenamedOptionModule ["programs" "an-anime-borb-launcher"] ["programs" "anime-borb-launcher"])
+    (lib.mkAliasOptionModule ["programs" "an-anime-borb-launcher"] ["programs" "anime-borb-launcher"])
   ];
 
   options.programs.anime-borb-launcher = {

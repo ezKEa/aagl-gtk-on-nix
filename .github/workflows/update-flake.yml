@@ -49,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        cacheName:
+        cachixName:
           - ezkea
         nixPath:
           - nixpkgs=channel:nixos-unstable

@@ -48,15 +48,16 @@ jobs:
     needs: update
     runs-on: ubuntu-latest
     strategy:
-      cacheName:
-        - ezkea
-      nixPath:
-        - nixpkgs=channel:nixos-unstable
-      package:
-        - an-anime-game-launcher
-        - an-anime-borb-launcher
-        - the-honkers-railway-launcher
-        - honkers-launcher
+      matrix:
+        cacheName:
+          - ezkea
+        nixPath:
+          - nixpkgs=channel:nixos-unstable
+        package:
+          - an-anime-game-launcher
+          - an-anime-borb-launcher
+          - the-honkers-railway-launcher
+          - honkers-launcher
     steps:
 
     - name: Install Doppler CLI

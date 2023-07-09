@@ -104,7 +104,7 @@ jobs:
   pr:
     name: Make PR
     needs: [update, build]
-    runs-on: update-latest
+    runs-on: ubuntu-latest
     steps:
     - name: Install Doppler CLI
       uses: dopplerhq/cli-action@v2

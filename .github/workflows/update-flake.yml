@@ -50,12 +50,41 @@ jobs:
     strategy:
       cacheName:
         - ezkea
+      nixPath:
+        - nixpkgs=channel:nixos-unstable
       package:
         - an-anime-game-launcher
         - an-anime-borb-launcher
         - the-honkers-railway-launcher
         - honkers-launcher
     steps:
+
+    - name: Install Doppler CLI
+      uses: dopplerhq/cli-action@v2
+
+    - name: Pass all secrets to next steps
+      run: |
+        while read -rd $'' line; do echo "$line" >> $GITHUB_ENV; done < <( doppler secrets download --no-file --format=json | jq "." | grep -v 'DOPPLER_\(CONFIG\|ENVIRONMENT\|PROJECT\)' | jq -r 'to_entries|map("\(.key)<<EOF\n\(.value)\nEOF\u0000")[]' )
+        while read -r line; do echo "::add-mask::$line"; done < <( doppler secrets download --no-file --format=json | jq "." | grep -v 'DOPPLER_\(CONFIG\|ENVIRONMENT\|PROJECT\)' | jq -r 'to_entries|map("\(.value)\u0000")[]' )
+      env:
+        DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
+
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v22
+      with:
+        nix_path: "${{ matrix.nixPath }}"
+
+    - name: Install Cachix
+      uses: cachix/cachix-action@v12
+      with:
+        name: ${{ matrix.cachixName }}
+        authToken: '${{ env.CACHIX_AUTH_TOKEN }}'
+
     - name: Download diff artifact
       uses: actions/download-artifact@v3
       with:

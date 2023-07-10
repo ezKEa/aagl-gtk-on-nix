@@ -180,6 +180,7 @@ jobs:
       matrix:
         package:
           - an-anime-game-launcher
+          - an-anime-borb-launcher
           - the-honkers-railway-launcher
           - honkers-launcher
     steps:

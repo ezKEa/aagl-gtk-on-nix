@@ -74,6 +74,7 @@
     genericName = desktopName;
     exec = "${wrapper}/bin/${binName}";
     icon = packageName;
+    startupWMClass = packageName;
     startupNotify = true;
   };
 in

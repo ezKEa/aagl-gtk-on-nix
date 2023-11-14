@@ -1,0 +1,74 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index 68f6e9f..694976e 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -299,7 +299,7 @@ dependencies = [
+  "futures-lite 2.0.1",
+  "parking",
+  "polling 3.3.0",
+- "rustix 0.38.21",
++ "rustix 0.38.22",
+  "slab",
+  "tracing",
+  "waker-fn",
+@@ -339,7 +339,7 @@ dependencies = [
+  "cfg-if",
+  "event-listener 3.1.0",
+  "futures-lite 1.13.0",
+- "rustix 0.38.21",
++ "rustix 0.38.22",
+  "windows-sys",
+ ]
+ 
+@@ -366,7 +366,7 @@ dependencies = [
+  "cfg-if",
+  "futures-core",
+  "futures-io",
+- "rustix 0.38.21",
++ "rustix 0.38.22",
+  "signal-hook-registry",
+  "slab",
+  "windows-sys",
+@@ -2230,7 +2230,7 @@ dependencies = [
+  "cfg-if",
+  "concurrent-queue",
+  "pin-project-lite",
+- "rustix 0.38.21",
++ "rustix 0.38.22",
+  "tracing",
+  "windows-sys",
+ ]
+@@ -2528,9 +2528,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "rustix"
+-version = "0.38.21"
++version = "0.38.22"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "2b426b0506e5d50a7d8dafcf2e81471400deb602392c7dd110815afb4eaf02a3"
++checksum = "80109a168d9bc0c7f483083244543a6eb0dba02295d33ca268145e6190d6df0c"
+ dependencies = [
+  "bitflags 2.4.1",
+  "errno",
+@@ -2917,7 +2917,7 @@ dependencies = [
+  "cfg-if",
+  "fastrand 2.0.1",
+  "redox_syscall 0.4.1",
+- "rustix 0.38.21",
++ "rustix 0.38.22",
+  "windows-sys",
+ ]
+ 
+diff --git a/Cargo.toml b/Cargo.toml
+index b796970..f7dc1b8 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -26,7 +26,7 @@ features = ["all", "star-rail", "star-rail-patch"]
+ 
+ [dependencies]
+ relm4 = { version = "0.7.0-beta.2", features = ["macros", "libadwaita"] }
+-gtk = { package = "gtk4", version = "0.7.3", features = ["v4_12"] }
++gtk = { package = "gtk4", version = "0.7.3", features = ["v4_10"] }
+ adw = { package = "libadwaita", version = "0.5.3", features = ["v1_3"] }
+ 
+ rfd = { version = "0.12.1", features = ["xdg-portal"], default-features = false }

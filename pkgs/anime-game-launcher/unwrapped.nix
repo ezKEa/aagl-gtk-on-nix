@@ -18,13 +18,13 @@
 with lib;
   rustPlatform.buildRustPackage rec {
     pname = "anime-game-launcher";
-    version = "3.9.1";
+    version = "3.9.2";
 
     src = fetchFromGitHub {
       owner = "an-anime-team";
       repo = "an-anime-game-launcher";
       rev = version;
-      sha256 = "sha256-nuoGMNhQnkt7UbBzD4FyleougeTD4XS/aOqhrEtyrk0=";
+      sha256 = "sha256-vSS0AzTqCWacrx+pz5RFnBP+yoUtgIpR2eQCt0N8X2M=";
       fetchSubmodules = true;
     };
 
@@ -33,11 +33,17 @@ with lib;
       cp ${customIcon} assets/images/icon.png
     '';
 
+    # TODO: Remove this patch when GNOME 45 is merged into nixpkgs
+    # https://github.com/NixOS/nixpkgs/pull/247766
+    patches = [
+      ./gtk4-version.patch
+    ];
+
     cargoLock = {
-      lockFile = "${src}/Cargo.lock";
+      lockFile = ./Cargo.lock;
       outputHashes = {
-        "anime-game-core-1.16.0" = "sha256-q5Sl7KAAd6pCN9POEa/DRsfGt72pUmMpMTQ4+lc+qT0=";
-        "anime-launcher-sdk-1.11.2" = "sha256-LQp/dIaQiZLNf5Ou0y0Sxll4J41jvBRqu0KX3SG0tT8=";
+        "anime-game-core-1.17.2" = "sha256-goZvMP+NdfyAqPV7r2vMfXVYBD21LF/kFT+rlUkggfY=";
+        "anime-launcher-sdk-1.12.2" = "sha256-LmAhqssTuFIWyXrqM6KMZ3DWtwaxGV2PYUgU02qyomE=";
       };
     };
 

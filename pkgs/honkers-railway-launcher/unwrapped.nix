@@ -33,14 +33,8 @@ with lib;
       cp ${customIcon} assets/images/icon.png
     '';
 
-    # TODO: Remove this patch when GNOME 45 is merged into nixpkgs
-    # https://github.com/NixOS/nixpkgs/pull/247766
-    patches = [
-      ./gtk4-version.patch
-    ];
-
     cargoLock = {
-      lockFile = ./Cargo.lock;
+      lockFile = "${src}/Cargo.lock";
       outputHashes = {
         "anime-game-core-1.17.3" = "sha256-rx/Rb5N8EbClpWulcrY1n7/PAipCP5EB5KzXQfz8cHQ=";
         "anime-launcher-sdk-1.12.3" = "sha256-ic/aGA4K+f3J7klbyNZw3X78W3yb7RpSDNdZkp+y5k0=";

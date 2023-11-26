@@ -24,7 +24,9 @@ To install the launchers on NixOS, add the following to `configuration.nix`:
 ```nix
 # configuration.nix
 let
-  aagl-gtk-on-nix = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz");
+  aagl-gtk-on-nix = import (builtins.fetchGit {
+    url = "https://github.com/ezKEa/aagl-gtk-on-nix.git";
+  });
 in
 {
   imports = [
@@ -72,7 +74,9 @@ You can also install the launchers using [home-manager](https://github.com/nix-c
 ```nix
 # home.nix
 let
-  aagl-gtk-on-nix = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz");
+  aagl-gtk-on-nix = import (builtins.fetchGit {
+    url = "https://github.com/ezKEa/aagl-gtk-on-nix.git";
+  });
 in
 {
   home.packages = [

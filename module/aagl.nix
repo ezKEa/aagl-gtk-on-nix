@@ -1,10 +1,11 @@
+packages:
 {
   config,
   lib,
   ...
 }:
 with lib; let
-  anime-game-launcher = (import ../default.nix).anime-game-launcher;
+  anime-game-launcher = packages.anime-game-launcher;
   cfg = config.programs.anime-game-launcher;
 in {
   imports = [

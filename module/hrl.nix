@@ -1,10 +1,11 @@
+packages:
 {
   config,
   lib,
   ...
 }:
 with lib; let
-  honkers-railway-launcher = (import ../default.nix).honkers-railway-launcher;
+  honkers-railway-launcher = packages.honkers-railway-launcher;
   cfg = config.programs.honkers-railway-launcher;
 in {
   imports = [

@@ -1,10 +1,11 @@
+packages:
 {
   config,
   lib,
   ...
 }:
 with lib; let
-  anime-borb-launcher = (import ../default.nix).anime-borb-launcher;
+  anime-borb-launcher = packages.anime-borb-launcher;
   cfg = config.programs.anime-borb-launcher;
 in {
   imports = [

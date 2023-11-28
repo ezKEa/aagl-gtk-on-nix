@@ -1,10 +1,11 @@
+packages:
 {
   config,
   lib,
   ...
 }:
 with lib; let
-  honkers-launcher = (import ../default.nix).honkers-launcher;
+  honkers-launcher = packages.honkers-launcher;
   cfg = config.programs.honkers-launcher;
 in {
   options.programs.honkers-launcher = {

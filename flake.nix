@@ -31,7 +31,7 @@
     in
       packages // alias;
   in {
-    nixosModules.default = import ./module/default.nix;
+    nixosModules.default = import ./module/default.nix (packages (nixpkgs-nonfree "x86_64-linux"));
     nixConfig = {
       extra-substituters = ["https://ezkea.cachix.org"];
       extra-trusted-public-keys = ["ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="];

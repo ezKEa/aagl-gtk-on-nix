@@ -1,9 +1,9 @@
-{...}: {
+packages: {...}: {
   imports = [
-    ./aagl.nix
-    ./borb.nix
-    ./hrl.nix
-    ./hl.nix
+    (import ./aagl.nix packages)
+    (import ./borb.nix packages)
+    (import ./hrl.nix packages)
+    (import ./hl.nix packages)
     ./hosts.nix
   ];
 }

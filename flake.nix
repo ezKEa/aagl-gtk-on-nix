@@ -23,10 +23,22 @@
       alias = import ./pkgs/alias.nix {inherit packages;};
       wrapAAGL = (pkgs.callPackage ./pkgs/wrapAAGL {}).override;
       packages = {
-        anime-borb-launcher = pkgs.callPackage ./pkgs/anime-borb-launcher {inherit wrapAAGL;};
-        anime-game-launcher = pkgs.callPackage ./pkgs/anime-game-launcher {inherit wrapAAGL;};
-        honkers-railway-launcher = pkgs.callPackage ./pkgs/honkers-railway-launcher {inherit wrapAAGL;};
-        honkers-launcher = pkgs.callPackage ./pkgs/honkers-launcher {inherit wrapAAGL;};
+        anime-borb-launcher = pkgs.callPackage ./pkgs/anime-borb-launcher {
+          inherit wrapAAGL;
+          unwrapped = pkgs.callPackage ./pkgs/anime-borb-launcher/unwrapped.nix {};
+        };
+        anime-game-launcher = pkgs.callPackage ./pkgs/anime-game-launcher {
+          inherit wrapAAGL;
+          unwrapped = pkgs.callPackage ./pkgs/anime-game-launcher/unwrapped.nix {};
+        };
+        honkers-railway-launcher = pkgs.callPackage ./pkgs/honkers-railway-launcher {
+          inherit wrapAAGL;
+          unwrapped = pkgs.callPackage ./pkgs/honkers-railway-launcher/unwrapped.nix {};
+        };
+        honkers-launcher = pkgs.callPackage ./pkgs/honkers-launcher {
+          inherit wrapAAGL;
+          unwrapped = pkgs.callPackage ./pkgs/honkers-launcher/unwrapped.nix {};
+        };
       };
     in
       packages // alias;

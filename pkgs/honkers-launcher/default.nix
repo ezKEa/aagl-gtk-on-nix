@@ -1,8 +1,7 @@
 {
   lib,
-  callPackage,
   wrapAAGL,
-  unwrapped ? callPackage ./unwrapped.nix {},
+  unwrapped
 }:
 wrapAAGL {
   inherit unwrapped;

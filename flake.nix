@@ -7,43 +7,34 @@
     };
   };
   outputs = {nixpkgs, ...}: let
-    inherit (nixpkgs) lib;
-    genSystems = lib.genAttrs [
+    genSystems = nixpkgs.lib.genAttrs [
       # Supported OSes
       "x86_64-linux"
     ];
 
-    nixpkgs-nonfree = system:
-      import nixpkgs {
-        inherit system;
-        config = {allowUnfree = true;};
-      };
+    nixpkgs-nonfree = system: import nixpkgs {
+      inherit system;
+      config = {allowUnfree = true;};
+    };
 
     packages = pkgs: let
-      alias = import ./pkgs/alias.nix {inherit packages;};
+      alias = import ./pkgs/alias.nix launchers;
       wrapAAGL = (pkgs.callPackage ./pkgs/wrapAAGL {}).override;
-      packages = {
-        anime-borb-launcher = pkgs.callPackage ./pkgs/anime-borb-launcher {
+      mkLauncher = (launcher: {
+        "${launcher}" = pkgs.callPackage ./pkgs/${launcher} {
           inherit wrapAAGL;
-          unwrapped = pkgs.callPackage ./pkgs/anime-borb-launcher/unwrapped.nix {};
+          unwrapped = pkgs.callPackage ./pkgs/${launcher}/unwrapped.nix {};
         };
-        anime-game-launcher = pkgs.callPackage ./pkgs/anime-game-launcher {
-          inherit wrapAAGL;
-          unwrapped = pkgs.callPackage ./pkgs/anime-game-launcher/unwrapped.nix {};
-        };
-        honkers-railway-launcher = pkgs.callPackage ./pkgs/honkers-railway-launcher {
-          inherit wrapAAGL;
-          unwrapped = pkgs.callPackage ./pkgs/honkers-railway-launcher/unwrapped.nix {};
-        };
-        honkers-launcher = pkgs.callPackage ./pkgs/honkers-launcher {
-          inherit wrapAAGL;
-          unwrapped = pkgs.callPackage ./pkgs/honkers-launcher/unwrapped.nix {};
-        };
-      };
-    in
-      packages // alias;
+      });
+      launchers = builtins.foldl' (a: b: a // b) {} (map mkLauncher [
+        "anime-borb-launcher"
+        "anime-game-launcher"
+        "honkers-railway-launcher"
+        "honkers-launcher"
+      ]);
+    in launchers // alias;
   in {
-    nixosModules.default = import ./module/default.nix (packages (nixpkgs-nonfree "x86_64-linux"));
+    nixosModules.default = import ./module (packages (nixpkgs-nonfree "x86_64-linux"));
     nixConfig = {
       extra-substituters = ["https://ezkea.cachix.org"];
       extra-trusted-public-keys = ["ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="];

@@ -28,6 +28,12 @@
     exec "''${final[@]}"
   '';
 
+  mangohud-fixed = mangohud.overrideAttrs (oldAttrs: {
+    patches = oldAttrs.patches ++ [
+      ./fix-mangohud-blacklist.patch
+    ];
+  });
+
   # Nasty hack for mangohud
   fakeBash = writeShellScriptBin "bash" ''
     declare -a final
@@ -43,7 +49,7 @@
   # TODO: custom FHS env instead of using steam-run
   steam-run-custom =
     (steam.override {
-      extraPkgs = _p: [cabextract gamescope git gnutls mangohud nss_latest p7zip xdelta];
+      extraPkgs = _p: [cabextract gamescope git gnutls mangohud-fixed nss_latest p7zip xdelta];
       extraLibraries = _p: [libunwind];
       extraProfile = ''
         export PATH=${fakePkExec}/bin:${fakeBash}/bin:$PATH

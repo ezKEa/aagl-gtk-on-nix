@@ -1,0 +1,21 @@
+From 50989b730788742ed91d82011408e5221fdb9399 Mon Sep 17 00:00:00 2001
+From: FlightlessMango <flightlessmangoyt@gmail.com>
+Date: Wed, 11 Oct 2023 03:37:42 +0200
+Subject: [PATCH] blacklist: remove wine64-preloader
+
+---
+ src/blacklist.cpp | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/src/blacklist.cpp b/src/blacklist.cpp
+index 569fe12c04..1fabcc652d 100644
+--- a/src/blacklist.cpp
++++ b/src/blacklist.cpp
+@@ -49,7 +49,6 @@ static  std::vector<std::string> blacklist {
+     "RSI Launcher.exe",
+     "tabtip.exe",
+     "steam.exe",
+-    "wine64-preloader",
+     "explorer.exe",
+     "wine-preloader",
+     "iexplore.exe",

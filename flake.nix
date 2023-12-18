@@ -32,7 +32,12 @@
         "honkers-railway-launcher"
         "honkers-launcher"
       ]);
-    in launchers // alias;
+    in launchers // alias // {
+      allLaunchers = pkgs.symlinkJoin {
+        name = "allLaunchers";
+        paths = builtins.attrValues launchers;
+      };
+    };
   in {
     nixosModules.default = import ./module (packages (nixpkgs-nonfree "x86_64-linux"));
     nixConfig = {

@@ -15,10 +15,11 @@ jobs:
       matrix:
         cachixName:
           - ezkea
-        nixPath:
-          - nixpkgs=channel:nixos-unstable
-          - nixpkgs=channel:nixpkgs-unstable
-          - nixpkgs=channel:nixos-23.05
+        nixpkgs:
+          - nixos-unstable
+          - nixpkgs-unstable
+          - nixos-23.11
+          - pinned
 
     runs-on: ubuntu-latest
     steps:
@@ -39,8 +40,6 @@ jobs:
 
     - name: Install Nix
       uses: cachix/install-nix-action@v24
-      with:
-        nix_path: "${{ matrix.nixPath }}"
 
     - name: Install Cachix
       uses: cachix/cachix-action@v13
@@ -51,9 +50,11 @@ jobs:
 
     - name: Build
       run: |
-        nix-build
-      env:
-        NIXPKGS_ALLOW_UNFREE: 1
+        if [[ ${{ matrix.nixpkgs }} == "pinned" ]]; then
+          nix build .#allLaunchers -L
+        else
+          nix build --override-input nixpkgs "github:NixOS/nixpkgs/${{ matrix.nixpkgs }}" .#allLaunchers -L
+        fi
 
   telegram:
     name: Telegram

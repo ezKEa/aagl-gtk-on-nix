@@ -28,11 +28,13 @@
     exec "''${final[@]}"
   '';
 
-  mangohud-fixed = mangohud.overrideAttrs (oldAttrs: {
+  mangohud-fixed = if (builtins.compareVersions "0.7.0" mangohud.version) >= 0
+  then mangohud.overrideAttrs (oldAttrs: {
     patches = oldAttrs.patches ++ [
       ./fix-mangohud-blacklist.patch
     ];
-  });
+  })
+  else mangohud;
 
   # Nasty hack for mangohud
   fakeBash = writeShellScriptBin "bash" ''

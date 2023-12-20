@@ -33,11 +33,15 @@ with lib;
       cp ${customIcon} assets/images/icon.png
     '';
 
+    patches = [
+      ./fps-unlock-fix.patch
+    ];
+
     cargoLock = {
-      lockFile = "${src}/Cargo.lock";
+      lockFile = ./Cargo.lock;
       outputHashes = {
         "anime-game-core-1.17.2" = "sha256-goZvMP+NdfyAqPV7r2vMfXVYBD21LF/kFT+rlUkggfY=";
-        "anime-launcher-sdk-1.12.2" = "sha256-LmAhqssTuFIWyXrqM6KMZ3DWtwaxGV2PYUgU02qyomE=";
+        "anime-launcher-sdk-1.12.3" = "sha256-CfF4C7t9BPsmtOm3sSG+x2divz8MLBxf2sHHiw1wHFE=";
       };
     };
 

@@ -51,9 +51,13 @@ jobs:
     - name: Build
       run: |
         if [[ ${{ matrix.nixpkgs }} == "pinned" ]]; then
-          nix build .#allLaunchers -L
+          nix build --accept-flake-config -L .#allLaunchers
         else
-          nix build --override-input nixpkgs "github:NixOS/nixpkgs/${{ matrix.nixpkgs }}" .#allLaunchers -L
+          nix build \
+            --accept-flake-config \
+            --print-build-logs \
+            --override-input nixpkgs "github:NixOS/nixpkgs/${{ matrix.nixpkgs }}" \
+            .#allLaunchers
         fi
 
   telegram:

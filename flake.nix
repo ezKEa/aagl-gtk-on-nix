@@ -1,4 +1,9 @@
-{
+rec {
+  nixConfig = {
+    extra-substituters = ["https://ezkea.cachix.org"];
+    extra-trusted-public-keys = ["ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="];
+  };
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-compat = {
@@ -6,7 +11,7 @@
       flake = false;
     };
   };
-  outputs = {nixpkgs, ...}: let
+  outputs = { nixpkgs, ... }: let
     genSystems = nixpkgs.lib.genAttrs [
       # Supported OSes
       "x86_64-linux"
@@ -14,16 +19,16 @@
 
     nixpkgs-nonfree = system: import nixpkgs {
       inherit system;
-      config = {allowUnfree = true;};
+      config = { allowUnfree = true; };
     };
 
-    packages = pkgs: let
+    packages = pkgs: with pkgs; let
       alias = import ./pkgs/alias.nix launchers;
-      wrapAAGL = (pkgs.callPackage ./pkgs/wrapAAGL {}).override;
+      wrapAAGL = (callPackage ./pkgs/wrapAAGL {}).override;
       mkLauncher = (launcher: {
-        "${launcher}" = pkgs.callPackage ./pkgs/${launcher} {
+        "${launcher}" = callPackage ./pkgs/${launcher} {
           inherit wrapAAGL;
-          unwrapped = pkgs.callPackage ./pkgs/${launcher}/unwrapped.nix {};
+          unwrapped = callPackage ./pkgs/${launcher}/unwrapped.nix {};
         };
       });
       launchers = builtins.foldl' (a: b: a // b) {} (map mkLauncher [
@@ -33,17 +38,14 @@
         "honkers-launcher"
       ]);
     in launchers // alias // {
-      allLaunchers = pkgs.symlinkJoin {
+      allLaunchers = symlinkJoin {
         name = "allLaunchers";
         paths = builtins.attrValues launchers;
       };
     };
   in {
+    inherit nixConfig;
     nixosModules.default = import ./module (packages (nixpkgs-nonfree "x86_64-linux"));
-    nixConfig = {
-      extra-substituters = ["https://ezkea.cachix.org"];
-      extra-trusted-public-keys = ["ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="];
-    };
     packages = genSystems (system: let pkgs = nixpkgs-nonfree system; in packages pkgs);
     overlays.default = _: prev: builtins.removeAttrs (packages prev) ["unwrapped" "regular"];
   };

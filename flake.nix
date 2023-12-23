@@ -11,6 +11,7 @@ rec {
       flake = false;
     };
   };
+
   outputs = { nixpkgs, ... }: let
     genSystems = nixpkgs.lib.genAttrs [
       # Supported OSes

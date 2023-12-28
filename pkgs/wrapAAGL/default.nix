@@ -7,7 +7,6 @@
   symlinkJoin,
   writeShellScriptBin,
   xdelta,
-  runtimeShell,
   stdenv,
   makeDesktopItem,
   nss_latest,
@@ -19,15 +18,8 @@
   packageName ? "",
   desktopName ? "",
   meta ? {},
-}: let
-  fakePkExec = writeShellScriptBin "pkexec" ''
-    declare -a final
-    for value in "$@"; do
-      final+=("$value")
-    done
-    exec "''${final[@]}"
-  '';
-
+}:
+let
   mangohud-fixed = if (builtins.compareVersions "0.7.0" mangohud.version) >= 0
   then mangohud.overrideAttrs (oldAttrs: {
     patches = oldAttrs.patches ++ [
@@ -36,16 +28,12 @@
   })
   else mangohud;
 
-  # Nasty hack for mangohud
-  fakeBash = writeShellScriptBin "bash" ''
+  fakePkExec = writeShellScriptBin "pkexec" ''
     declare -a final
     for value in "$@"; do
       final+=("$value")
     done
-    if [[ "$MANGOHUD" == "1" ]]; then
-      exec mangohud ${runtimeShell} "''${final[@]}"
-    fi
-    exec ${runtimeShell} "''${final[@]}"
+    exec "''${final[@]}"
   '';
 
   # TODO: custom FHS env instead of using steam-run
@@ -54,7 +42,7 @@
       extraPkgs = _p: [cabextract gamescope git gnutls mangohud-fixed nss_latest p7zip xdelta];
       extraLibraries = _p: [libunwind];
       extraProfile = ''
-        export PATH=${fakePkExec}/bin:${fakeBash}/bin:$PATH
+        export PATH=${fakePkExec}/bin:$PATH
       '';
     })
     .run;

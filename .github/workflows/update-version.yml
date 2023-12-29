@@ -174,14 +174,14 @@ jobs:
     - name: Create success artifact
       if: steps.build.outcome == 'success'
       run: |
-        echo "yes" >> "${{ matrix.package }}-success.artifact"
+        echo "yes" >> "${{ matrix.package }}-${{ matrix.nixpkgs }}-success.artifact"
 
     - name: Upload success artifact
       uses: actions/upload-artifact@v4
       if: steps.build.outcome == 'success'
       with:
-        name: "${{ matrix.package }}-success.artifact"
-        path: "${{ matrix.package }}-success.artifact"
+        name: "${{ matrix.package }}-${{ matrix.nixpkgs }}-success.artifact"
+        path: "${{ matrix.package }}-${{ matrix.nixpkgs }}-success.artifact"
 
   pr:
     name: Make PR
@@ -207,15 +207,25 @@ jobs:
       env:
         DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
 
-    - name: Download build success artifact
-      uses: actions/download-artifact@v4
+    - uses: actions/download-artifact@v4
       with:
-        name: "${{ matrix.package }}-success.artifact"
-        path: "${{ matrix.package }}-success.artifact"
+        name: "${{ matrix.package }}-nixos-unstable-success.artifact"
+        path: "${{ matrix.package }}-nixos-unstable-success.artifact"
 
-    - name: Check for build success
-      run: |
-        [[ -f "${{ matrix.package}}-update.diff/${{ matrix.package }}-update.diff" ]] || exit 1
+    - uses: actions/download-artifact@v4
+      with:
+        name: "${{ matrix.package }}-nixpkgs-unstable-success.artifact"
+        path: "${{ matrix.package }}-nixpkgs-unstable-success.artifact"
+
+    - uses: actions/download-artifact@v4
+      with:
+        name: "${{ matrix.package }}-nixos-23.11-success.artifact"
+        path: "${{ matrix.package }}-nixos-23.11-success.artifact"
+
+    - uses: actions/download-artifact@v4
+      with:
+        name: "${{ matrix.package }}-pinned-success.artifact"
+        path: "${{ matrix.package }}-pinned-success.artifact"
 
     - name: Checkout repository
       uses: actions/checkout@v4

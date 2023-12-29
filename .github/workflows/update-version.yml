@@ -105,10 +105,11 @@ jobs:
       matrix:
         cachixName:
           - ezkea
-        nixPath:
-          - nixpkgs=channel:nixos-unstable
-          - nixpkgs=channel:nixpkgs-unstable
-          # - nixpkgs=channel:nixos-22.11
+        nixpkgs:
+          - nixos-unstable
+          - nixpkgs-unstable
+          - nixos-23.11
+          - pinned
         package:
           - an-anime-game-launcher
           - an-anime-borb-launcher
@@ -133,8 +134,6 @@ jobs:
 
     - name: Install Nix
       uses: cachix/install-nix-action@v24
-      with:
-        nix_path: "${{ matrix.nixPath }}"
 
     - name: Install Cachix
       uses: cachix/cachix-action@v13
@@ -159,7 +158,15 @@ jobs:
 
     - name: Build
       run: |
-        nix-build -A "${{ matrix.package }}"
+        if [[ ${{ matrix.nixpkgs }} == "pinned" ]]; then
+          nix build --accept-flake-config -L ".#${{ matrix.package }}"
+        else
+          nix build \
+            --accept-flake-config \
+            --print-build-logs \
+            --override-input nixpkgs "github:NixOS/nixpkgs/${{ matrix.nixpkgs }}" \
+            ".#${{ matrix.package }}"
+        fi
       env:
         NIXPKGS_ALLOW_UNFREE: 1
 

@@ -38,13 +38,11 @@ jobs:
     - name: Get current version
       run: |
         set -x
-        currentVersion="$(nix-instantiate --eval -E '
+        currentVersion="$(nix eval --impure --raw --expr "
           let
-            aagl = import ./default.nix;
-            version = aagl.${{ matrix.package }}-unwrapped.version;
-          in
-          version
-        ' | tr -d \")"
+            flake = builtins.getFlake \"path:$(pwd)/.\";
+          in flake.packages.x86_64-linux.${{ matrix.package }}.unwrapped.version
+        ")"
         echo "current-version=$currentVersion" >> $GITHUB_ENV
 
     - name: Check for new release

@@ -157,6 +157,7 @@ jobs:
         git apply "${{ matrix.package }}-update.diff/${{ matrix.package }}-update.diff"
 
     - name: Build
+      id: build
       run: |
         if [[ ${{ matrix.nixpkgs }} == "pinned" ]]; then
           nix build --accept-flake-config -L ".#${{ matrix.package }}"
@@ -170,8 +171,14 @@ jobs:
       env:
         NIXPKGS_ALLOW_UNFREE: 1
 
+    - name: Create success artifact
+      if: steps.build.outcome == 'success'
+      run: |
+        echo "yes" >> "${{ matrix.package }}-success.artifact"
+
     - name: Upload success artifact
       uses: actions/upload-artifact@v4
+      if: steps.build.outcome == 'success'
       with:
         name: "${{ matrix.package }}-success.artifact"
         path: "${{ matrix.package }}-success.artifact"

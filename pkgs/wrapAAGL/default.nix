@@ -20,14 +20,6 @@
   meta ? {},
 }:
 let
-  mangohud-fixed = if (builtins.compareVersions "0.7.0" mangohud.version) >= 0
-  then mangohud.overrideAttrs (oldAttrs: {
-    patches = oldAttrs.patches ++ [
-      ./fix-mangohud-blacklist.patch
-    ];
-  })
-  else mangohud;
-
   fakePkExec = writeShellScriptBin "pkexec" ''
     declare -a final
     for value in "$@"; do
@@ -39,7 +31,7 @@ let
   # TODO: custom FHS env instead of using steam-run
   steam-run-custom =
     (steam.override {
-      extraPkgs = _p: [cabextract gamescope git gnutls mangohud-fixed nss_latest p7zip xdelta];
+      extraPkgs = _p: [cabextract gamescope git gnutls mangohud nss_latest p7zip xdelta];
       extraLibraries = _p: [libunwind];
       extraProfile = ''
         export PATH=${fakePkExec}/bin:$PATH

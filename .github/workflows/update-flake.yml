@@ -9,7 +9,6 @@ jobs:
   update:
     name: Update flake.nix
     runs-on: ubuntu-latest
-
     steps:
     - name: Install Doppler CLI
       uses: dopplerhq/cli-action@v2
@@ -51,15 +50,12 @@ jobs:
       matrix:
         cachixName:
           - ezkea
-        nixPath:
-          - nixpkgs=channel:nixos-unstable
         package:
           - an-anime-game-launcher
           - an-anime-borb-launcher
           - the-honkers-railway-launcher
           - honkers-launcher
     steps:
-
     - name: Install Doppler CLI
       uses: dopplerhq/cli-action@v2
 
@@ -77,8 +73,6 @@ jobs:
 
     - name: Install Nix
       uses: cachix/install-nix-action@v24
-      with:
-        nix_path: "${{ matrix.nixPath }}"
 
     - name: Install Cachix
       uses: cachix/cachix-action@v13
@@ -97,9 +91,7 @@ jobs:
 
     - name: Build
       run: |
-        nix-build -A "${{ matrix.package }}"
-      env:
-        NIXPKGS_ALLOW_UNFREE: 1
+        nix build --accept-flake-config -L ".#${{ matrix.package }}"
 
   pr:
     name: Make PR

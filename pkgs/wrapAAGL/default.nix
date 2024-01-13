@@ -13,6 +13,7 @@
   git,
   p7zip,
   gamescope,
+  unzip,
   unwrapped ? null,
   binName ? "",
   packageName ? "",
@@ -31,7 +32,7 @@ let
   # TODO: custom FHS env instead of using steam-run
   steam-run-custom =
     (steam.override {
-      extraPkgs = _p: [cabextract gamescope git gnutls mangohud nss_latest p7zip xdelta];
+      extraPkgs = _p: [cabextract gamescope git gnutls mangohud nss_latest p7zip xdelta unzip];
       extraLibraries = _p: [libunwind];
       extraProfile = ''
         export PATH=${fakePkExec}/bin:$PATH

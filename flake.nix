@@ -35,6 +35,7 @@ rec {
       launchers = builtins.foldl' (a: b: a // b) {} (map mkLauncher [
         "anime-borb-launcher"
         "anime-game-launcher"
+        "anime-games-launcher"
         "honkers-railway-launcher"
         "honkers-launcher"
       ]);

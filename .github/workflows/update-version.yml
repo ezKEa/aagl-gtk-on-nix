@@ -11,10 +11,11 @@ jobs:
     strategy:
       matrix:
         package:
-          - an-anime-game-launcher
           - an-anime-borb-launcher
-          - the-honkers-railway-launcher
+          - an-anime-game-launcher
+          - anime-games-launcher
           - honkers-launcher
+          - the-honkers-railway-launcher
 
     steps:
     - name: Install Doppler CLI

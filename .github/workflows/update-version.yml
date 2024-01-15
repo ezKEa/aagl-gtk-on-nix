@@ -137,7 +137,7 @@ jobs:
       uses: cachix/install-nix-action@v24
 
     - name: Install Cachix
-      uses: cachix/cachix-action@v13
+      uses: cachix/cachix-action@v14
       with:
         name: ${{ matrix.cachixName }}
         authToken: '${{ env.CACHIX_AUTH_TOKEN }}'

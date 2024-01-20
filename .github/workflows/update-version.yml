@@ -114,6 +114,7 @@ jobs:
         package:
           - an-anime-game-launcher
           - an-anime-borb-launcher
+          - anime-games-launcher
           - the-honkers-railway-launcher
           - honkers-launcher
     steps:
@@ -195,6 +196,7 @@ jobs:
         package:
           - an-anime-game-launcher
           - an-anime-borb-launcher
+          - anime-games-launcher
           - the-honkers-railway-launcher
           - honkers-launcher
     steps:

@@ -18,13 +18,13 @@
 with lib;
   rustPlatform.buildRustPackage rec {
     pname = "anime-games-launcher";
-    version = "1.0.0";
+    version = "1.0.2";
 
     src = fetchFromGitHub {
       owner = "an-anime-team";
       repo = "anime-games-launcher";
       rev = "v${version}";
-      sha256 = "sha256-ddvyYhpJhxrNMcmv7KdHpVmu2oOnYDKfsQw3pQ1CASc=";
+      sha256 = "sha256-EwpZQ0nesTBbL1wfmIOJZBgHXzsKrpKKqyuGCFSCZuI=";
       fetchSubmodules = true;
     };
 

@@ -20,15 +20,18 @@ Alternatively, you can add the Cachix declaratively:
 ```
 
 ## Installation
-To install the launchers on NixOS, add the following to `configuration.nix`:
+To install the launchers on NixOS, refer to the following example module:
 ```nix
 # configuration.nix
+{ config, pkgs, ... }:
 let
   aagl-gtk-on-nix = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz");
+  # aaglPkgs = aagl-gtk-on-nix.withNixpkgs pkgs
 in
 {
   imports = [
     aagl-gtk-on-nix.module
+    # aaglPkgs.module
   ];
 
   programs.anime-game-launcher.enable = true;
@@ -38,6 +41,8 @@ in
   programs.honkers-launcher.enable = true;
 }
 ```
+
+The `withNixpkgs` function allows you change the nixpkgs instance which this package set is built against, similarly to to the `inputs.nixpkgs.follows` syntax in flakes. If you use NixOS on the unstable branch, it's likely that your environment is incompatible with the runtime dependencies provided by the flake-pinned nixpkgs, so you probably want to use this.
 
 ### Flakes
 Both the Cachix config and NixOS module are accessible via Flakes as well:

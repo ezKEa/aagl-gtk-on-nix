@@ -44,6 +44,8 @@ rec {
         name = "allLaunchers";
         paths = builtins.attrValues launchers;
       };
+      # return this package set with a given nixpkgs instance
+      withNixpkgs = p: packages p;
     };
   in {
     inherit nixConfig;

@@ -18,11 +18,11 @@ let
     config.allowUnfree = true;
   };
 
-  outputs = pkgs: with flake.outputs; let
-    packages = packages.x86_64-linux.withNixpkgs pkgs;
+  outputs = pkgs: let
+    packages = flake.outputs.packages.x86_64-linux.withNixpkgs pkgs;
   in packages // {
     module = import ./module packages;
-    overlay = overlays.default;
+    overlay = flake.outputs.overlays.default;
     # Provide a mechanism for non-flake users to override nixpkgs.
     # nixos unstable environment is often incompatible with stable nixpkgs runtimes.
     withNixpkgs = p: outputs p;

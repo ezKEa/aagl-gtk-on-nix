@@ -123,7 +123,7 @@ jobs:
       run: git apply flake-update.diff/flake-update.diff
 
     - name: Create pull request
-      uses: peter-evans/create-pull-request@v5
+      uses: peter-evans/create-pull-request@v6
       with:
         author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
         commit-message: "chore: update flake.nix"

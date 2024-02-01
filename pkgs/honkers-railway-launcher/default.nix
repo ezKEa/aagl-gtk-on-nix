@@ -3,7 +3,7 @@
   wrapAAGL,
   unwrapped
 }:
-wrapAAGL {
+wrapAAGL rec {
   inherit unwrapped;
   binName = "honkers-railway-launcher";
   packageName = "moe.launcher.the-honkers-railway-launcher";
@@ -12,6 +12,7 @@ wrapAAGL {
   meta = with lib; {
     description = "The Honkers Railway launcher for Linux with automatic patching and telemetry disabling.";
     homepage = "https://github.com/an-anime-team/the-honkers-railway-launcher/";
+    mainProgam = binName;
     license = licenses.gpl3Only;
   };
 }

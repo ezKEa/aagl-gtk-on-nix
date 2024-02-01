@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Install Doppler CLI
-      uses: dopplerhq/cli-action@v2
+      uses: dopplerhq/cli-action@v3
 
     - name: Pass all secrets to next steps
       run: |
@@ -68,7 +68,7 @@ jobs:
     if: always()
     steps:
     - name: Install Doppler CLI
-      uses: dopplerhq/cli-action@v2
+      uses: dopplerhq/cli-action@v3
 
     - name: Pass all secrets to next steps
       run: |

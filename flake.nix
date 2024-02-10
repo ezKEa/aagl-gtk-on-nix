@@ -26,19 +26,18 @@ rec {
     packages = pkgs: with pkgs; let
       alias = import ./pkgs/alias.nix launchers;
       wrapAAGL = (callPackage ./pkgs/wrapAAGL {}).override;
-      mkLauncher = (launcher: {
-        "${launcher}" = callPackage ./pkgs/${launcher} {
+      launchers = let
+        mkLauncher = launcher: callPackage ./pkgs/${launcher} {
           inherit wrapAAGL;
           unwrapped = callPackage ./pkgs/${launcher}/unwrapped.nix {};
         };
-      });
-      launchers = builtins.foldl' (a: b: a // b) {} (map mkLauncher [
+      in lib.genAttrs [
         "anime-borb-launcher"
         "anime-game-launcher"
         "anime-games-launcher"
         "honkers-railway-launcher"
         "honkers-launcher"
-      ]);
+      ] mkLauncher;
     in launchers // alias // {
       allLaunchers = symlinkJoin {
         name = "allLaunchers";

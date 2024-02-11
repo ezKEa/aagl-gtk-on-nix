@@ -25,10 +25,9 @@ rec {
 
     packages = pkgs: with pkgs; let
       alias = import ./pkgs/alias.nix launchers;
-      wrapAAGL = (callPackage ./pkgs/wrapAAGL {}).override;
       launchers = let
         mkLauncher = launcher: callPackage ./pkgs/${launcher} {
-          inherit wrapAAGL;
+          wrapAAGL = callPackage ./pkgs/wrapAAGL;
           unwrapped = callPackage ./pkgs/${launcher}/unwrapped.nix {};
         };
       in lib.genAttrs [

@@ -33,6 +33,10 @@ with lib;
       cp ${customIcon} assets/images/icon.png
     '';
 
+    patches = [
+      ./wishes-fix.patch
+    ];
+
     cargoLock = {
       lockFile = "${src}/Cargo.lock";
       outputHashes = {

@@ -29,7 +29,9 @@ rec {
         mkLauncher = launcher: {
           "${launcher}" = callPackage ./pkgs/${launcher} {
             wrapAAGL = callPackage ./pkgs/wrapAAGL;
-            unwrapped = callPackage ./pkgs/${launcher}/unwrapped.nix {};
+            unwrapped = callPackage ./pkgs/${launcher}/unwrapped.nix {
+              inherit (rustPackages_1_76) rustPlatform;
+            };
           };
         };
       in builtins.foldl' (a: b: a // b) {} (map mkLauncher [

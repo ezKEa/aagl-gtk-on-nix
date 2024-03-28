@@ -2,6 +2,7 @@
   cabextract,
   libunwind,
   gnutls,
+  gst_all_1,
   mangohud,
   steam,
   symlinkJoin,
@@ -33,7 +34,7 @@ let
   steam-run-custom =
     (steam.override {
       extraPkgs = _p: [cabextract gamescope git gnutls mangohud nss_latest p7zip xdelta unzip];
-      extraLibraries = _p: [libunwind];
+      extraLibraries = _p: [libunwind gst_all_1.gst-plugins-bad];
       extraProfile = ''
         export PATH=${fakePkExec}/bin:$PATH
       '';

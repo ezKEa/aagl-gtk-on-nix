@@ -12,7 +12,7 @@ wrapAAGL rec {
   meta = with lib; {
     description = "The Honkers Railway launcher for Linux with automatic patching and telemetry disabling.";
     homepage = "https://github.com/an-anime-team/the-honkers-railway-launcher/";
-    mainProgam = binName;
+    mainProgram = binName;
     license = licenses.gpl3Only;
   };
 }

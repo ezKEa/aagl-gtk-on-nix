@@ -34,7 +34,7 @@ let
   steam-run-custom =
     (steam.override {
       extraPkgs = _p: [cabextract gamescope git gnutls mangohud nss_latest p7zip xdelta unzip];
-      extraLibraries = _p: [libunwind gst_all_1.gst-plugins-bad];
+      extraLibraries = _p: [libunwind gst_all_1.gst-libav];
       extraProfile = ''
         export PATH=${fakePkExec}/bin:$PATH
       '';

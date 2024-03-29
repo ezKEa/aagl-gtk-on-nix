@@ -4,7 +4,7 @@
   gnutls,
   gst_all_1,
   mangohud,
-  steam,
+  callPackage,
   symlinkJoin,
   writeShellScriptBin,
   xdelta,
@@ -31,8 +31,7 @@ let
   '';
 
   # TODO: custom FHS env instead of using steam-run
-  steam-run-custom =
-    (steam.override {
+  steam-run-custom = (callPackage ./fhsenv.nix {
       extraPkgs = _p: [cabextract gamescope git gnutls mangohud nss_latest p7zip xdelta unzip];
       extraLibraries = _p: [
         libunwind
@@ -47,8 +46,7 @@ let
       extraProfile = ''
         export PATH=${fakePkExec}/bin:$PATH
       '';
-    })
-    .run;
+  }).passthru.run;
 
   wrapper = writeShellScriptBin binName ''
     ${steam-run-custom}/bin/steam-run ${unwrapped}/bin/${binName} "$@"

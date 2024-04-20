@@ -26,6 +26,8 @@ To install the launchers on NixOS, refer to the following example module:
 { config, pkgs, ... }:
 let
   aagl-gtk-on-nix = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz");
+  # Or, if you follow Nixkgs release 23.11:
+  # aagl-gtk-on-nix = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/release-23.11.tar.gz");
   # aaglPkgs = aagl-gtk-on-nix.withNixpkgs pkgs
 in
 {
@@ -51,6 +53,8 @@ Both the Cachix config and NixOS module are accessible via Flakes as well:
   inputs = {
     # Other inputs
     aagl.url = "github:ezKEa/aagl-gtk-on-nix";
+    # Or, if you follow Nixkgs release 23.11:
+    # aagl.url = "github:ezKEa/aagl-gtk-on-nix/release-23.11";
     aagl.inputs.nixpkgs.follows = "nixpkgs"; # Name of nixpkgs input you want to use
   };
 

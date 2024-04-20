@@ -34,7 +34,7 @@ in
         If you insist on using this version, you can disable this warning by
         setting
 
-        aagl.enableAAGLReleaseBranchCheck = false;
+        aagl.enableNixpkgsReleaseBranchCheck = false;
 
         in your configuration.
       ''

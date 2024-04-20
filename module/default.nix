@@ -6,5 +6,6 @@ packages: {...}: {
     (import ./hrl.nix packages)
     (import ./hl.nix packages)
     ./hosts.nix
+    ./version.nix
   ];
 }

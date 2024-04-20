@@ -5,7 +5,7 @@ rec {
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;
@@ -29,9 +29,7 @@ rec {
         mkLauncher = launcher: {
           "${launcher}" = callPackage ./pkgs/${launcher} {
             wrapAAGL = callPackage ./pkgs/wrapAAGL;
-            unwrapped = callPackage ./pkgs/${launcher}/unwrapped.nix {
-              inherit (rustPackages_1_76) rustPlatform;
-            };
+            unwrapped = callPackage ./pkgs/${launcher}/unwrapped.nix { };
           };
         };
       in builtins.foldl' (a: b: a // b) {} (map mkLauncher [

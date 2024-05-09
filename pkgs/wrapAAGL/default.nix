@@ -35,11 +35,10 @@ let
       extraPkgs = _p: [cabextract gamescope git gnutls mangohud nss_latest p7zip xdelta unzip];
       extraLibraries = _p: [
         libunwind
-      ] ++ ( with gst_all_1; [
+      ] ++ (with gst_all_1; [
         # Needed for HSR cutscenes.
-        # TODO: figure out which of these are actually needed.
         gst-libav
-        gst-vaapi
+        gst-plugins-base
         gst-plugins-bad
         gst-plugins-good
       ]);

@@ -3,6 +3,7 @@
   rustPlatform,
   fetchFromGitHub,
   pkg-config,
+  cmake,
   openssl,
   glib,
   pango,
@@ -18,13 +19,13 @@
 with lib;
   rustPlatform.buildRustPackage rec {
     pname = "honkers-launcher";
-    version = "1.6.1";
+    version = "1.6.2";
 
     src = fetchFromGitHub {
       owner = "an-anime-team";
       repo = pname;
       rev = version;
-      sha256 = "sha256-I5oAHW+r+FOTgSZAxCBbfE8p/SrbukXFY5hbYK8zLjM=";
+      sha256 = "sha256-LyeKNYH4QBoqudPVrNlNGS8VmvJA5mgCsB6mFCnu0Q8=";
       fetchSubmodules = true;
     };
 
@@ -36,12 +37,13 @@ with lib;
     cargoLock = {
       lockFile = "${src}/Cargo.lock";
       outputHashes = {
-        "anime-game-core-1.17.5" = "sha256-YDiTpzNkxAkGDIzPvUlspcm+3iHbf8GKqaova7E9n3I=";
-        "anime-launcher-sdk-1.12.7" = "sha256-qwjn9r9OEN+sK0wXn4glvykU5DJLCcfLQJlV9NgL/Gc=";
+        "anime-game-core-1.17.8" = "sha256-a6SEnBgSaw2aa9BbZ1EfcA4milbXHhFvKaMFEuLI598=";
+        "anime-launcher-sdk-1.12.10" = "sha256-lbQEiMUWShY8bbxcPkxqmHAOMJ+X9lckd2REUNaWwBM=";
       };
     };
 
     nativeBuildInputs = [
+      cmake
       glib
       gobject-introspection
       gtk4

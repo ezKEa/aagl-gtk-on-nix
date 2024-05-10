@@ -3,6 +3,7 @@
   rustPlatform,
   fetchFromGitHub,
   pkg-config,
+  cmake,
   openssl,
   glib,
   pango,
@@ -18,13 +19,13 @@
 with lib;
   rustPlatform.buildRustPackage rec {
     pname = "honkers-railway-launcher";
-    version = "1.5.4";
+    version = "1.5.5";
 
     src = fetchFromGitHub {
       owner = "an-anime-team";
       repo = "the-honkers-railway-launcher";
       rev = version;
-      sha256 = "sha256-BToJMliyPnvlcPiPfopOW+cfxC7w1Tyr7Eh3P6DgHko=";
+      sha256 = "sha256-jNVTYvLNJNJ6hPbqDtP1awydFb6W1ityvugg3RMqIhI=";
       fetchSubmodules = true;
     };
 
@@ -36,12 +37,13 @@ with lib;
     cargoLock = {
       lockFile = "${src}/Cargo.lock";
       outputHashes = {
-        "anime-game-core-1.17.6" = "sha256-PwpFvQUUpK8mhbNIFhhJ6NE0sVgLET8z/dDgxVuvnjg=";
-        "anime-launcher-sdk-1.12.8" = "sha256-Hx8HTlySsXZgztESlY6Ej/F8dhB4/WBS9zV/niyibsA=";
+        "anime-game-core-1.17.8" = "sha256-a6SEnBgSaw2aa9BbZ1EfcA4milbXHhFvKaMFEuLI598=";
+        "anime-launcher-sdk-1.12.10" = "sha256-lbQEiMUWShY8bbxcPkxqmHAOMJ+X9lckd2REUNaWwBM=";
       };
     };
 
     nativeBuildInputs = [
+      cmake
       glib
       gobject-introspection
       gtk4

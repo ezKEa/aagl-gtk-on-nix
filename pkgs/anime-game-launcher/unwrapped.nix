@@ -3,6 +3,7 @@
   rustPlatform,
   fetchFromGitHub,
   pkg-config,
+  cmake,
   openssl,
   glib,
   pango,
@@ -18,13 +19,13 @@
 with lib;
   rustPlatform.buildRustPackage rec {
     pname = "anime-game-launcher";
-    version = "3.9.5";
+    version = "3.9.6";
 
     src = fetchFromGitHub {
       owner = "an-anime-team";
       repo = "an-anime-game-launcher";
       rev = version;
-      hash = "sha256-slsLs6psqbe7pVTh7zdPqsc/ytDSsgUa//ZFgRVsNDs=";
+      hash = "sha256-bdpQzUxouj9NhdE38VRignWYqFhHaVGas5L3MIGnOMc=";
       fetchSubmodules = true;
     };
 
@@ -36,12 +37,13 @@ with lib;
     cargoLock = {
       lockFile = "${src}/Cargo.lock";
       outputHashes = {
-        "anime-game-core-1.17.5" = "sha256-YDiTpzNkxAkGDIzPvUlspcm+3iHbf8GKqaova7E9n3I=";
-        "anime-launcher-sdk-1.12.7" = "sha256-qwjn9r9OEN+sK0wXn4glvykU5DJLCcfLQJlV9NgL/Gc=";
+        "anime-game-core-1.17.8" = "sha256-a6SEnBgSaw2aa9BbZ1EfcA4milbXHhFvKaMFEuLI598=";
+        "anime-launcher-sdk-1.12.10" = "sha256-lbQEiMUWShY8bbxcPkxqmHAOMJ+X9lckd2REUNaWwBM=";
       };
     };
 
     nativeBuildInputs = [
+      cmake
       glib
       gobject-introspection
       gtk4

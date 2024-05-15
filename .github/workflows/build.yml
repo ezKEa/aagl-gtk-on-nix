@@ -1,9 +1,13 @@
 name: "Build and populate cache"
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - release-23.11
   pull_request:
-    branches: [main]
+    branches:
+      - main
+      - release-23.11
   schedule:
     - cron: "0 */6 * * *"
   workflow_dispatch:
@@ -17,9 +21,7 @@ jobs:
         cachixName:
           - ezkea
         nixpkgs:
-          - nixos-unstable
-          # - nixpkgs-unstable
-          - nixos-23.11
+          - branch
           - pinned
 
     runs-on: ubuntu-latest
@@ -54,10 +56,15 @@ jobs:
         if [[ ${{ matrix.nixpkgs }} == "pinned" ]]; then
           nix build --accept-flake-config -L .#allLaunchers
         else
+          if [[ ${{github.ref_name}} == "main" ]]; then
+            branch="github:nixos/nixpkgs/nixos-unstable"
+          else
+            branch="github:nixos/nixpkgs/nixos-23.11"
+          fi
           nix build \
             --accept-flake-config \
             --print-build-logs \
-            --override-input nixpkgs "github:NixOS/nixpkgs/${{ matrix.nixpkgs }}" \
+            --override-input nixpkgs "$branch" \
             .#allLaunchers
         fi
 

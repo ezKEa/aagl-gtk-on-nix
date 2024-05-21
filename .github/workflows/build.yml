@@ -45,7 +45,7 @@ jobs:
       uses: cachix/install-nix-action@V27
 
     - name: Install Cachix
-      uses: cachix/cachix-action@v14
+      uses: cachix/cachix-action@v15
       with:
         name: ${{ matrix.cachixName }}
         authToken: '${{ env.CACHIX_AUTH_TOKEN }}'

@@ -20,13 +20,13 @@
 with lib;
   rustPlatform.buildRustPackage rec {
     pname = "honkers-launcher";
-    version = "1.6.2";
+    version = "1.6.3";
 
     src = fetchFromGitHub {
       owner = "an-anime-team";
       repo = pname;
       rev = version;
-      sha256 = "sha256-LyeKNYH4QBoqudPVrNlNGS8VmvJA5mgCsB6mFCnu0Q8=";
+      sha256 = "sha256-v2QpVqkWxM2mlxdERpNgsrHKxV6u8nzE0JR3LOH7NKw=";
       fetchSubmodules = true;
     };
 

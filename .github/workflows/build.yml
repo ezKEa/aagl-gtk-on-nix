@@ -53,10 +53,10 @@ jobs:
 
     - name: Build
       run: |
-        if [[ ${{ matrix.nixpkgs }} == "pinned" ]]; then
+        if [[ "${{ matrix.nixpkgs }}" == "pinned" ]]; then
           nix build --accept-flake-config -L .#allLaunchers
         else
-          if [[ ${{github.ref_name}} == "main" ]]; then
+          if [[ "${{github.base_ref}}" == "main" || "${{github.ref_name}}" == "main" ]]; then
             branch="github:nixos/nixpkgs/nixos-unstable"
           else
             branch="github:nixos/nixpkgs/nixos-23.11"

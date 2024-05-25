@@ -26,7 +26,7 @@ To install the launchers on NixOS, refer to the following example module:
 { config, pkgs, ... }:
 let
   aagl-gtk-on-nix = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz");
-  # Or, if you follow Nixkgs release 24.05:
+  # Or, if you follow Nixpkgs release 24.05:
   # aagl-gtk-on-nix = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/release-24.05.tar.gz");
   # aaglPkgs = aagl-gtk-on-nix.withNixpkgs pkgs
 in

@@ -13,6 +13,7 @@
   nss_latest,
   git,
   p7zip,
+  libwebp,
   gamescope,
   unzip,
   unwrapped ? null,
@@ -32,7 +33,18 @@ let
 
   # TODO: custom FHS env instead of using steam-run
   steam-run-custom = (callPackage ./fhsenv.nix {
-      extraPkgs = _p: [cabextract gamescope git gnutls mangohud nss_latest p7zip xdelta unzip];
+      extraPkgs = _p: [
+        cabextract
+        gamescope
+        git
+        gnutls
+        mangohud
+        nss_latest
+        p7zip
+        xdelta
+        unzip
+        libwebp
+      ];
       extraLibraries = _p: [
         libunwind
       ] ++ ( with gst_all_1; [

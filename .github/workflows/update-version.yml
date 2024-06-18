@@ -173,10 +173,10 @@ jobs:
       fail-fast: false
       matrix:
         package:
-          - an-anime-game-launcher
-          - an-anime-borb-launcher
+          - anime-game-launcher
+          - anime-borb-launcher
           - anime-games-launcher
-          - the-honkers-railway-launcher
+          - honkers-railway-launcher
           - honkers-launcher
     steps:
     - name: Install Doppler CLI

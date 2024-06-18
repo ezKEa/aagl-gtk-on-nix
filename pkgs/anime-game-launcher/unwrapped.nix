@@ -36,7 +36,7 @@ with lib;
     '';
 
     cargoLock = {
-      lockFile = "${src}/Cargo.lock";
+      lockFile = ./Cargo.lock;
       outputHashes = {
         "anime-game-core-1.19.0" = "sha256-3i8o0YjJbcNZom6IzAzVosNHaYodoQcZjSsPnVt9CTQ=";
         "anime-launcher-sdk-1.14.0" = "sha256-h6nJLaq92Ad8lKXYK1WmExTWoKLOaEvhFbVQjTnTyJg=";

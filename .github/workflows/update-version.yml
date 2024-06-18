@@ -11,11 +11,11 @@ jobs:
     strategy:
       matrix:
         package:
-          - an-anime-borb-launcher
-          - an-anime-game-launcher
+          - anime-borb-launcher
+          - anime-game-launcher
           - anime-games-launcher
           - honkers-launcher
-          - the-honkers-railway-launcher
+          - honkers-railway-launcher
 
     steps:
     - name: Install Doppler CLI
@@ -36,28 +36,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Get current version
+    - name: Create commit message
+      id: commit-message
       run: |
-        set -x
-        currentVersion="$(nix eval --impure --raw --expr "
-          let
-            flake = builtins.getFlake \"path:$(pwd)/.\";
-          in flake.packages.x86_64-linux.${{ matrix.package }}.unwrapped.version
-        ")"
-        echo "current-version=$currentVersion" >> $GITHUB_ENV
-
-    - name: Check for new release
-      run: |
-        set -x
-        latestVersion="$(git -c 'versionsort.suffix=-' ls-remote --exit-code --refs --tags --sort='v:refname' \
-          "https://github.com/an-anime-team/${{ matrix.package }}" | \
-          awk 'END {match($2, /([^/]+)$/, m); print m[0]}')"
-        echo "latest-version=$latestVersion" >> $GITHUB_ENV
+         ./pkgs/${{matrix.package}}/update-script --commit-message >> "${{ matrix.package }}-commit.artifact"
 
     - name: Update package
-      if: ${{ env.current-version != env.latest-version }}
-      run: |
-        nix shell nixpkgs#nix-update -c nix-update "${{ matrix.package }}-unwrapped" --flake --version=${{ env.latest-version }}
+      run: ./pkgs/${{matrix.package}}/update-script
 
     - name: Create diff
       id: diff
@@ -71,12 +56,6 @@ jobs:
           echo "skipped=no" >> $GITHUB_OUTPUT
           echo "skipped=no" > "${{ matrix.package }}-skipped.artifact"
         fi
-
-    - name: Create commit message
-      if: ${{ env.current-version != env.latest-version }}
-      id: commit-message
-      run: |
-        echo "${{ matrix.package }}: ${{ env.current-version }} -> ${{ env.latest-version }}" >> "${{ matrix.package }}-commit.artifact"
 
     - name: Upload skip artifact
       uses: actions/upload-artifact@v4
@@ -112,10 +91,10 @@ jobs:
           - nixos-24.05
           - pinned
         package:
-          - an-anime-game-launcher
-          - an-anime-borb-launcher
+          - anime-game-launcher
+          - anime-borb-launcher
           - anime-games-launcher
-          - the-honkers-railway-launcher
+          - honkers-railway-launcher
           - honkers-launcher
     steps:
 

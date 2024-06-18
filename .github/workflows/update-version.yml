@@ -39,10 +39,10 @@ jobs:
     - name: Create commit message
       id: commit-message
       run: |
-         ./pkgs/${{matrix.package}}/update-script --commit-message >> "${{ matrix.package }}-commit.artifact"
+         ./pkgs/${{matrix.package}}/update.sh --commit-message >> "${{ matrix.package }}-commit.artifact"
 
     - name: Update package
-      run: ./pkgs/${{matrix.package}}/update-script
+      run: ./pkgs/${{matrix.package}}/update.sh
 
     - name: Create diff
       id: diff

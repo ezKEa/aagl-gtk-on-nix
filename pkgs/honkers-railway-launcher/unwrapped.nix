@@ -13,7 +13,6 @@
   gobject-introspection,
   gsettings-desktop-schemas,
   wrapGAppsHook4,
-  gst_all_1,
   librsvg,
   customIcon ? null,
 }:
@@ -59,14 +58,7 @@ with lib;
       librsvg
       openssl
       pango
-    ] ++ (with gst_all_1; [
-      gst-libav
-      gst-plugins-bad
-      gst-plugins-base
-      gst-plugins-good
-      gst-plugins-ugly
-      gstreamer
-    ]);
+    ];
 
     passthru = {inherit customIcon;};
   }

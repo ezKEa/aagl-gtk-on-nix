@@ -38,6 +38,7 @@ rec {
         "anime-games-launcher"
         "honkers-railway-launcher"
         "honkers-launcher"
+        "wavey-launcher"
       ]);
     in launchers // alias // {
       allLaunchers = symlinkJoin {

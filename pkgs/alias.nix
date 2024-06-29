@@ -12,6 +12,8 @@ p: with p; {
 
   honkers-launcher-unwrapped = honkers-launcher.unwrapped;
 
+  wavey-launcher-unwrapped = wavey-launcher.unwrapped;
+
   unwrapped = anime-game-launcher.unwrapped;
   regular = anime-game-launcher;
 }

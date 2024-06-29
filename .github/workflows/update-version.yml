@@ -16,6 +16,7 @@ jobs:
           - anime-games-launcher
           - honkers-launcher
           - honkers-railway-launcher
+          - wavey-launcher
 
     steps:
     - name: Install Doppler CLI
@@ -96,6 +97,7 @@ jobs:
           - anime-games-launcher
           - honkers-railway-launcher
           - honkers-launcher
+          - wavey-launcher
     steps:
 
     - name: Install Doppler CLI
@@ -178,6 +180,7 @@ jobs:
           - anime-games-launcher
           - honkers-railway-launcher
           - honkers-launcher
+          - wavey-launcher
     steps:
     - name: Install Doppler CLI
       uses: dopplerhq/cli-action@v3

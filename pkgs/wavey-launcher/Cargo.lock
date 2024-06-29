@@ -3065,7 +3065,7 @@ checksum = "af190c94f2773fdb3729c55b007a722abb5384da03bc0986df4c289bf5567e96"
 
 [[package]]
 name = "wavey-launcher"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "anime-launcher-sdk",
  "anyhow",

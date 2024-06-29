@@ -41,6 +41,7 @@ in
   programs.anime-borb-launcher.enable = true;
   programs.honkers-railway-launcher.enable = true;
   programs.honkers-launcher.enable = true;
+  programs.wavey-launcher.enable = true;
 }
 ```
 
@@ -71,6 +72,7 @@ Both the Cachix config and NixOS module are accessible via Flakes as well:
           programs.anime-borb-launcher.enable = true;
           programs.honkers-railway-launcher.enable = true;
           programs.honkers-launcher.enable = true;
+          programs.wavey-launcher.enable = true;
         }
       ];
     };
@@ -91,6 +93,7 @@ in
     aagl-gtk-on-nix.anime-borb-launcher
     aagl-gtk-on-nix.honkers-railway-launcher
     aagl-gtk-on-nix.honkers-launcher
+    aagl-gtk-on-nix.wavey-launcher
   ];
 }
 ```
@@ -110,6 +113,8 @@ If you are not running NixOS, append the below hosts to your /etc/hosts file:
 0.0.0.0 thind-gke-usc.prd.data.corp.unity3d.com
 0.0.0.0 cdp.cloud.unity3d.com
 0.0.0.0 remote-config-proxy-prd.uca.cloud.unity3d.com
+
+0.0.0.0 pc.crashsight.wetest.net
 ```
 then install through `nix-env` by running
 ```sh

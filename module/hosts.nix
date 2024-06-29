@@ -35,6 +35,8 @@ in {
         "thind-gke-usc.prd.data.corp.unity3d.com"
         "cdp.cloud.unity3d.com"
         "remote-config-proxy-prd.uca.cloud.unity3d.com"
+
+        "pc.crashsight.wetest.net"
       ];
     };
   };

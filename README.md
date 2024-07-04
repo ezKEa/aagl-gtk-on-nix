@@ -42,6 +42,7 @@ in
   programs.honkers-railway-launcher.enable = true;
   programs.honkers-launcher.enable = true;
   programs.wavey-launcher.enable = true;
+  programs.sleepy-launcher.enable = true;
 }
 ```
 
@@ -73,6 +74,7 @@ Both the Cachix config and NixOS module are accessible via Flakes as well:
           programs.honkers-railway-launcher.enable = true;
           programs.honkers-launcher.enable = true;
           programs.wavey-launcher.enable = true;
+          programs.sleepy-launcher.enable = true;
         }
       ];
     };
@@ -94,6 +96,7 @@ in
     aagl-gtk-on-nix.honkers-railway-launcher
     aagl-gtk-on-nix.honkers-launcher
     aagl-gtk-on-nix.wavey-launcher
+    aagl-gtk-on-nix.sleepy-launcher
   ];
 }
 ```

@@ -14,6 +14,8 @@ p: with p; {
 
   wavey-launcher-unwrapped = wavey-launcher.unwrapped;
 
+  sleepy-launcher-unwrapped = sleepy-launcher.unwrapped;
+
   unwrapped = anime-game-launcher.unwrapped;
   regular = anime-game-launcher;
 }

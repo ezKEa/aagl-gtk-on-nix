@@ -36,8 +36,9 @@ rec {
         "anime-borb-launcher"
         "anime-game-launcher"
         "anime-games-launcher"
-        "honkers-railway-launcher"
         "honkers-launcher"
+        "honkers-railway-launcher"
+        "sleepy-launcher"
         "wavey-launcher"
       ]);
     in launchers // alias // {

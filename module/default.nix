@@ -6,6 +6,7 @@ packages: {...}: {
     (import ./hrl.nix packages)
     (import ./hl.nix packages)
     (import ./waves.nix packages)
+    (import ./sleepy.nix packages)
     ./hosts.nix
     ./version.nix
   ];

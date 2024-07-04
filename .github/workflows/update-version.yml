@@ -17,6 +17,7 @@ jobs:
           - honkers-launcher
           - honkers-railway-launcher
           - wavey-launcher
+          - sleepy-launcher
 
     steps:
     - name: Install Doppler CLI
@@ -98,6 +99,7 @@ jobs:
           - honkers-railway-launcher
           - honkers-launcher
           - wavey-launcher
+          - sleepy-launcher
     steps:
 
     - name: Install Doppler CLI
@@ -181,6 +183,7 @@ jobs:
           - honkers-railway-launcher
           - honkers-launcher
           - wavey-launcher
+          - sleepy-launcher
     steps:
     - name: Install Doppler CLI
       uses: dopplerhq/cli-action@v3

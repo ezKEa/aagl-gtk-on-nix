@@ -19,13 +19,13 @@
 with lib;
   rustPlatform.buildRustPackage rec {
     pname = "sleepy-launcher";
-    version = "1.0.0";
+    version = "1.0.1";
 
     src = fetchFromGitHub {
       owner = "an-anime-team";
       repo = pname;
       rev = version;
-      sha256 = "sha256-tNTitOaN2N3BRcoXFWiW9imB/WMYViiRKSexVIyIxRE=";
+      sha256 = "sha256-Hfnx5xuxewwcBlJCAWPZN7asqPkJDpEvObA/HONENwY=";
       fetchSubmodules = true;
     };
 
@@ -37,8 +37,8 @@ with lib;
     cargoLock = {
       lockFile = ./Cargo.lock;
       outputHashes = {
-        "anime-game-core-1.21.0" = "sha256-RYKzjc2n45HTLwzT5g8IcD1r98rP9KYtBBS3luOnSpo=";
-        "anime-launcher-sdk-1.16.2" = "sha256-bdtyK4p5m8CD86DiT2nB3SFmcql4f57+aWswW+kq2f8=";
+        "anime-game-core-1.21.2" = "sha256-xlTIe3URJhj+N0K/O+5FT4hthnkrJT98EWcyvny9JZ4=";
+        "anime-launcher-sdk-1.16.3" = "sha256-yqiPxEWOLFbuvkIGJLwhCLrfHWy9lqy8hH/upY6GMqg=";
       };
     };
 

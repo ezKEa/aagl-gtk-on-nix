@@ -34,11 +34,15 @@ with lib;
       cp ${customIcon} assets/images/icon.png
     '';
 
+    patches = [
+      ./fps-unlock-update.patch
+    ];
+
     cargoLock = {
       lockFile = ./Cargo.lock;
       outputHashes = {
-        "anime-game-core-1.20.2" = "sha256-Jccbmihl4NeOOEn3vMetCaS5cKfi/BTwG9u8XxcQuOg=";
-        "anime-launcher-sdk-1.15.4" = "sha256-QYPgug7hh0DcekyxDj5NeRIFo1jSqUYziivxafPp0r8=";
+        "anime-game-core-1.21.2" = "sha256-xlTIe3URJhj+N0K/O+5FT4hthnkrJT98EWcyvny9JZ4=";
+        "anime-launcher-sdk-1.16.3" = "sha256-wiygBo5vFt/Nk8He7Es1Hu+LRwW8YAZZeFcbmEUWyqU=";
       };
     };
 

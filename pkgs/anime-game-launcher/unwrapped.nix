@@ -19,13 +19,13 @@
 with lib;
   rustPlatform.buildRustPackage rec {
     pname = "anime-game-launcher";
-    version = "3.10.1";
+    version = "3.10.2";
 
     src = fetchFromGitHub {
       owner = "an-anime-team";
       repo = "an-anime-game-launcher";
       rev = version;
-      hash = "sha256-U63lEcKTaeP3NpYxNMTaxPvuONX6Qpd/IP/vguJNSQg=";
+      hash = "sha256-XQeqdXsjTqpmKHZyWHwRVcVoIuBxGq64q6xN4eSJq4Q=";
       fetchSubmodules = true;
     };
 
@@ -34,15 +34,11 @@ with lib;
       cp ${customIcon} assets/images/icon.png
     '';
 
-    patches = [
-      ./fps-unlock-update.patch
-    ];
-
     cargoLock = {
       lockFile = ./Cargo.lock;
       outputHashes = {
-        "anime-game-core-1.21.2" = "sha256-xlTIe3URJhj+N0K/O+5FT4hthnkrJT98EWcyvny9JZ4=";
-        "anime-launcher-sdk-1.16.3" = "sha256-wiygBo5vFt/Nk8He7Es1Hu+LRwW8YAZZeFcbmEUWyqU=";
+        "anime-game-core-1.21.3" = "sha256-zoJk/gWaWfvZpprHg/0DVGk4kmfz2SP/xui02SqqIa0=";
+        "anime-launcher-sdk-1.16.7" = "sha256-5L3EO7JMedjeTg3PEhjw6iV6ajtRr4YCAWwzXfNQuU8=";
       };
     };
 

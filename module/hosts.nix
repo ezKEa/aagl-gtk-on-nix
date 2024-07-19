@@ -24,6 +24,9 @@ in {
         "log-upload-os.mihoyo.com"
         "dump.gamesafe.qq.com"
 
+        "apm-log-upload-os.hoyoverse.com"
+        "zzz-log-upload-os.hoyoverse.com"
+
         "log-upload.mihoyo.com"
         "devlog-upload.mihoyo.com"
         "uspider.yuanshen.com"

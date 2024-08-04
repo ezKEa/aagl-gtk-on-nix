@@ -18,7 +18,7 @@
 with lib;
   rustPlatform.buildRustPackage rec {
     pname = "anime-borb-launcher";
-    version = "1.0.1";
+    version = "";
 
     src = fetchFromGitHub {
       owner = "an-anime-team";

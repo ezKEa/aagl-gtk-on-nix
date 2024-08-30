@@ -31,6 +31,7 @@ in {
         "devlog-upload.mihoyo.com"
         "uspider.yuanshen.com"
         "sg-public-data-api.hoyoverse.com"
+        "hkrpg-log-upload-os.hoyoverse.com"
         "public-data-api.mihoyo.com"
 
         "prd-lender.cdp.internal.unity3d.com"

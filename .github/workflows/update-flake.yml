@@ -50,11 +50,6 @@ jobs:
       matrix:
         cachixName:
           - ezkea
-        package:
-          - an-anime-game-launcher
-          - an-anime-borb-launcher
-          - the-honkers-railway-launcher
-          - honkers-launcher
     steps:
     - name: Install Doppler CLI
       uses: dopplerhq/cli-action@v3
@@ -91,7 +86,7 @@ jobs:
 
     - name: Build
       run: |
-        nix build --accept-flake-config -L ".#${{ matrix.package }}"
+        nix build --accept-flake-config -L ".#allLaunchers"
 
   pr:
     name: Make PR

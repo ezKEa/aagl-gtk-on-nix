@@ -30,9 +30,6 @@ rec {
         name = "allLaunchers";
         paths = builtins.filter pkgs.lib.isDerivation (builtins.attrValues overlay);
       };
-
-      unwrapped = pkgs.anime-games-launcher-unwrapped;
-      regular = pkgs.anime-games-launcher;
     };
   in {
     inherit nixConfig;

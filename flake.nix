@@ -24,7 +24,8 @@ rec {
     };
 
     packages = pkgs: with pkgs; let
-      alias = import ./pkgs/alias.nix launchers;
+      alias = import ./pkgs/alias.nix pkgs.lib launchers;
+      final = launchers // alias;
       launchers = let
         mkLauncher = launcher: {
           "${launcher}" = callPackage ./pkgs/${launcher} {
@@ -41,10 +42,10 @@ rec {
         "sleepy-launcher"
         "wavey-launcher"
       ]);
-    in launchers // alias // {
+    in final // {
       allLaunchers = symlinkJoin {
         name = "allLaunchers";
-        paths = builtins.attrValues launchers;
+        paths = builtins.attrValues final;
       };
       # return this package set with a given nixpkgs instance
       withNixpkgs = p: packages p;

@@ -1,4 +1,10 @@
-p: with p; {
+lib: p: with p;
+let
+  anime-borb-launcher = lib.warn "anime-borb-launcher is deprecated and will be removed in release 24.11"
+    p.anime-borb-launcher;
+in {
+  inherit anime-borb-launcher;
+
   an-anime-borb-launcher = anime-borb-launcher;
   an-anime-borb-launcher-unwrapped = anime-borb-launcher.unwrapped;
 

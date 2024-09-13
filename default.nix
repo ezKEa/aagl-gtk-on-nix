@@ -12,19 +12,18 @@ let
     }
   ).defaultNix;
 
-  # Get the pinned nixpkgs to act as the default nixpkgs.
-  nixpkgs-nonfree = import flake.inputs.nixpkgs {
+  overlay = flake.outputs.overlays.default;
+
+  pkgs = import flake.inputs.nixpkgs {
     system = "x86_64-linux";
     config.allowUnfree = true;
+    overlays = [ overlay ];
   };
 
-  outputs = pkgs: let
-    packages = flake.outputs.packages.x86_64-linux.withNixpkgs pkgs;
+  outputs = let
+    packages = overlay pkgs pkgs;
   in packages // {
-    module = import ./module packages;
-    overlay = flake.outputs.overlays.default;
-    # Provide a mechanism for non-flake users to override nixpkgs.
-    # nixos unstable environment is often incompatible with stable nixpkgs runtimes.
-    withNixpkgs = p: outputs p;
+    inherit overlay;
+    module = import ./module overlay;
   };
-in outputs nixpkgs-nonfree
+in outputs

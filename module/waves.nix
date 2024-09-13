@@ -1,11 +1,9 @@
-packages:
 {
   config,
   lib,
   ...
 }:
 with lib; let
-  wavey-launcher = packages.wavey-launcher;
   cfg = config.programs.wavey-launcher;
 in {
   options.programs.wavey-launcher = {
@@ -18,7 +16,7 @@ in {
     };
     package = mkOption {
       type = types.package;
-      default = wavey-launcher;
+      default = pkgs.wavey-launcher;
       description = lib.mdDoc ''
         wavey-launcher package to use.
       '';

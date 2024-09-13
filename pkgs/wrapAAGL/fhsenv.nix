@@ -221,8 +221,6 @@ in buildFHSEnv rec {
     nghttp2.lib
     rtmpdump
   ]
-  # This needs to come from pkgs as the passed-in steam-runtime-wrapped may not be the same architecture
-  ++ pkgs.steamPackages.steam-runtime-wrapped.overridePkgs
   ++ extraLibraries pkgs;
 
   profile = ''

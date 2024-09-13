@@ -1,11 +1,10 @@
-packages:
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib; let
-  anime-borb-launcher = packages.anime-borb-launcher;
   cfg = config.programs.anime-borb-launcher;
 in {
   imports = [
@@ -22,7 +21,7 @@ in {
     };
     package = mkOption {
       type = types.package;
-      default = anime-borb-launcher;
+      default = pkgs.anime-borb-launcher;
       description = lib.mdDoc ''
         anime-borb-launcher package to use.
       '';

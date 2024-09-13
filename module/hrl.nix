@@ -1,11 +1,10 @@
-packages:
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib; let
-  honkers-railway-launcher = packages.honkers-railway-launcher;
   cfg = config.programs.honkers-railway-launcher;
 in {
   imports = [
@@ -22,7 +21,7 @@ in {
     };
     package = mkOption {
       type = types.package;
-      default = honkers-railway-launcher;
+      default = pkgs.honkers-railway-launcher;
       description = lib.mdDoc ''
         honkers-railway-launcher package to use.
       '';

@@ -1,11 +1,10 @@
-packages:
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib; let
-  anime-game-launcher = packages.anime-game-launcher;
   cfg = config.programs.anime-game-launcher;
 in {
   imports = [
@@ -22,7 +21,7 @@ in {
     };
     package = mkOption {
       type = types.package;
-      default = anime-game-launcher;
+      default = pkgs.anime-game-launcher;
       description = lib.mdDoc ''
         anime-game-launcher package to use.
       '';

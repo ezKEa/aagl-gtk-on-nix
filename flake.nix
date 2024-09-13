@@ -12,48 +12,32 @@ rec {
     };
   };
 
-  outputs = { nixpkgs, ... }: let
+  outputs = { self, nixpkgs, ... }: let
     genSystems = nixpkgs.lib.genAttrs [
       # Supported OSes
       "x86_64-linux"
     ];
 
-    nixpkgs-nonfree = system: import nixpkgs {
-      inherit system;
-      config = { allowUnfree = true; };
-    };
-
-    packages = pkgs: with pkgs; let
-      alias = import ./pkgs/alias.nix pkgs.lib launchers;
-      final = launchers // alias;
-      launchers = let
-        mkLauncher = launcher: {
-          "${launcher}" = callPackage ./pkgs/${launcher} {
-            wrapAAGL = callPackage ./pkgs/wrapAAGL;
-            unwrapped = callPackage ./pkgs/${launcher}/unwrapped.nix { };
-          };
-        };
-      in builtins.foldl' (a: b: a // b) {} (map mkLauncher [
-        "anime-borb-launcher"
-        "anime-game-launcher"
-        "anime-games-launcher"
-        "honkers-launcher"
-        "honkers-railway-launcher"
-        "sleepy-launcher"
-        "wavey-launcher"
-      ]);
-    in final // {
-      allLaunchers = symlinkJoin {
-        name = "allLaunchers";
-        paths = builtins.attrValues final;
+    pkgsFor = system: let
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = [ self.overlays.default ];
       };
-      # return this package set with a given nixpkgs instance
-      withNixpkgs = p: packages p;
+      overlay = self.overlays.default pkgs pkgs;
+    in overlay // {
+      allLaunchers = pkgs.symlinkJoin {
+        name = "allLaunchers";
+        paths = builtins.filter pkgs.lib.isDerivation (builtins.attrValues overlay);
+      };
+
+      unwrapped = pkgs.anime-games-launcher-unwrapped;
+      regular = pkgs.anime-games-launcher;
     };
   in {
     inherit nixConfig;
-    nixosModules.default = import ./module (packages (nixpkgs-nonfree "x86_64-linux"));
-    packages = genSystems (system: let pkgs = nixpkgs-nonfree system; in packages pkgs);
-    overlays.default = _: prev: builtins.removeAttrs (packages prev) ["unwrapped" "regular"];
+    overlays.default = import ./overlay.nix;
+    nixosModules.default = import ./module (self.overlays.default);
+    packages = genSystems pkgsFor;
   };
 }

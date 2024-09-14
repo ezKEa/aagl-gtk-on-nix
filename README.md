@@ -25,15 +25,13 @@ To install the launchers on NixOS, refer to the following example module:
 # configuration.nix
 { config, pkgs, ... }:
 let
-  aagl-gtk-on-nix = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz");
+  aagl = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz");
   # Or, if you follow Nixpkgs release 24.05:
-  # aagl-gtk-on-nix = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/release-24.05.tar.gz");
-  # aaglPkgs = aagl-gtk-on-nix.withNixpkgs pkgs;
+  # aagl = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/release-24.05.tar.gz");
 in
 {
   imports = [
-    aagl-gtk-on-nix.module
-    # aaglPkgs.module
+    aagl.module
   ];
 
   programs.anime-game-launcher.enable = true;
@@ -46,7 +44,22 @@ in
 }
 ```
 
-The `withNixpkgs` function allows you change the nixpkgs instance which this package set is built against, similarly to to the `inputs.nixpkgs.follows` syntax in flakes. If you use NixOS on the unstable branch, it's likely that your environment is incompatible with the runtime dependencies provided by the flake-pinned nixpkgs, so you probably want to use this.
+By default, the NixOS module adds an overlay to `nixpkgs.overlays`, and the launchers will be built against your `pkgs` instance. If you want to use the launchers directly from this flake's outputs, use the `.package` options:
+```nix
+# configuration.nix
+{ config, pkgs, inputs, }:
+let
+  aagl = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz");
+in
+{
+
+  programs.anime-game-launcher = {
+    enable = true;
+    # package = aagl.anime-game-launcher; # for non-flakes
+    # package = inputs.aagl.packages.x86_64-linux.anime-game-launcher; # for flakes
+  };
+}
+```
 
 ### Flakes
 Both the Cachix config and NixOS module are accessible via Flakes as well:
@@ -80,48 +93,6 @@ Both the Cachix config and NixOS module are accessible via Flakes as well:
     };
   };
 }
-```
-
-### Home Manager
-You can also install the launchers using [home-manager](https://github.com/nix-community/home-manager).
-```nix
-# home.nix
-let
-  aagl-gtk-on-nix = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz");
-in
-{
-  home.packages = [
-    aagl-gtk-on-nix.anime-game-launcher
-    aagl-gtk-on-nix.anime-borb-launcher
-    aagl-gtk-on-nix.honkers-railway-launcher
-    aagl-gtk-on-nix.honkers-launcher
-    aagl-gtk-on-nix.wavey-launcher
-    aagl-gtk-on-nix.sleepy-launcher
-  ];
-}
-```
-
-### Non-NixOS
-If you are not running NixOS, append the below hosts to your /etc/hosts file:
-```
-0.0.0.0 overseauspider.yuanshen.com
-0.0.0.0 log-upload-os.hoyoverse.com
-
-0.0.0.0 log-upload.mihoyo.com
-0.0.0.0 uspider.yuanshen.com
-0.0.0.0 sg-public-data-api.hoyoverse.com
-
-0.0.0.0 prd-lender.cdp.internal.unity3d.com
-0.0.0.0 thind-prd-knob.data.ie.unity3d.com
-0.0.0.0 thind-gke-usc.prd.data.corp.unity3d.com
-0.0.0.0 cdp.cloud.unity3d.com
-0.0.0.0 remote-config-proxy-prd.uca.cloud.unity3d.com
-
-0.0.0.0 pc.crashsight.wetest.net
-```
-then install through `nix-env` by running
-```sh
-$ nix-env -f https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz -iA anime-game-launcher
 ```
 
 ## Usage

@@ -24,6 +24,7 @@ let
     packages = overlay pkgs pkgs;
   in packages // {
     inherit overlay;
+    inherit (flake.outputs) nixConfig;
     module = import ./module;
   };
 in outputs

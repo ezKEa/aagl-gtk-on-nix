@@ -1,11 +1,10 @@
-packages:
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib; let
-  sleepy-launcher = packages.sleepy-launcher;
   cfg = config.programs.sleepy-launcher;
 in {
 
@@ -19,7 +18,7 @@ in {
     };
     package = mkOption {
       type = types.package;
-      default = sleepy-launcher;
+      default = pkgs.sleepy-launcher;
       description = lib.mdDoc ''
         sleepy-launcher package to use.
       '';

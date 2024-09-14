@@ -1,11 +1,10 @@
-packages:
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib; let
-  honkers-launcher = packages.honkers-launcher;
   cfg = config.programs.honkers-launcher;
 in {
   options.programs.honkers-launcher = {
@@ -18,7 +17,7 @@ in {
     };
     package = mkOption {
       type = types.package;
-      default = honkers-launcher;
+      default = pkgs.honkers-launcher;
       description = lib.mdDoc ''
         honkers-launcher package to use.
       '';

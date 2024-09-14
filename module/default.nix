@@ -1,13 +1,17 @@
-packages: {...}: {
+{
   imports = [
-    (import ./aagl.nix packages)
-    (import ./agl.nix packages)
-    (import ./borb.nix packages)
-    (import ./hrl.nix packages)
-    (import ./hl.nix packages)
-    (import ./waves.nix packages)
-    (import ./sleepy.nix packages)
+    ./aagl.nix
+    ./agl.nix
+    ./borb.nix
+    ./hrl.nix
+    ./hl.nix
+    ./waves.nix
+    ./sleepy.nix
     ./hosts.nix
     ./version.nix
+  ];
+
+  nixpkgs.overlays = [
+    (import ../overlay.nix)
   ];
 }

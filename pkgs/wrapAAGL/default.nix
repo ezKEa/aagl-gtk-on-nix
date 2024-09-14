@@ -16,11 +16,13 @@
   libwebp,
   gamescope,
   unzip,
-  unwrapped ? null,
-  binName ? "",
-  packageName ? "",
-  desktopName ? "",
-  meta ? {},
+}:
+{
+  unwrapped,
+  binName,
+  packageName,
+  desktopName,
+  meta,
 }:
 let
   fakePkExec = writeShellScriptBin "pkexec" ''

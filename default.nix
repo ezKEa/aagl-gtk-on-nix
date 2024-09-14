@@ -24,6 +24,6 @@ let
     packages = overlay pkgs pkgs;
   in packages // {
     inherit overlay;
-    module = import ./module overlay;
+    module = import ./module;
   };
 in outputs

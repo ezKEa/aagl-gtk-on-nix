@@ -34,7 +34,7 @@ rec {
   in {
     inherit nixConfig;
     overlays.default = import ./overlay.nix;
-    nixosModules.default = import ./module (self.overlays.default);
+    nixosModules.default = import ./module;
     packages = genSystems pkgsFor;
   };
 }

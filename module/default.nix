@@ -1,4 +1,4 @@
-overlay: {
+{
   imports = [
     ./aagl.nix
     ./agl.nix
@@ -11,5 +11,7 @@ overlay: {
     ./version.nix
   ];
 
-  nixpkgs.overlays = [ overlay ];
+  nixpkgs.overlays = [
+    (import ../overlay.nix)
+  ];
 }

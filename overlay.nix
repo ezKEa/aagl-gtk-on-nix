@@ -15,6 +15,11 @@ let
   ] mkLauncher;
 
 in launchers // {
+  allLaunchers = final.symlinkJoin {
+    name = "allLaunchers";
+    paths = builtins.attrValues launchers;
+  };
+
   anime-borb-launcher = final.lib.warn "anime-borb-launcher is deprecated and will be removed in release 24.11" launchers.anime-borb-launcher;
 
   an-anime-borb-launcher = final.anime-borb-launcher;

@@ -25,12 +25,7 @@ rec {
         overlays = [ self.overlays.default ];
       };
       overlay = self.overlays.default pkgs pkgs;
-    in overlay // {
-      allLaunchers = pkgs.symlinkJoin {
-        name = "allLaunchers";
-        paths = builtins.filter pkgs.lib.isDerivation (builtins.attrValues overlay);
-      };
-    };
+    in overlay;
   in {
     inherit nixConfig;
     overlays.default = import ./overlay.nix;

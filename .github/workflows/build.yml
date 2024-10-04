@@ -42,7 +42,7 @@ jobs:
         fetch-depth: 0
 
     - name: Install Nix
-      uses: cachix/install-nix-action@v29
+      uses: cachix/install-nix-action@v30
 
     - name: Install Cachix
       uses: cachix/cachix-action@v15

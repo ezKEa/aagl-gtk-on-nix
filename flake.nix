@@ -5,7 +5,7 @@ rec {
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;

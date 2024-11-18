@@ -5,7 +5,7 @@
 }:
 with lib; let
   cfg = config.aagl;
-  aaglReleaseBranch = "24.11";
+  aaglReleaseBranch = "25.05";
 in
 {
   options.aagl = {

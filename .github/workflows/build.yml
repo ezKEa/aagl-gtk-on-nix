@@ -3,11 +3,11 @@ on:
   push:
     branches:
       - main
-      - release-23.11
+      - release-24.11
   pull_request:
     branches:
       - main
-      - release-23.11
+      - release-24.11
   schedule:
     - cron: "0 */6 * * *"
   workflow_dispatch:

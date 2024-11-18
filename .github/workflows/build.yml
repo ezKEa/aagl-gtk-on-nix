@@ -59,7 +59,7 @@ jobs:
           if [[ "${{github.base_ref}}" == "main" || "${{github.ref_name}}" == "main" ]]; then
             branch="github:nixos/nixpkgs/nixos-unstable"
           else
-            branch="github:nixos/nixpkgs/nixos-23.11"
+            branch="github:nixos/nixpkgs/nixos-24.11"
           fi
           nix build \
             --accept-flake-config \

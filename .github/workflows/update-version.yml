@@ -89,7 +89,7 @@ jobs:
         nixpkgs:
           - nixos-unstable
           # - nixpkgs-unstable
-          - nixos-24.05
+          - nixos-24.11
           - pinned
         package:
           - anime-game-launcher
@@ -204,8 +204,8 @@ jobs:
 
     - uses: actions/download-artifact@v4
       with:
-        name: "${{ matrix.package }}-nixos-24.05-success.artifact"
-        path: "${{ matrix.package }}-nixos-24.05-success.artifact"
+        name: "${{ matrix.package }}-nixos-24.11-success.artifact"
+        path: "${{ matrix.package }}-nixos-24.11-success.artifact"
 
     - uses: actions/download-artifact@v4
       with:

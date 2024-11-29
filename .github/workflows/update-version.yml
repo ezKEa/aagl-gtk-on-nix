@@ -11,7 +11,6 @@ jobs:
     strategy:
       matrix:
         package:
-          - anime-borb-launcher
           - anime-game-launcher
           - anime-games-launcher
           - honkers-launcher
@@ -94,7 +93,6 @@ jobs:
           - pinned
         package:
           - anime-game-launcher
-          - anime-borb-launcher
           - anime-games-launcher
           - honkers-railway-launcher
           - honkers-launcher
@@ -178,7 +176,6 @@ jobs:
       matrix:
         package:
           - anime-game-launcher
-          - anime-borb-launcher
           - anime-games-launcher
           - honkers-railway-launcher
           - honkers-launcher

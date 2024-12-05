@@ -19,13 +19,13 @@
 with lib;
   rustPlatform.buildRustPackage rec {
     pname = "honkers-railway-launcher";
-    version = "1.9.0";
+    version = "1.9.1";
 
     src = fetchFromGitHub {
       owner = "an-anime-team";
       repo = "the-honkers-railway-launcher";
       rev = version;
-      sha256 = "sha256-AzNSMllM5EjBJrq8STRy1clzuGrVxCUosQgOgUnm6ZU=";
+      sha256 = "sha256-L3lAY4RnjdIxZOsA9ude2Lb0CgVs/H98JVpIKRiQ/D0=";
       fetchSubmodules = true;
     };
 
@@ -37,8 +37,8 @@ with lib;
     cargoLock = {
       lockFile = ./Cargo.lock;
       outputHashes = {
-        "anime-game-core-1.25.1" = "sha256-yBGb9YDF2AR20SyY1nyp0vkGt1dMipk3v/EpA5BHI4g=";
-        "anime-launcher-sdk-1.22.0" = "sha256-p7sJ+n6DEputgxRtVu7py2j+hPZopJ0rRV3jOL+sUDU=";
+        "anime-game-core-1.27.0" = "sha256-iIabmeKrZLnsfPH8XhH5bLvbb1rPsTWDi4eM0H7ra+o=";
+        "anime-launcher-sdk-1.25.0" = "sha256-IeiGvsYyCasNNOwyVn/6JlRMV5cbUyfscAPBWRQOmuI=";
       };
     };
 

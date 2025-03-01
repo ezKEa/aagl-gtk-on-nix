@@ -16,6 +16,8 @@
   libwebp,
   gamescope,
   unzip,
+  extraPkgs ? pkgs: [ ], # extra packages to add to targetPkgs
+  extraLibraries ? pkgs: [ ], # extra packages to add to multiPkgs
 }:
 {
   unwrapped,
@@ -46,7 +48,9 @@ let
         xdelta
         unzip
         libwebp
-      ];
+      ] ++ (
+        extraPkgs _p
+      );
       extraLibraries = _p: [
         libunwind
       ] ++ ( with gst_all_1; [
@@ -56,7 +60,9 @@ let
         gst-vaapi
         gst-plugins-bad
         gst-plugins-good
-      ]);
+      ]) ++ (
+        extraLibraries _p
+      );
       extraProfile = ''
         export PATH=${fakePkExec}/bin:$PATH
       '';

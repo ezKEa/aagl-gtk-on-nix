@@ -36,9 +36,6 @@ if [ "$current" = "$latest" ]; then
   exit 0
 fi
 
-# Update Cargo.lock
-curl "https://raw.githubusercontent.com/an-anime-team/$package/$latest/Cargo.lock" > Cargo.lock
-
 pushd "$(git rev-parse --show-toplevel)" > /dev/null
   nix-update "$package-unwrapped" --flake --version="$latest"
 popd > /dev/null

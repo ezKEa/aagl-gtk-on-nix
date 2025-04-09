@@ -34,13 +34,8 @@ with lib;
       cp ${customIcon} assets/images/icon.png
     '';
 
-    cargoLock = {
-      lockFile = ./Cargo.lock;
-      outputHashes = {
-        "anime-game-core-1.20.1" = "sha256-RjR/fznshGMJeNTyjhRo0h5tOe7qapTThY+cQv8jVa8=";
-        "anime-launcher-sdk-1.15.3" = "sha256-8+EZiLh6eCV4m5LM3TxGFGWjKOFpUW9xjghfFa27mV4=";
-      };
-    };
+    useFetchCargoVendor = true;
+    cargoHash = "sha256-rz/zLXV/YsgoSogzShF0MHY9hXvCYvP1indRqeWT/lc=";
 
     nativeBuildInputs = [
       cmake

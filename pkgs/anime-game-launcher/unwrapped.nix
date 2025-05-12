@@ -5,6 +5,7 @@
   pkg-config,
   cmake,
   openssl,
+  protobuf,
   glib,
   pango,
   gdk-pixbuf,
@@ -19,13 +20,13 @@
 with lib;
   rustPlatform.buildRustPackage rec {
     pname = "anime-game-launcher";
-    version = "3.13.1";
+    version = "3.14.0";
 
     src = fetchFromGitHub {
       owner = "an-anime-team";
       repo = "an-anime-game-launcher";
       rev = version;
-      hash = "sha256-oxwW/hVUk7ch+Xi73KLj/sYLfiClOKzuoUMS/ZdJ2sI=";
+      hash = "sha256-aNMYjtAmIsEf9eC4gyc0lyG0cbc8VJCD8boc11D64n4=";
       fetchSubmodules = true;
     };
 
@@ -35,10 +36,11 @@ with lib;
     '';
 
     useFetchCargoVendor = true;
-    cargoHash = "sha256-pE+PNeLPfqmNrubh5U7i19/UJqJJCeoEYGx0s2GmXuw=";
+    cargoHash = "sha256-8ESec9BuQzV+Yu2PAcM0Wl9Mh3KCWxQi2on+4b/6+E0=";
 
     nativeBuildInputs = [
       cmake
+      protobuf
       glib
       gobject-introspection
       gtk4

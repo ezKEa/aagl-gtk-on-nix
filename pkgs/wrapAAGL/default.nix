@@ -2,7 +2,6 @@
   cabextract,
   libunwind,
   gnutls,
-  gst_all_1,
   mangohud,
   callPackage,
   symlinkJoin,
@@ -27,6 +26,12 @@
   meta,
 }:
 let
+  # needed to retrieve old versions of gstreamer 
+  # that is required to play HSR cutscenes
+  pkgs_old = import (builtins.fetchTarball {
+    url = "https://github.com/NixOS/nixpkgs/archive/f62d6734af4581af614cab0f2aa16bcecfc33c11.tar.gz";
+  }) {};
+
   fakePkExec = writeShellScriptBin "pkexec" ''
     declare -a final
     for value in "$@"; do
@@ -53,7 +58,7 @@ let
       );
       extraLibraries = _p: [
         libunwind
-      ] ++ ( with gst_all_1; [
+      ] ++ ( with pkgs_old.gst_all_1; [
         # Needed for HSR cutscenes.
         # TODO: figure out which of these are actually needed.
         gst-libav

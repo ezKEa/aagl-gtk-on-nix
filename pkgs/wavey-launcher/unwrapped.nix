@@ -34,7 +34,6 @@ with lib;
       cp ${customIcon} assets/images/icon.png
     '';
 
-    useFetchCargoVendor = true;
     cargoHash = "sha256-rz/zLXV/YsgoSogzShF0MHY9hXvCYvP1indRqeWT/lc=";
 
     nativeBuildInputs = [

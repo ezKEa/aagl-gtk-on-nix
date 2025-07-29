@@ -20,13 +20,13 @@
 with lib;
   rustPlatform.buildRustPackage rec {
     pname = "anime-game-launcher";
-    version = "3.14.3";
+    version = "3.15.2";
 
     src = fetchFromGitHub {
       owner = "an-anime-team";
       repo = "an-anime-game-launcher";
       rev = version;
-      hash = "sha256-eiEOJ5ZOCOQo2WBbKJXHfdjd6apPFxyGNng8iMB6BDo=";
+      hash = "sha256-tEMNKY0xUMwgnrYfK7yz39xgi2facU2bs+qOw88+90U=";
       fetchSubmodules = true;
     };
 
@@ -35,7 +35,7 @@ with lib;
       cp ${customIcon} assets/images/icon.png
     '';
 
-    cargoHash = "sha256-kqlbhObHmRTiNxXOUhTXB1SEc0zvuzpREJ26h/YM82E=";
+    cargoHash = "sha256-GCGn+3e0lB4qLjh3tLVUg21/PGh87x+jiE5TVnKOxOo=";
 
     nativeBuildInputs = [
       cmake

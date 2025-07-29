@@ -33,6 +33,9 @@ with lib;
       cp ${customIcon} assets/images/icon.png
     '';
 
+    # Tests require network access. Skipping.
+    doCheck = false;
+
     cargoHash = "sha256-mTt3cCK0dK00r6H6UFTbFpkvi09MSgSYiz9xV8Msim4=";
 
     nativeBuildInputs = [

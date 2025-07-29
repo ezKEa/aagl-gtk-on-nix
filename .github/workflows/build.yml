@@ -23,6 +23,7 @@ jobs:
         nixpkgs:
           - branch
           - pinned
+          - nonflake
 
     runs-on: ubuntu-latest
     steps:
@@ -55,6 +56,8 @@ jobs:
       run: |
         if [[ "${{ matrix.nixpkgs }}" == "pinned" ]]; then
           nix build --accept-flake-config -L .#allLaunchers
+        elif [[ "${{ matrix.nixpkgs }}" == "nonflake" ]]; then
+          nix-build -A allLaunchers
         else
           if [[ "${{github.base_ref}}" == "main" || "${{github.ref_name}}" == "main" ]]; then
             branch="github:nixos/nixpkgs/nixos-unstable"

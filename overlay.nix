@@ -1,7 +1,14 @@
 final: prev:
 let
   mkLauncher = launcher: final.callPackage ./pkgs/${launcher} {
-    unwrapped = final.callPackage ./pkgs/${launcher}/unwrapped.nix {};
+    unwrapped = final.callPackage ./pkgs/${launcher}/unwrapped.nix {
+      rustPlatform = let
+        rustBin = prev.rust-bin.stable.latest.default;
+      in prev.makeRustPlatform {
+        cargo = rustBin;
+        rustc = rustBin;
+      };
+    };
   };
 
   launchers = prev.lib.genAttrs [

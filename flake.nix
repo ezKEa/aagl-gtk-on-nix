@@ -6,6 +6,7 @@ rec {
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    rust-overlay.url = "github:oxalica/rust-overlay";
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;
@@ -22,7 +23,10 @@ rec {
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = [ self.overlays.default ];
+        overlays = [
+          (import self.inputs.rust-overlay)
+          self.overlays.default
+        ];
       };
       overlay = self.overlays.default pkgs pkgs;
     in overlay;

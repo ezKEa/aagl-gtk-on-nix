@@ -17,7 +17,10 @@ let
   pkgs = import flake.inputs.nixpkgs {
     system = "x86_64-linux";
     config.allowUnfree = true;
-    overlays = [ overlay ];
+    overlays = [
+      (import flake.inputs.rust-overlay)
+      overlay
+    ];
   };
 
   outputs = let

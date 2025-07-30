@@ -24,7 +24,6 @@ rec {
         inherit system;
         config.allowUnfree = true;
         overlays = [
-          (import self.inputs.rust-overlay)
           self.overlays.default
         ];
       };
@@ -32,7 +31,7 @@ rec {
     in overlay;
   in {
     inherit nixConfig;
-    overlays.default = import ./overlay.nix;
+    overlays.default = import ./overlay.nix self;
     nixosModules.default = import ./module;
     packages = genSystems pkgsFor;
   };

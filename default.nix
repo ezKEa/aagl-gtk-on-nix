@@ -16,6 +16,6 @@ let
   in packages // {
     inherit overlay;
     inherit (flake.outputs) nixConfig;
-    module = import ./module;
+    module = import ./module flake;
   };
 in outputs

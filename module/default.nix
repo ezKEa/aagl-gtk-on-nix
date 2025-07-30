@@ -1,7 +1,4 @@
-let
-  flake = import ../compat.nix;
-in
-{
+flake: {
   imports = [
     ./aagl.nix
     ./agl.nix

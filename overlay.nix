@@ -1,9 +1,14 @@
+flake:
 final: prev:
 let
+  rust-bin = (prev.appendOverlays [
+    (import flake.inputs.rust-overlay)
+  ]).rust-bin;
+
   mkLauncher = launcher: final.callPackage ./pkgs/${launcher} {
     unwrapped = final.callPackage ./pkgs/${launcher}/unwrapped.nix {
       rustPlatform = let
-        rustBin = prev.rust-bin.stable.latest.default;
+        rustBin = rust-bin.stable.latest.default;
       in prev.makeRustPlatform {
         cargo = rustBin;
         rustc = rustBin;

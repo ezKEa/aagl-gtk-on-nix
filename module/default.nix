@@ -1,3 +1,6 @@
+let
+  flake = import ../compat.nix;
+in
 {
   imports = [
     ./aagl.nix
@@ -11,6 +14,6 @@
   ];
 
   nixpkgs.overlays = [
-    (import ../overlay.nix)
+    (import ../overlay.nix flake)
   ];
 }

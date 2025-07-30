@@ -11,6 +11,6 @@ flake: {
   ];
 
   nixpkgs.overlays = [
-    (import ../overlay.nix flake)
+    flake.outputs.overlays.default
   ];
 }

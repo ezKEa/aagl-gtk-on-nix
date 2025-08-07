@@ -1,4 +1,4 @@
-flake: {
+{
   imports = [
     ./aagl.nix
     ./agl.nix
@@ -8,9 +8,5 @@ flake: {
     ./sleepy.nix
     ./hosts.nix
     ./version.nix
-  ];
-
-  nixpkgs.overlays = [
-    flake.outputs.overlays.default
   ];
 }

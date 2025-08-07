@@ -13,7 +13,12 @@ rec {
     };
   };
 
-  outputs = { self, nixpkgs, ... }: let
+  outputs = {
+    self,
+    nixpkgs,
+    rust-overlay,
+    ...
+  }: let
     genSystems = nixpkgs.lib.genAttrs [
       # Supported OSes
       "x86_64-linux"
@@ -23,16 +28,20 @@ rec {
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = [
-          self.overlays.default
-        ];
+        overlays = [ self.overlays.default ];
       };
       overlay = self.overlays.default pkgs pkgs;
     in overlay;
   in {
     inherit nixConfig;
-    overlays.default = import ./overlay.nix self;
-    nixosModules.default = import ./module self;
+
+    overlays.default = (import ./overlay.nix) { inherit rust-overlay; };
+
+    nixosModules.default = {
+      imports = [ ./module ];
+      nixpkgs.overlays = [ self.overlays.default ];
+    };
+
     packages = genSystems pkgsFor;
   };
 }

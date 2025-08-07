@@ -1,8 +1,9 @@
-flake:
+{ rust-overlay }:
+
 final: prev:
 let
   rust-bin = (prev.appendOverlays [
-    (import flake.inputs.rust-overlay)
+    (import rust-overlay)
   ]).rust-bin;
 
   mkLauncher = launcher: final.callPackage ./pkgs/${launcher} {

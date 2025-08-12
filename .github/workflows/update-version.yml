@@ -35,7 +35,7 @@ jobs:
         nix_path: nixpkgs=channel:nixpkgs-unstable
 
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Create commit message
       id: commit-message
@@ -111,7 +111,7 @@ jobs:
         DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
 
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         fetch-depth: 0
 
@@ -213,7 +213,7 @@ jobs:
         path: "${{ matrix.package }}-pinned-success.artifact"
 
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         fetch-depth: 0
 

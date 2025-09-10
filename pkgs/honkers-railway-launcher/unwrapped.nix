@@ -5,6 +5,7 @@
   pkg-config,
   cmake,
   openssl,
+  protobuf,
   glib,
   pango,
   gdk-pixbuf,
@@ -19,13 +20,13 @@
 with lib;
   rustPlatform.buildRustPackage rec {
     pname = "honkers-railway-launcher";
-    version = "1.10.0";
+    version = "1.11.0";
 
     src = fetchFromGitHub {
       owner = "an-anime-team";
       repo = "the-honkers-railway-launcher";
       rev = version;
-      sha256 = "sha256-iBEt/P/Q9j4P9n/gzeFzF+w1kb229vYq3dbMPJz7Wc0=";
+      sha256 = "sha256-3h4V0gKJOJscq76yp0O70W4XuPMZPA1+HCNr7vXZpNE=";
       fetchSubmodules = true;
     };
 
@@ -34,10 +35,11 @@ with lib;
       cp ${customIcon} assets/images/icon.png
     '';
 
-    cargoHash = "sha256-M7utTWKnGVuupRjcSRi7MYfipUB0gkXWsTf4+Zh3w8A=";
+    cargoHash = "sha256-JTcT6osEQOpR+ui1BsugjwW1imYliMKFYM9lrKY47Hk=";
 
     nativeBuildInputs = [
       cmake
+      protobuf
       glib
       gobject-introspection
       gtk4

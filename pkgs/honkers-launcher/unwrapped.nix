@@ -19,13 +19,13 @@
 with lib;
   rustPlatform.buildRustPackage rec {
     pname = "honkers-launcher";
-    version = "1.10.2";
+    version = "1.11.0";
 
     src = fetchFromGitHub {
       owner = "an-anime-team";
       repo = pname;
       rev = version;
-      sha256 = "sha256-R5Xr/4H+Gim4Pqyalzz9gBgcCGiQD99RSKnZ6LtSwDQ=";
+      sha256 = "sha256-0Yuc6SRmNGb2sYFu+NBZl0KzB2hL0Lb7fLtahGhZP8U=";
       fetchSubmodules = true;
     };
 
@@ -34,7 +34,7 @@ with lib;
       cp ${customIcon} assets/images/icon.png
     '';
 
-    cargoHash = "sha256-+161LSelvBxfq32cENcjikMXv3xt1SOcSz2Tx5Izbh4=";
+    cargoHash = "sha256-NW7i0D40Ews4nIbg7biyF949IlZ6f0KOB/3wvOVUPOQ=";
 
     nativeBuildInputs = [
       cmake

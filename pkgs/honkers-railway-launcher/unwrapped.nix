@@ -5,7 +5,6 @@
   pkg-config,
   cmake,
   openssl,
-  protobuf,
   glib,
   pango,
   gdk-pixbuf,
@@ -39,7 +38,6 @@ with lib;
 
     nativeBuildInputs = [
       cmake
-      protobuf
       glib
       gobject-introspection
       gtk4

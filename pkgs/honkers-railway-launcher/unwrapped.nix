@@ -19,13 +19,13 @@
 with lib;
   rustPlatform.buildRustPackage rec {
     pname = "honkers-railway-launcher";
-    version = "1.12.0";
+    version = "1.12.1";
 
     src = fetchFromGitHub {
       owner = "an-anime-team";
       repo = "the-honkers-railway-launcher";
       rev = version;
-      sha256 = "sha256-o1tWXAuplPwGcLGnYcNW1GKC6KgNFX84lOfUdhtHKd8=";
+      sha256 = "sha256-DJh2b+EjOptxE4Cc8j0rlHCZtwSFiI+nSW2+fBHqjzQ=";
       fetchSubmodules = true;
     };
 
@@ -34,7 +34,7 @@ with lib;
       cp ${customIcon} assets/images/icon.png
     '';
 
-    cargoHash = "sha256-Uq5rqXDEpv/1UwSKp85tBTL9jMFqZBLJllV4AOSZA+k=";
+    cargoHash = "sha256-UJWzQlB4eAaa89nvYbYvm0cvkICTI6zt9Km2qn/illk=";
 
     nativeBuildInputs = [
       cmake

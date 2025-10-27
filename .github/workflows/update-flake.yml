@@ -76,7 +76,7 @@ jobs:
         authToken: '${{ env.CACHIX_AUTH_TOKEN }}'
 
     - name: Download diff artifact
-      uses: actions/download-artifact@v5
+      uses: actions/download-artifact@v6
       with:
         name: "flake-update.diff"
         path: "flake-update.diff"
@@ -109,7 +109,7 @@ jobs:
         fetch-depth: 0
 
     - name: Download diff artifact
-      uses: actions/download-artifact@v5
+      uses: actions/download-artifact@v6
       with:
         name: "flake-update.diff"
         path: "flake-update.diff"

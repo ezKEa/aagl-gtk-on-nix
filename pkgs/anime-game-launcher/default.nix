@@ -1,10 +1,14 @@
 {
   lib,
   wrapAAGL,
+
+  extraPkgs ? pkgs: [ ],
+  extraLibraries ? pkgs: [ ],
+
   unwrapped
 }:
-wrapAAGL rec {
-  inherit unwrapped;
+wrapAAGL (self: {
+  inherit unwrapped extraPkgs extraLibraries;
   binName = "anime-game-launcher";
   packageName = "moe.launcher.an-anime-game-launcher";
   desktopName = "An Anime Game Launcher";
@@ -12,7 +16,7 @@ wrapAAGL rec {
   meta = with lib; {
     description = "An Anime Game launcher for Linux with automatic patching and telemetry disabling.";
     homepage = "https://github.com/an-anime-team/an-anime-game-launcher/";
-    mainProgram = binName;
+    mainProgram = self.binName;
     license = licenses.gpl3Only;
   };
-}
+})

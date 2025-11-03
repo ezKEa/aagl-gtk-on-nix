@@ -19,7 +19,9 @@ rec {
     rust-overlay,
     ...
   }: let
-    genSystems = nixpkgs.lib.genAttrs [
+    lib = nixpkgs.lib;
+
+    genSystems = lib.genAttrs [
       # Supported OSes
       "x86_64-linux"
     ];
@@ -28,9 +30,8 @@ rec {
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = [ self.overlays.default ];
       };
-      overlay = self.overlays.default pkgs pkgs;
+      overlay = lib.fix (lib.flip self.overlays.default pkgs);
     in overlay;
   in {
     inherit nixConfig;

@@ -15,45 +15,44 @@
   librsvg,
   customIcon ? null,
 }:
-with lib;
-  rustPlatform.buildRustPackage rec {
-    pname = "anime-games-launcher";
-    version = "2.0.0-alpha2";
+rustPlatform.buildRustPackage (self: {
+  pname = "anime-games-launcher";
+  version = "2.0.0-alpha2";
 
-    src = fetchFromGitHub {
-      owner = "an-anime-team";
-      repo = "anime-games-launcher";
-      rev = "v${version}";
-      sha256 = "sha256-wtvPqJbAv0dqKdrtgx35rXHHLjr998CIKklwhlh+iqA=";
-      fetchSubmodules = true;
-    };
+  src = fetchFromGitHub {
+    owner = "an-anime-team";
+    repo = "anime-games-launcher";
+    rev = "v${self.version}";
+    sha256 = "sha256-wtvPqJbAv0dqKdrtgx35rXHHLjr998CIKklwhlh+iqA=";
+    fetchSubmodules = true;
+  };
 
-    prePatch = optionalString (customIcon != null) ''
-      rm assets/images/icon.png
-      cp ${customIcon} assets/images/icon.png
-    '';
+  prePatch = lib.optionalString (customIcon != null) ''
+    rm assets/images/icon.png
+    cp ${customIcon} assets/images/icon.png
+  '';
 
-    # Tests require network access. Skipping.
-    doCheck = false;
+  # Tests require network access. Skipping.
+  doCheck = false;
 
-    cargoHash = "sha256-CX/B4twbVYPkDvQ+zd97hk4GY1Sg9tCjvhI9P/l4OWY=";
+  cargoHash = "sha256-CX/B4twbVYPkDvQ+zd97hk4GY1Sg9tCjvhI9P/l4OWY=";
 
-    nativeBuildInputs = [
-      glib
-      gobject-introspection
-      gtk4
-      pkg-config
-      wrapGAppsHook4
-    ];
+  nativeBuildInputs = [
+    glib
+    gobject-introspection
+    gtk4
+    pkg-config
+    wrapGAppsHook4
+  ];
 
-    buildInputs = [
-      gdk-pixbuf
-      gsettings-desktop-schemas
-      libadwaita
-      librsvg
-      openssl
-      pango
-    ];
+  buildInputs = [
+    gdk-pixbuf
+    gsettings-desktop-schemas
+    libadwaita
+    librsvg
+    openssl
+    pango
+  ];
 
-    passthru = {inherit customIcon;};
-  }
+  passthru = {inherit customIcon;};
+})

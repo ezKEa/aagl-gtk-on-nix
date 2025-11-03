@@ -6,8 +6,9 @@ let
     (import rust-overlay)
   ]).rust-bin;
 
-  mkLauncher = launcher: final.callPackage ./pkgs/${launcher} {
-    unwrapped = final.callPackage ./pkgs/${launcher}/unwrapped.nix {
+  mkLauncher = launcher: prev.callPackage ./pkgs/${launcher} {
+    wrapAAGL = prev.callPackage ./pkgs/wrapAAGL {};
+    unwrapped = prev.callPackage ./pkgs/${launcher}/unwrapped.nix {
       rustPlatform = let
         rustBin = rust-bin.stable.latest.default;
       in prev.makeRustPlatform {
@@ -27,7 +28,7 @@ let
   ] mkLauncher;
 
 in launchers // {
-  allLaunchers = final.symlinkJoin {
+  allLaunchers = prev.symlinkJoin {
     name = "allLaunchers";
     paths = builtins.attrValues launchers;
   };
@@ -45,6 +46,4 @@ in launchers // {
   wavey-launcher-unwrapped = final.wavey-launcher.unwrapped;
 
   sleepy-launcher-unwrapped = final.sleepy-launcher.unwrapped;
-
-  wrapAAGL = final.callPackage ./pkgs/wrapAAGL {};
 }

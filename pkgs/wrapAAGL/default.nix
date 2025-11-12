@@ -14,6 +14,7 @@
   git,
   p7zip,
   libwebp,
+  imagemagick,
   gamescope,
   unzip,
   extraPkgs ? pkgs: [ ], # extra packages to add to targetPkgs
@@ -48,6 +49,7 @@ let
         xdelta
         unzip
         libwebp
+        imagemagick
       ] ++ (
         extraPkgs _p
       );

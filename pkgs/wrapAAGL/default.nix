@@ -15,6 +15,7 @@
   git,
   p7zip,
   libwebp,
+  imagemagick,
   gamescope,
   unzip,
 }:
@@ -52,6 +53,7 @@ let
           xdelta
           unzip
           libwebp
+          imagemagick
         ] ++ (
           extraPkgs _p
         );

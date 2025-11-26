@@ -3,11 +3,11 @@ on:
   push:
     branches:
       - main
-      - release-25.05
+      - release-25.11
   pull_request:
     branches:
       - main
-      - release-25.05
+      - release-25.11
   schedule:
     - cron: "0 */6 * * *"
   workflow_dispatch:
@@ -62,7 +62,7 @@ jobs:
           if [[ "${{github.base_ref}}" == "main" || "${{github.ref_name}}" == "main" ]]; then
             branch="github:nixos/nixpkgs/nixos-unstable"
           else
-            branch="github:nixos/nixpkgs/nixos-25.05"
+            branch="github:nixos/nixpkgs/nixos-25.11"
           fi
           nix build \
             --accept-flake-config \

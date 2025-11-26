@@ -5,7 +5,7 @@ rec {
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     rust-overlay.url = "github:oxalica/rust-overlay";
     flake-compat = {
       url = "github:edolstra/flake-compat";

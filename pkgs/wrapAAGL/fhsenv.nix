@@ -99,8 +99,8 @@ let
     inherit extraPreBwrapCmds;
 
     extraBwrapArgs = [
-      # Steam will dump crash reports here, make those more accessible
-      "--bind-try /tmp/dumps /tmp/dumps"
+      # Launchers will dump crash reports here, make those more accessible
+      "--bind-try /tmp /tmp"
     ] ++ extraBwrapArgs;
   };
 in steamEnv {

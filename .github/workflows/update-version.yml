@@ -59,20 +59,20 @@ jobs:
         fi
 
     - name: Upload skip artifact
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
         name: "${{ matrix.package }}-skipped.artifact"
         path: "${{ matrix.package }}-skipped.artifact"
 
     - name: Upload diff artifact
       if: ${{ steps.diff.outputs.skipped == 'no' }}
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
         name: "${{ matrix.package }}-update.diff"
         path: "${{ matrix.package }}-update.diff"
 
     - name: Upload commit artifact
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
         name: "${{ matrix.package }}-commit.artifact"
         path: "${{ matrix.package }}-commit.artifact"
@@ -160,7 +160,7 @@ jobs:
         echo "yes" >> "${{ matrix.package }}-${{ matrix.nixpkgs }}-success.artifact"
 
     - name: Upload success artifact
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       if: steps.build.outcome == 'success'
       with:
         name: "${{ matrix.package }}-${{ matrix.nixpkgs }}-success.artifact"

@@ -37,7 +37,7 @@ jobs:
         git diff --oneline --graph > flake-update.diff
 
     - name: Upload diff artifact
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
         name: "flake-update.diff"
         path: "flake-update.diff"

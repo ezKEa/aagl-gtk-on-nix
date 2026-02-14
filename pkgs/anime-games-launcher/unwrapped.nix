@@ -17,25 +17,25 @@
 }:
 rustPlatform.buildRustPackage (self: {
   pname = "anime-games-launcher";
-  version = "2.0.0-beta3";
+  version = "2.0.0-beta4";
 
   src = fetchFromGitHub {
     owner = "an-anime-team";
     repo = "anime-games-launcher";
     rev = "v${self.version}";
-    sha256 = "sha256-+tKbGKAFPDRM1hDLfH3WcsoVBPdA8oVtO4eVlJ2ia2g=";
+    sha256 = "sha256-gYlGgB6b8SpkXWmnWYpsgRDR31bVMPgh8DwVQ/R+btY=";
     fetchSubmodules = true;
   };
 
   prePatch = lib.optionalString (customIcon != null) ''
-    rm assets/images/icon.png
-    cp ${customIcon} assets/images/icon.png
+    rm crates/anime-games-launcher/assets/images/icon.png
+    cp ${customIcon} crates/anime-games-launcher/assets/images/icon.png
   '';
 
   # Tests require network access. Skipping.
   doCheck = false;
 
-  cargoHash = "sha256-dWtpiz1NeioqJFPz/Pvyg6G6BX3QKAGnVqooFvOLPgM=";
+  cargoHash = "sha256-Zn5WAroa44I/NQshIfIVSIT6zR/Tou6kJUxZcFeJFWM=";
 
   nativeBuildInputs = [
     glib
@@ -57,5 +57,5 @@ rustPlatform.buildRustPackage (self: {
   passthru.customIcon =
     if customIcon != null
     then customIcon
-    else "${self.src}/launcher/assets/images/icon.png";
+    else "${self.src}/crates/anime-games-launcher/assets/images/icon.png";
 })

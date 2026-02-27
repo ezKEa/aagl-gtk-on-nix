@@ -15,14 +15,14 @@ in {
     enable = mkOption {
       type = types.bool;
       default = false;
-      description = lib.mdDoc ''
+      description = ''
         Whether to enable honkers-railway-launcher.
       '';
     };
     package = mkOption {
       type = types.package;
       default = pkgs.honkers-railway-launcher;
-      description = lib.mdDoc ''
+      description = ''
         honkers-railway-launcher package to use.
       '';
     };

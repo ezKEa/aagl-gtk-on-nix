@@ -10,7 +10,7 @@ in {
     block = mkOption {
       type = types.bool;
       default = false;
-      description = lib.mdDoc ''
+      description = ''
         Whether to block miHoYo telemetry servers.
       '';
     };

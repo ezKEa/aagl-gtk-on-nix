@@ -12,14 +12,14 @@ in {
     enable = mkOption {
       type = types.bool;
       default = false;
-      description = lib.mdDoc ''
+      description = ''
         Whether to enable sleepy-launcher.
       '';
     };
     package = mkOption {
       type = types.package;
       default = pkgs.sleepy-launcher;
-      description = lib.mdDoc ''
+      description = ''
         sleepy-launcher package to use.
       '';
     };

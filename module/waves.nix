@@ -11,14 +11,14 @@ in {
     enable = mkOption {
       type = types.bool;
       default = false;
-      description = lib.mdDoc ''
+      description = ''
         Whether to enable wavey-launcher.
       '';
     };
     package = mkOption {
       type = types.package;
       default = pkgs.wavey-launcher;
-      description = lib.mdDoc ''
+      description = ''
         wavey-launcher package to use.
       '';
     };

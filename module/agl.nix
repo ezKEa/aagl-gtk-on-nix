@@ -15,14 +15,14 @@ in {
     enable = mkOption {
       type = types.bool;
       default = false;
-      description = lib.mdDoc ''
+      description = ''
         Whether to enable anime-games-launcher.
       '';
     };
     package = mkOption {
       type = types.package;
       default = pkgs.anime-games-launcher;
-      description = lib.mdDoc ''
+      description = ''
         anime-games-launcher package to use.
       '';
     };

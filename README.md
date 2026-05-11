@@ -95,4 +95,4 @@ Both the Cachix config and NixOS module are accessible via Flakes as well:
 ```
 
 ## Usage
-After installation, you can start the launcher by running `anime-game-launcher`, `honkers-railway-launcher`, or `honkers-launcher`. Have fun!
+After installation, you can start the launcher by running `anime-game-launcher`, `honkers-railway-launcher`, `honkers-launcher`, or `sleepy-launcher`. Have fun!

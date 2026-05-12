@@ -20,7 +20,7 @@ jobs:
 
     steps:
     - name: Install Doppler CLI
-      uses: dopplerhq/cli-action@v3
+      uses: dopplerhq/cli-action@v4
 
     - name: Pass all secrets to next steps
       run: |
@@ -101,7 +101,7 @@ jobs:
     steps:
 
     - name: Install Doppler CLI
-      uses: dopplerhq/cli-action@v3
+      uses: dopplerhq/cli-action@v4
 
     - name: Pass all secrets to next steps
       run: |
@@ -183,7 +183,7 @@ jobs:
           - sleepy-launcher
     steps:
     - name: Install Doppler CLI
-      uses: dopplerhq/cli-action@v3
+      uses: dopplerhq/cli-action@v4
 
     - name: Pass all secrets to next steps
       run: |

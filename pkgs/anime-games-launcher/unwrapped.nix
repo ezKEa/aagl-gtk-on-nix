@@ -17,13 +17,13 @@
 }:
 rustPlatform.buildRustPackage (self: {
   pname = "anime-games-launcher";
-  version = "2.0.0";
+  version = "2.1.0";
 
   src = fetchFromGitHub {
     owner = "an-anime-team";
     repo = "anime-games-launcher";
     rev = "v${self.version}";
-    sha256 = "sha256-dhG00LiDaVLT/2bC5q5NefIdzzpq/K0vWlIG9iVEGHM=";
+    sha256 = "sha256-B1zIkuG61FcytC+gGX07kt4GqFVy5jD2n8cdD3sC480=";
     fetchSubmodules = true;
   };
 
@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage (self: {
   # Tests require network access. Skipping.
   doCheck = false;
 
-  cargoHash = "sha256-Z582Ac4VLfW48g9Kivb5Ia1gYW6vdNTvjwmYNZZg1UA=";
+  cargoHash = "sha256-PVaVK0rO5t8+c+cleQNsLiyF0nuxIAeQGiNKoN1zXM8=";
 
   nativeBuildInputs = [
     glib

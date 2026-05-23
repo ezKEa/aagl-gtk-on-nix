@@ -18,7 +18,7 @@
 }:
 rustPlatform.buildRustPackage (self: {
   pname = "honkers-launcher";
-  version = "1.13.0";
+  version = "";
 
   src = fetchFromGitHub {
     owner = "an-anime-team";

@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Install Doppler CLI
-      uses: dopplerhq/cli-action@v3
+      uses: dopplerhq/cli-action@v4
 
     - name: Pass all secrets to next steps
       run: |
@@ -52,7 +52,7 @@ jobs:
           - ezkea
     steps:
     - name: Install Doppler CLI
-      uses: dopplerhq/cli-action@v3
+      uses: dopplerhq/cli-action@v4
 
     - name: Pass all secrets to next steps
       run: |
@@ -94,7 +94,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Install Doppler CLI
-      uses: dopplerhq/cli-action@v3
+      uses: dopplerhq/cli-action@v4
 
     - name: Pass all secrets to next steps
       run: |

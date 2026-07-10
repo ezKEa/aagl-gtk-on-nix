@@ -65,7 +65,6 @@ let
           # Needed for HSR cutscenes.
           # TODO: figure out which of these are actually needed.
           gst-libav
-          gst-vaapi
           gst-plugins-bad
           gst-plugins-good
         ]) ++ (

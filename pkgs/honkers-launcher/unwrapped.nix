@@ -14,17 +14,18 @@
   gsettings-desktop-schemas,
   wrapGAppsHook4,
   librsvg,
+  protobuf,
   customIcon ? null,
 }:
 rustPlatform.buildRustPackage (self: {
   pname = "honkers-launcher";
-  version = "1.13.0";
+  version = "1.14.0";
 
   src = fetchFromGitHub {
     owner = "an-anime-team";
     repo = self.pname;
     rev = self.version;
-    sha256 = "sha256-df32blPQjXNbQ9CqVfuxDf7c1UB4fiub+KY9a22CvrY=";
+    sha256 = "sha256-o2+9biGcdpaEj344Tc5AD0CU/KRjBHEMQa3DyMnfdUc=";
     fetchSubmodules = true;
   };
 
@@ -33,7 +34,7 @@ rustPlatform.buildRustPackage (self: {
     cp ${customIcon} assets/images/icon.png
   '';
 
-  cargoHash = "sha256-9B/CvpMrKKguhZ93dPkGjTeTSjVsNwUw+mZX/bjE+ng=";
+  cargoHash = "sha256-40F604197temTCOF+UAcwh8MiY9ptKQgB/UfovJ0Ysw=";
 
   nativeBuildInputs = [
     cmake
@@ -41,6 +42,7 @@ rustPlatform.buildRustPackage (self: {
     gobject-introspection
     gtk4
     pkg-config
+    protobuf
     wrapGAppsHook4
   ];
 

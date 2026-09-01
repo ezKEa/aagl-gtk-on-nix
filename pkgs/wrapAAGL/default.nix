@@ -19,6 +19,7 @@
   gamescope,
   unzip,
   winetricks,
+  zstd,
 }:
 
 let
@@ -56,6 +57,7 @@ let
           libwebp
           imagemagick
           winetricks
+          zstd
         ] ++ (
           extraPkgs _p
         );

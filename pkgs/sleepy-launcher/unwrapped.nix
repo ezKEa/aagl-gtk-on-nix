@@ -5,6 +5,7 @@
   pkg-config,
   cmake,
   openssl,
+  protobuf,
   glib,
   pango,
   gdk-pixbuf,
@@ -18,13 +19,13 @@
 }:
 rustPlatform.buildRustPackage (self: {
   pname = "sleepy-launcher";
-  version = "1.7.1";
+  version = "1.9.0";
 
   src = fetchFromGitHub {
     owner = "an-anime-team";
     repo = self.pname;
     rev = self.version;
-    sha256 = "sha256-YyDrA3J5VB1cp4RSyaP1e0MmC1Oxlvs0cBSKaWhEPPA=";
+    sha256 = "sha256-niMNeStMLToMmJQ1pCo4vKZqzD+4mURjltVrLRHijzs=";
     fetchSubmodules = true;
   };
 
@@ -33,10 +34,11 @@ rustPlatform.buildRustPackage (self: {
     cp ${customIcon} assets/images/icon.png
   '';
 
-  cargoHash = "sha256-wAPW7DtFzFOIYmtuOKnooCHXI7tIF5nyoX7Hs9f3b7E=";
+  cargoHash = "sha256-+yo2Mjss3RhCaBlLkEInPcyQzMYT8u4xRJZjGEt6HWA=";
 
   nativeBuildInputs = [
     cmake
+    protobuf
     glib
     gobject-introspection
     gtk4

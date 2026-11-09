@@ -2,9 +2,12 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
+  aws-lc,
   pkg-config,
   cmake,
   openssl,
+  sqlite,
+  zstd,
   protobuf,
   glib,
   pango,
@@ -47,12 +50,15 @@ rustPlatform.buildRustPackage (self: {
   ];
 
   buildInputs = [
+    aws-lc
     gdk-pixbuf
     gsettings-desktop-schemas
     libadwaita
     librsvg
     openssl
     pango
+    sqlite
+    zstd
   ];
 
   passthru = {inherit customIcon;};

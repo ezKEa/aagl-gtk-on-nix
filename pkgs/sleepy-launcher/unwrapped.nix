@@ -19,13 +19,13 @@
 }:
 rustPlatform.buildRustPackage (self: {
   pname = "sleepy-launcher";
-  version = "1.9.2";
+  version = "1.9.3";
 
   src = fetchFromGitHub {
     owner = "an-anime-team";
     repo = self.pname;
     rev = self.version;
-    sha256 = "sha256-E1SZ40je3Imw+5D//q5zgjeyadnZD8n9ip9wFGiEItE=";
+    sha256 = "sha256-Y245aGuWsHIqqFtde51N0TqneKSo/k69W5Cc9RGVqxo=";
     fetchSubmodules = true;
   };
 
@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage (self: {
     cp ${customIcon} assets/images/icon.png
   '';
 
-  cargoHash = "sha256-SciLz67vKCihy31uJaoRMzFVdTSsy/dobejl/I9TdiQ=";
+  cargoHash = "sha256-t1ar99CrgbxqJO43OjcMMjctxDPoAa0yr0u5fR3S2NU=";
 
   nativeBuildInputs = [
     cmake
